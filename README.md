@@ -1,32 +1,34 @@
 # 卢照天 · 个人作品集
 
-卢照天（Luzhaotian）的个人作品集网站 — 基于 **Next.js 15** 的单页应用，展示 8 年前端经验、技术栈、企业项目、开源作品与技术博客。
+卢照天（Luzhaotian）的个人作品集网站 — 基于 **Next.js 15** 的单页应用，展示 8 年前端经验、技术栈、近期企业项目、开源作品与技术博客。
 
 本地预览：[http://localhost:3000](http://localhost:3000)（需先执行 `npm run dev`）
 
+**在线地址：** [https://luzhaotian.github.io/portfolio/](https://luzhaotian.github.io/portfolio/)
+
 ## 功能特性
 
-- 响应式单页布局：深色主题、玻璃拟态卡片、Editorial 区块编排
+- 响应式单页布局：玻璃拟态卡片、Editorial 区块编排
+- 主题切换：白天 / 夜晚 / 自动（跟随系统），偏好持久化到 `localStorage`
 - 移动端适配：UnoCSS 媒体查询 + `useViewport` 视口 Hook，窄屏自动切换布局
-- 主题切换：白天 / 夜晚 / 自动（跟随系统），偏好持久化到 localStorage
-- 单色 Teal 主题（`#14b8a6`），无渐变强调
-- [UnoCSS](https://unocss.dev/) 原子化样式 + `shortcuts` 组件级快捷类
-- [Vanta.js](https://github.com/tengbao/vanta) 3D 背景（桌面 BIRDS / 移动 NET，动态加载）
-- CSDN 博客展示：自动抓取点赞最多的文章（`npm run fetch:blogs`）
+- 单色 Teal 强调色（`#14b8a6`），白天 / 夜晚双主题 CSS 变量
+- [UnoCSS](https://unocss.dev/) 原子化样式 + 语义化 `shortcuts`
+- [Vanta.js](https://github.com/tengbao/vanta) 3D 背景（动态加载，随主题切换配色）
+- CSDN 博客展示：抓取点赞最多的文章（`npm run fetch:blogs`）
 - SEO：Next.js Metadata、OpenGraph、语义化 HTML、跳过导航链接
 - 内容数据化：`data/` 目录维护简介、技能、项目、博客与经验领域
 
 ## 页面结构
 
-| 区块         | 锚点          | 说明                                        |
-| ------------ | ------------- | ------------------------------------------- |
-| Hero         | —             | 姓名、职位、关键数据卡片                    |
-| 关于         | `#about`      | 个人简介与 GitHub 入口                      |
-| 技能         | `#skills`     | Bento 布局技术栈分类                        |
-| 近期企业项目 | `#enterprise` | 9 项代表性企业级项目（含 ce-telephone SDK） |
-| 开源项目     | `#github`     | GitHub 个人仓库与外链                       |
-| 技术博客     | `#blog`       | CSDN 点赞最多的文章                         |
-| 经验领域     | `#experience` | 6 个业务与技术方向（含 AI 应用与 MCP）      |
+| 导航标签 | 区块标题     | 锚点          | 说明                                        |
+| -------- | ------------ | ------------- | ------------------------------------------- |
+| —        | Hero         | —             | 姓名、职位、关键数据卡片                    |
+| 关于     | 关于我       | `#about`      | 个人简介与 GitHub 入口                      |
+| 技能     | 技术栈       | `#skills`     | Bento 布局技术栈分类                        |
+| 企业精选 | 近期企业项目 | `#enterprise` | 9 项代表性企业级项目（含 ce-telephone SDK） |
+| 开源项目 | 开源项目     | `#github`     | GitHub 个人仓库与外链                       |
+| 博客     | 技术博客     | `#blog`       | CSDN 点赞最多的文章                         |
+| 经验领域 | 经验领域     | `#experience` | 6 个业务与技术方向（含 AI 应用与 MCP）      |
 
 ## 技术栈
 
@@ -35,7 +37,7 @@
 | 框架    | Next.js 15（App Router）+ React 19               |
 | 语言    | TypeScript 5                                     |
 | 样式    | UnoCSS 66 + `@unocss/preset-wind3` + PostCSS     |
-| 3D 背景 | Three.js 0.134 + Vanta.js BIRDS                  |
+| 3D 背景 | Three.js 0.134 + Vanta.js（BIRDS / NET）         |
 | 字体    | Geist Sans / Geist Mono（`next/font`）           |
 | 规范    | ESLint、Prettier、Husky、lint-staged、Commitlint |
 
@@ -73,44 +75,49 @@ npm run dev
 
 ```
 app/
-  layout.tsx          # 根布局、SEO metadata、字体与全局样式入口
-  page.tsx            # 首页（组合各区块）
-  globals.css         # UnoCSS 注入入口（@unocss all）
+  layout.tsx            # 根布局、SEO metadata、主题防闪烁脚本
+  page.tsx              # 首页（组合各区块）
+  globals.css           # UnoCSS 注入入口（@unocss all）
 components/
-  VantaBackground.tsx         # Vanta 背景（动态加载，移动端 NET / 桌面 BIRDS）
-  VantaBackgroundClient.tsx   # dynamic import，禁用 SSR
-  ViewportSync.tsx            # 视口状态同步到 <html data-viewport>
-  ContentCard.tsx             # 通用内容卡片（项目 / 博客复用）
-  NavBar.tsx                  # 导航栏（滚动高亮当前区块）
-  HeroSection.tsx             # 首屏
-  AboutSection.tsx            # 关于
-  SkillsSection.tsx           # 技能
-  ProjectsSection.tsx         # 项目列表
-  BlogSection.tsx             # CSDN 博客
-  ExperienceSection.tsx       # 经验领域
-  SectionHeader.tsx           # 区块标题
-  FooterSection.tsx           # 页脚
+  ThemeProvider.tsx     # 主题状态（白天 / 夜晚 / 自动）
+  ThemeToggle.tsx       # 主题切换按钮
+  ViewportSync.tsx      # 视口状态同步到 <html data-viewport>
+  VantaBackground.tsx   # Vanta 背景（动态加载，随主题配色）
+  VantaBackgroundClient.tsx
+  ContentCard.tsx       # 通用内容卡片（项目 / 博客复用）
+  NavBar.tsx            # 导航栏（滚动高亮 + 主题切换）
+  HeroSection.tsx       # 首屏
+  AboutSection.tsx      # 关于
+  SkillsSection.tsx     # 技能
+  ProjectsSection.tsx   # 项目列表
+  BlogSection.tsx       # CSDN 博客
+  ExperienceSection.tsx # 经验领域
+  SectionHeader.tsx     # 区块标题
+  FooterSection.tsx     # 页脚
 data/
-  profile.ts          # 个人信息、导航、经验领域
-  skills.ts           # 技能分类
-  projects.ts         # 企业项目与开源项目
-  blogs.ts            # CSDN 博客（由 fetch:blogs 生成）
+  profile.ts            # 个人信息、导航、经验领域
+  skills.ts             # 技能分类
+  projects.ts           # 近期企业项目与开源项目
+  blogs.ts              # CSDN 博客（由 fetch:blogs 生成）
 lib/
-  breakpoints.ts      # 断点常量与 MEDIA_QUERIES
-  format.ts           # 数字格式化工具
-  hooks/useViewport.ts # 视口 Hook
-  vantaThree.ts       # Three.js 兼容层（适配 Vanta.js）
+  theme.ts              # 主题模式常量与工具函数
+  breakpoints.ts        # 断点常量与 MEDIA_QUERIES
+  format.ts             # 数字格式化工具
+  hooks/useViewport.ts  # 视口 Hook
+  vantaThree.ts         # Three.js 兼容层（适配 Vanta.js）
 scripts/
-  fetch-csdn-blogs.mjs # CSDN 博客抓取脚本
+  fetch-csdn-blogs.mjs  # CSDN 博客抓取脚本
 types/
-  vanta.d.ts          # Vanta 类型声明
+  vanta.d.ts            # Vanta 类型声明
 public/
   favicon.svg
-uno.config.ts         # UnoCSS 主题、shortcuts、rules、preflights
-postcss.config.cjs    # PostCSS 配置
-postcss-unocss.cjs    # UnoCSS PostCSS 桥接（兼容 Next.js require）
-next.config.ts        # Next.js 配置
-.husky/               # Git 钩子（pre-commit / commit-msg）
+uno.config.ts           # UnoCSS 双主题变量、shortcuts、preflights
+postcss.config.cjs
+postcss-unocss.cjs
+next.config.ts          # Next.js 配置（GitHub Pages 静态导出）
+.github/workflows/
+  deploy.yml            # GitHub Pages CI 部署
+.husky/                 # Git 钩子（pre-commit / commit-msg）
 ```
 
 ## 自定义内容
@@ -121,8 +128,10 @@ next.config.ts        # Next.js 配置
 | ------------- | ------------------------------------------------------- |
 | `profile.ts`  | 姓名、职位、简介、GitHub、导航、经验领域（建议 ≤ 6 项） |
 | `skills.ts`   | 技能分类与标签                                          |
-| `projects.ts` | 企业项目（当前 9 项）与开源项目列表                     |
+| `projects.ts` | 近期企业项目（当前 9 项）与开源项目列表                 |
 | `blogs.ts`    | CSDN 博客列表（运行 `npm run fetch:blogs` 自动更新）    |
+
+导航标签在 `profile.ts` 的 `navLinks` 中配置；区块标题在 `app/page.tsx` 各 Section 的 `title` prop 中配置（例如导航「企业精选」对应区块标题「近期企业项目」）。
 
 企业项目描述建议使用通用业务名称，避免在公开站点展示敏感公司或产品名称。
 
@@ -132,8 +141,9 @@ next.config.ts        # Next.js 配置
 
 ```
 layout.tsx
-  ├── @unocss/reset/tailwind.css   # 基础 reset
-  └── globals.css (@unocss all)    # PostCSS 生成最终 CSS
+  ├── 内联 themeInitScript     # 防主题闪烁
+  ├── @unocss/reset/tailwind.css
+  └── globals.css (@unocss all)
 
 postcss.config.cjs → postcss-unocss.cjs → uno.config.ts
 ```
@@ -142,16 +152,20 @@ postcss.config.cjs → postcss-unocss.cjs → uno.config.ts
 
 ### 三层样式
 
-| 层级       | 位置             | 用途                                                           |
-| ---------- | ---------------- | -------------------------------------------------------------- |
-| 原子类     | 组件 `className` | Wind 兼容工具类，如 `text-slate-400`、`hover:text-theme-light` |
-| shortcuts  | `uno.config.ts`  | 复用组合类，见下表                                             |
-| preflights | `uno.config.ts`  | 全局基础样式：`html`、`body`、`::selection`、动画 keyframes 等 |
+| 层级       | 位置             | 用途                                            |
+| ---------- | ---------------- | ----------------------------------------------- |
+| 原子类     | 组件 `className` | Wind 兼容工具类 + 语义化类（`text-heading` 等） |
+| shortcuts  | `uno.config.ts`  | 复用组合类，见下表                              |
+| preflights | `uno.config.ts`  | 双主题 CSS 变量、全局基础样式、动画 keyframes   |
 
-### 常用 shortcuts
+### 语义化 shortcuts
 
 | 类名                                 | 用途                     |
 | ------------------------------------ | ------------------------ |
+| `text-heading` / `text-body`         | 标题 / 正文色            |
+| `text-muted` / `text-faint`          | 次要 / 辅助文字色        |
+| `border-divider`                     | 分隔线 / 边框色          |
+| `bg-active` / `bg-hover`             | 导航激活 / 悬停背景      |
 | `glass-card`                         | 玻璃拟态卡片             |
 | `glass-card-interactive`             | 可交互卡片（hover 动效） |
 | `btn-primary` / `btn-ghost`          | 主按钮 / 幽灵按钮        |
@@ -163,34 +177,39 @@ postcss.config.cjs → postcss-unocss.cjs → uno.config.ts
 | `focus-ring`                         | 焦点环样式               |
 | `skip-link`                          | 跳过导航链接             |
 | `bg-grid-pattern` / `bg-grid`        | 网格背景                 |
+| `hero-overlay`                       | Hero 区域渐变遮罩        |
 
 新增组件级样式时，优先在 `uno.config.ts` 的 `shortcuts` 中扩展，避免在 `globals.css` 写 `@apply`。
 
-### 主题色
+### 双主题
 
-当前为 Teal 单色体系：
+通过 `<html data-theme="light|dark">` 切换，`ThemeProvider` 负责写入，`layout.tsx` 内联脚本防止首屏闪烁。
 
-| 用途               | 色值      |
-| ------------------ | --------- |
-| 主色 `theme`       | `#14b8a6` |
-| 浅色 `theme-light` | `#5eead4` |
-| 背景 `background`  | `#050508` |
-| 表面 `surface`     | `#0c0c14` |
+| 模式 | 行为                                      |
+| ---- | ----------------------------------------- |
+| 白天 | 固定浅色主题                              |
+| 夜晚 | 固定深色主题                              |
+| 自动 | 跟随系统 `prefers-color-scheme`，实时响应 |
 
-修改主题时需同步以下文件：
+偏好存储键：`portfolio-theme`（值为 `light` / `dark` / `auto`）。
 
-| 文件                             | 修改项                                            |
-| -------------------------------- | ------------------------------------------------- |
-| `uno.config.ts`                  | `theme.colors.theme`、`preflights` 中的 `--theme` |
-| `components/VantaBackground.tsx` | `color` / `color1` / `color2`（如 `0x14b8a6`）    |
-| `public/favicon.svg`             | 图标填充色                                        |
+主色 Teal 在两种模式下均保留，背景 / 文字 / 玻璃卡片等通过 CSS 变量适配：
+
+| 变量（节选）         | 夜晚      | 白天      |
+| -------------------- | --------- | --------- |
+| `--color-background` | `#050508` | `#f8fafc` |
+| `--color-surface`    | `#0c0c14` | `#f1f5f9` |
+| `--theme-accent`     | `#14b8a6` | `#0d9488` |
+
+修改主题色时需同步 `uno.config.ts` 的 preflights 与 `components/VantaBackground.tsx` 中的 `THEME_COLORS`。
 
 ## 背景特效
 
-- **桌面端**：BIRDS（飞鸟），GPGPU 失败时自动回退 NET（粒子网格）
-- **移动端**：直接使用 NET，减少性能开销
+- **夜晚 + 桌面**：BIRDS（飞鸟），GPGPU 失败时自动回退 NET
+- **夜晚 + 移动**：NET（粒子网格）
+- **白天**：统一使用 NET + 浅色背景
 - **无障碍**：`prefers-reduced-motion` 时禁用 3D 背景
-- Vanta 与 NET 均通过 `dynamic import` 按需加载
+- 切换主题时自动重建效果，Vanta 与 NET 均 `dynamic import` 按需加载
 
 更换效果：编辑 `components/VantaBackground.tsx`，可选效果见 [vantajs.com](https://www.vantajs.com/)。
 
@@ -254,8 +273,6 @@ npm run preview
 ### GitHub Pages（已配置 CI）
 
 仓库已配置 GitHub Actions 工作流（`.github/workflows/deploy.yml`），推送到 `main` 分支后自动构建并部署。CI 会尝试运行 `fetch:blogs` 更新博客数据（失败不阻断构建）。
-
-**在线地址：** [https://luzhaotian.github.io/portfolio/](https://luzhaotian.github.io/portfolio/)
 
 **首次启用步骤：**
 
