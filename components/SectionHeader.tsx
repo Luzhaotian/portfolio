@@ -12,7 +12,7 @@ export default function SectionHeader({
   id,
 }: SectionHeaderProps) {
   return (
-    <header className="mb-12 md:mb-16" id={id}>
+    <header className="mb-8 sm:mb-12 md:mb-16" id={id}>
       <p className="mb-3 font-mono text-xs tracking-[0.2em] text-theme-light/80">
         {index}
       </p>

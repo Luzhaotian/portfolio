@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { navLinks, profile } from "@/data/profile";
+import { useViewport } from "@/lib/hooks/useViewport";
 
 const SECTION_IDS = navLinks.map((link) => link.href.replace("#", ""));
 
 export default function NavBar() {
+  const { isMobile } = useViewport();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("about");
@@ -37,21 +39,35 @@ export default function NavBar() {
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
+  useEffect(() => {
+    if (!isMobile) setMenuOpen(false);
+  }, [isMobile]);
+
+  useEffect(() => {
+    if (!menuOpen || !isMobile) return;
+
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [menuOpen, isMobile]);
+
   return (
     <header
       className={`fixed top-0 z-50 w-full transition-[background-color,border-color,backdrop-filter] duration-300 ${
-        scrolled
+        scrolled || menuOpen
           ? "border-b border-white/10 bg-background/75 backdrop-blur-xl"
           : "bg-transparent"
       }`}
     >
       <nav
-        className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4"
+        className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4"
         aria-label="主导航"
       >
         <a
           href="#"
-          className="focus-ring rounded-lg text-lg font-bold theme-text"
+          className="focus-ring rounded-lg text-base font-bold theme-text sm:text-lg"
           onClick={() => setMenuOpen(false)}
         >
           {profile.name}
@@ -82,7 +98,7 @@ export default function NavBar() {
               href={profile.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-ghost !px-4 !py-2 text-xs"
+              className="btn-ghost !w-auto !px-4 !py-2 text-xs"
             >
               GitHub
             </a>
@@ -110,24 +126,34 @@ export default function NavBar() {
 
       {menuOpen && (
         <div className="border-b border-white/10 bg-background/95 backdrop-blur-xl md:hidden">
-          <ul className="flex flex-col gap-1 px-4 py-4">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="focus-ring block rounded-lg px-3 py-2.5 text-slate-300 hover:bg-white/5"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-            <li>
+          <ul className="flex max-h-[calc(100dvh-3.5rem)] flex-col gap-1 overflow-y-auto px-4 py-4">
+            {navLinks.map((link) => {
+              const id = link.href.replace("#", "");
+              const isActive = activeSection === id;
+
+              return (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    className={`focus-ring block rounded-lg px-3 py-3 text-base transition-colors ${
+                      isActive
+                        ? "bg-white/10 text-theme-light"
+                        : "text-slate-300 hover:bg-white/5"
+                    }`}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              );
+            })}
+            <li className="mt-2 border-t border-white/10 pt-3">
               <a
                 href={profile.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="focus-ring block rounded-lg px-3 py-2.5 text-theme-light hover:bg-white/5"
+                className="btn-ghost !py-2.5"
+                onClick={() => setMenuOpen(false)}
               >
                 GitHub
               </a>

@@ -1,4 +1,5 @@
 import NavBar from "@/components/NavBar";
+import ViewportSync from "@/components/ViewportSync";
 import VantaBackground from "@/components/VantaBackgroundClient";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
@@ -11,6 +12,7 @@ import { enterpriseProjects, githubProjects } from "@/data/projects";
 export default function Home() {
   return (
     <>
+      <ViewportSync />
       <VantaBackground />
       <div className="relative z-10">
         <NavBar />

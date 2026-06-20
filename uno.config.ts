@@ -27,21 +27,22 @@ export default defineConfig({
     "glass-card-interactive":
       "glass-card transition-[border-color,background-color,transform] duration-300 hover:border-theme/25 hover:bg-white/6 hover:-translate-y-0.5",
     "theme-text": "text-theme",
-    "section-shell": "relative px-6 py-20 md:py-28",
+    "section-shell": "relative px-4 py-16 sm:px-6 sm:py-20 md:py-28",
     "section-inner": "mx-auto max-w-6xl",
     "section-title":
-      "text-3xl font-bold tracking-tight text-slate-50 md:text-4xl lg:text-[2.75rem] lg:leading-tight",
-    "section-subtitle": "text-base leading-relaxed text-slate-400 md:text-lg",
+      "text-2xl font-bold tracking-tight text-slate-50 sm:text-3xl md:text-4xl lg:text-[2.75rem] lg:leading-tight",
+    "section-subtitle":
+      "text-sm leading-relaxed text-slate-400 sm:text-base md:text-lg",
     "tech-tag":
       "rounded-md border border-white/10 bg-white/4 px-2.5 py-1 text-xs text-slate-300 transition-[border-color,color] duration-200 hover:border-theme/35 hover:text-theme-light",
     "focus-ring":
       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-theme/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
     "btn-primary":
-      "inline-flex items-center justify-center rounded-full bg-theme px-7 py-3 text-sm font-semibold text-white transition-[opacity,transform] duration-200 hover:opacity-90 hover:scale-[1.02] focus-ring",
+      "inline-flex w-full items-center justify-center rounded-full bg-theme px-6 py-3 text-sm font-semibold text-white transition-[opacity,transform] duration-200 hover:opacity-90 hover:scale-[1.02] focus-ring sm:w-auto sm:px-7",
     "btn-ghost":
-      "inline-flex items-center justify-center rounded-full border border-white/15 bg-white/3 px-7 py-3 text-sm font-semibold text-slate-200 transition-[border-color,color,background-color] duration-200 hover:border-theme/40 hover:bg-white/6 hover:text-theme-light focus-ring",
+      "inline-flex w-full items-center justify-center rounded-full border border-white/15 bg-white/3 px-6 py-3 text-sm font-semibold text-slate-200 transition-[border-color,color,background-color] duration-200 hover:border-theme/40 hover:bg-white/6 hover:text-theme-light focus-ring sm:w-auto sm:px-7",
     "stat-card":
-      "glass-card relative overflow-hidden p-5 md:p-6 before:content-empty before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-theme/40",
+      "glass-card relative overflow-hidden p-4 sm:p-5 md:p-6 before:content-empty before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-theme/40",
     "skip-link":
       "fixed left-4 top-4 z-[100] -translate-y-20 rounded-lg bg-theme px-4 py-2 text-sm font-medium text-white opacity-0 transition-transform focus-visible:translate-y-0 focus-visible:opacity-100 focus-ring",
     "bg-grid-pattern":
@@ -92,6 +93,17 @@ export default defineConfig({
         }
         [id] {
           scroll-margin-top: 5.5rem;
+        }
+        @media (max-width: 767px) {
+          [id] {
+            scroll-margin-top: 4.25rem;
+          }
+        }
+        html[data-viewport="mobile"] body {
+          -webkit-tap-highlight-color: transparent;
+        }
+        html[data-viewport="mobile"] .glass-card-interactive:hover {
+          transform: none;
         }
         @keyframes fadeIn {
           0% { opacity: 0; }

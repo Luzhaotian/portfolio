@@ -15,7 +15,7 @@ export default function ExperienceSection() {
           {experienceDomains.map((domain, index) => (
             <article
               key={domain.title}
-              className="glass-card-interactive relative overflow-hidden p-6 pl-7"
+              className="glass-card-interactive relative overflow-hidden p-5 pl-6 sm:p-6 sm:pl-7"
             >
               <div
                 className="absolute left-0 top-0 h-full w-1 bg-theme/70"

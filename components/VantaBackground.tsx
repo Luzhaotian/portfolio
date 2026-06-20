@@ -3,9 +3,10 @@
 import { useEffect, useRef } from "react";
 import BIRDS from "vanta/dist/vanta.birds.min";
 import NET from "vanta/dist/vanta.net.min";
+import { BREAKPOINTS } from "@/lib/breakpoints";
 import { getVantaTHREE } from "@/lib/vantaThree";
 
-type VantaEffect = { destroy: () => void };
+type VantaEffect = { destroy: () => void; resize?: () => void };
 
 const SHARED_OPTIONS = {
   mouseControls: true,
@@ -20,6 +21,7 @@ const SHARED_OPTIONS = {
 
 export default function VantaBackground() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const effectRef = useRef<VantaEffect | null>(null);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -28,6 +30,7 @@ export default function VantaBackground() {
     const THREE = getVantaTHREE();
     let effect: VantaEffect | null = null;
     let fallbackTimer: number | undefined;
+    const isMobile = window.innerWidth < BREAKPOINTS.md;
 
     const initNet = () => {
       effect?.destroy();
@@ -36,10 +39,11 @@ export default function VantaBackground() {
         THREE,
         ...SHARED_OPTIONS,
         color: 0x14b8a6,
-        points: 14,
-        maxDistance: 24,
-        spacing: 17,
+        points: isMobile ? 10 : 14,
+        maxDistance: isMobile ? 18 : 24,
+        spacing: isMobile ? 20 : 17,
       });
+      effectRef.current = effect;
     };
 
     try {
@@ -50,16 +54,16 @@ export default function VantaBackground() {
         color1: 0x14b8a6,
         color2: 0x14b8a6,
         colorMode: "lerp",
-        birdSize: 1.15,
-        wingSpan: 28,
-        speedLimit: 4.5,
+        birdSize: isMobile ? 1 : 1.15,
+        wingSpan: isMobile ? 22 : 28,
+        speedLimit: isMobile ? 3.5 : 4.5,
         separation: 22,
         alignment: 22,
         cohesion: 22,
-        quantity: 4,
+        quantity: isMobile ? 2 : 4,
       });
+      effectRef.current = effect;
 
-      // BIRDS 内部 GPGPU 失败时不会 throw，延迟检测 canvas 是否渲染
       fallbackTimer = window.setTimeout(() => {
         const canvas = el.querySelector("canvas");
         if (!canvas || canvas.clientHeight < 50) {
@@ -72,9 +76,14 @@ export default function VantaBackground() {
       initNet();
     }
 
+    const onResize = () => effectRef.current?.resize?.();
+    window.addEventListener("resize", onResize, { passive: true });
+
     return () => {
       clearTimeout(fallbackTimer);
+      window.removeEventListener("resize", onResize);
       effect?.destroy();
+      effectRef.current = null;
     };
   }, []);
 

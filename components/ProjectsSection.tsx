@@ -23,11 +23,11 @@ export default function ProjectsSection({
       <div className="section-inner">
         <SectionHeader index={sectionIndex} title={title} subtitle={subtitle} />
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => (
             <article
               key={project.name}
-              className={`glass-card-interactive group flex flex-col p-6 ${
+              className={`glass-card-interactive group flex flex-col p-5 sm:p-6 ${
                 project.highlight ? "ring-1 ring-theme/20" : ""
               }`}
             >

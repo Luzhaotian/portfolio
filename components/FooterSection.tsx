@@ -4,7 +4,7 @@ export default function FooterSection() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-white/10 px-6 py-12">
+    <footer className="border-t border-white/10 px-4 py-10 sm:px-6 sm:py-12">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 text-center md:flex-row md:justify-between md:text-left">
         <div>
           <p className="text-lg font-semibold theme-text">{profile.name}</p>
