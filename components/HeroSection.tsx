@@ -2,58 +2,78 @@ import { profile } from "@/data/profile";
 
 export default function HeroSection() {
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/60" />
+    <section className="relative flex min-h-[92vh] items-center overflow-hidden px-6 pb-16 pt-28">
+      <div
+        className="pointer-events-none absolute inset-0 bg-grid-pattern bg-grid opacity-40"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-background/10 to-background/80"
+        aria-hidden="true"
+      />
 
-      <div className="relative z-10 mx-auto max-w-4xl text-center">
-        <p className="animate-fade-in mb-4 text-sm font-medium tracking-widest text-sky-400 uppercase">
-          Portfolio
-        </p>
-
-        <h1 className="animate-slide-up mb-4 text-5xl font-bold tracking-tight md:text-7xl">
-          <span className="gradient-text">{profile.name}</span>
-        </h1>
-
-        <p className="animate-slide-up animate-delay-100 mb-2 text-xl text-slate-300 md:text-2xl">
-          {profile.title}
-        </p>
-
-        <p className="animate-slide-up animate-delay-200 mb-6 text-base text-slate-400">
-          <span className="font-semibold text-sky-300">
-            {profile.yearsOfExperience} 年
-          </span>{" "}
-          前端开发经验 · {profile.nameEn}
-        </p>
-
-        <p className="animate-slide-up animate-delay-300 mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-slate-400">
-          {profile.tagline}
-        </p>
-
-        <div className="animate-slide-up animate-delay-400 flex flex-wrap items-center justify-center gap-4">
-          <a
-            href="#about"
-            className="pointer-events-auto rounded-full bg-gradient-to-r from-sky-400 to-purple-400 px-8 py-3 text-sm font-semibold text-background transition-opacity hover:opacity-90"
+      <div className="relative z-10 mx-auto grid w-full max-w-6xl gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+        <div>
+          <p
+            className="animate-fade-in mb-5 font-mono text-xs tracking-[0.25em] text-theme-light uppercase"
+            translate="no"
           >
-            了解更多
-          </a>
-          <a
-            href={profile.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="pointer-events-auto rounded-full border border-white/20 px-8 py-3 text-sm font-semibold text-slate-300 transition-colors hover:border-sky-400/50 hover:text-sky-300"
-          >
-            GitHub →
-          </a>
+            Senior Frontend Engineer
+          </p>
+
+          <h1 className="animate-slide-up mb-5 text-4xl font-bold tracking-tight text-balance sm:text-5xl md:text-6xl lg:text-7xl">
+            <span className="theme-text">{profile.name}</span>
+          </h1>
+
+          <p className="animate-slide-up animate-delay-100 mb-3 text-xl font-medium text-slate-200 md:text-2xl">
+            {profile.title}
+          </p>
+
+          <p className="animate-slide-up animate-delay-200 mb-8 max-w-xl text-base leading-relaxed text-slate-400 md:text-lg text-pretty">
+            {profile.tagline}
+          </p>
+
+          <div className="animate-slide-up animate-delay-300 flex flex-wrap gap-3">
+            <a href="#about" className="btn-primary">
+              查看履历
+            </a>
+            <a
+              href={profile.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-ghost"
+            >
+              GitHub →
+            </a>
+          </div>
+        </div>
+
+        <div className="animate-slide-up animate-delay-400 grid grid-cols-2 gap-4">
+          {profile.highlights.map((item) => (
+            <article key={item.label} className="stat-card group">
+              <div className="mb-3 inline-flex rounded-full bg-theme/15 px-2.5 py-0.5 text-[10px] font-medium tracking-wide text-theme-light uppercase">
+                {item.label}
+              </div>
+              <p
+                className="font-mono text-2xl font-bold tracking-tight text-slate-50 md:text-3xl"
+                translate="no"
+              >
+                {item.value}
+              </p>
+            </article>
+          ))}
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 motion-safe:animate-bounce"
+        aria-hidden="true"
+      >
         <svg
-          className="h-6 w-6 text-slate-500"
+          className="h-5 w-5 text-slate-500"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
-          aria-hidden="true"
         >
           <path
             strokeLinecap="round"

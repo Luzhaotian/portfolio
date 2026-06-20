@@ -3,13 +3,30 @@
 @tailwind utilities;
 
 :root {
-  --gradient-primary: linear-gradient(135deg, #38bdf8 0%, #a78bfa 100%);
+  --theme: #2563eb;
+  --theme-muted: rgba(37, 99, 235, 0.15);
   --glass-bg: rgba(255, 255, 255, 0.04);
   --glass-border: rgba(255, 255, 255, 0.08);
+  --ring-accent: rgba(37, 99, 235, 0.45);
 }
 
 html {
+  color-scheme: dark;
   scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 body {
@@ -19,29 +36,66 @@ body {
 }
 
 ::selection {
-  background-color: rgba(56, 189, 248, 0.3);
+  background-color: rgba(37, 99, 235, 0.35);
   color: #fff;
 }
 
 @layer components {
-  .glass-card {
-    @apply rounded-2xl border border-white/[0.08] bg-white/[0.04] backdrop-blur-md;
+  .skip-link {
+    @apply fixed left-4 top-4 z-[100] -translate-y-20 rounded-lg bg-theme px-4 py-2 text-sm font-medium text-white opacity-0 transition-transform focus-visible:translate-y-0 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-theme/60;
   }
 
-  .gradient-text {
-    @apply bg-gradient-to-r from-sky-400 to-purple-400 bg-clip-text text-transparent;
+  .glass-card {
+    @apply rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-md;
+  }
+
+  .glass-card-interactive {
+    @apply glass-card transition-[border-color,background-color,transform] duration-300 hover:border-theme/25 hover:bg-white/[0.06] hover:-translate-y-0.5;
+  }
+
+  .theme-text {
+    @apply text-theme;
+  }
+
+  .section-shell {
+    @apply relative px-6 py-20 md:py-28;
+  }
+
+  .section-inner {
+    @apply mx-auto max-w-6xl;
   }
 
   .section-title {
-    @apply mb-4 text-3xl font-bold tracking-tight md:text-4xl;
+    @apply text-3xl font-bold tracking-tight text-slate-50 md:text-4xl lg:text-[2.75rem] lg:leading-tight;
   }
 
   .section-subtitle {
-    @apply mb-12 text-base text-slate-400 md:text-lg;
+    @apply text-base leading-relaxed text-slate-400 md:text-lg;
   }
 
   .tech-tag {
-    @apply rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300 transition-colors hover:border-sky-400/30 hover:text-sky-300;
+    @apply rounded-md border border-white/10 bg-white/[0.04] px-2.5 py-1 text-xs text-slate-300 transition-[border-color,color] duration-200 hover:border-theme/35 hover:text-theme-light;
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-theme/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-theme px-7 py-3 text-sm font-semibold text-white transition-[opacity,transform] duration-200 hover:opacity-90 hover:scale-[1.02] focus-ring;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center rounded-full border border-white/15 bg-white/[0.03] px-7 py-3 text-sm font-semibold text-slate-200 transition-[border-color,color,background-color] duration-200 hover:border-theme/40 hover:bg-white/[0.06] hover:text-theme-light focus-ring;
+  }
+
+  .stat-card {
+    @apply glass-card relative overflow-hidden p-5 md:p-6;
+  }
+
+  .stat-card::before {
+    content: "";
+    @apply absolute inset-x-0 top-0 h-px bg-theme/40;
   }
 }
 
@@ -58,4 +112,16 @@ body {
   .animate-delay-400 {
     animation-delay: 400ms;
   }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
+
+[id] {
+  scroll-margin-top: 5.5rem;
 }

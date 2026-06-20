@@ -3,50 +3,86 @@
 import { useEffect, useState } from "react";
 import { navLinks, profile } from "@/data/profile";
 
+const SECTION_IDS = navLinks.map((link) => link.href.replace("#", ""));
+
 export default function NavBar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("about");
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+
+    SECTION_IDS.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setActiveSection(id);
+        },
+        { rootMargin: "-40% 0px -50% 0px", threshold: 0 }
+      );
+
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
+
   return (
     <header
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
+      className={`fixed top-0 z-50 w-full transition-[background-color,border-color,backdrop-filter] duration-300 ${
         scrolled
-          ? "border-b border-white/10 bg-background/80 backdrop-blur-lg"
+          ? "border-b border-white/10 bg-background/75 backdrop-blur-xl"
           : "bg-transparent"
       }`}
     >
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+      <nav
+        className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4"
+        aria-label="主导航"
+      >
         <a
           href="#"
-          className="text-lg font-bold gradient-text"
+          className="focus-ring rounded-lg text-lg font-bold theme-text"
           onClick={() => setMenuOpen(false)}
         >
           {profile.name}
         </a>
 
-        <ul className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className="text-sm text-slate-400 transition-colors hover:text-sky-300"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-          <li>
+        <ul className="hidden items-center gap-1 md:flex">
+          {navLinks.map((link) => {
+            const id = link.href.replace("#", "");
+            const isActive = activeSection === id;
+
+            return (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className={`focus-ring rounded-full px-3.5 py-2 text-sm transition-colors ${
+                    isActive
+                      ? "bg-white/10 text-theme-light"
+                      : "text-slate-400 hover:text-slate-200"
+                  }`}
+                >
+                  {link.label}
+                </a>
+              </li>
+            );
+          })}
+          <li className="ml-2">
             <a
               href={profile.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full border border-sky-400/30 px-4 py-1.5 text-sm text-sky-300 transition-all hover:bg-sky-400/10"
+              className="btn-ghost !px-4 !py-2 text-xs"
             >
               GitHub
             </a>
@@ -55,8 +91,9 @@ export default function NavBar() {
 
         <button
           type="button"
-          className="flex flex-col gap-1.5 md:hidden"
-          aria-label="打开菜单"
+          className="focus-ring flex flex-col gap-1.5 rounded-lg p-2 md:hidden"
+          aria-label={menuOpen ? "关闭菜单" : "打开菜单"}
+          aria-expanded={menuOpen}
           onClick={() => setMenuOpen(!menuOpen)}
         >
           <span
@@ -72,13 +109,13 @@ export default function NavBar() {
       </nav>
 
       {menuOpen && (
-        <div className="border-b border-white/10 bg-background/95 backdrop-blur-lg md:hidden">
-          <ul className="flex flex-col gap-4 px-6 py-4">
+        <div className="border-b border-white/10 bg-background/95 backdrop-blur-xl md:hidden">
+          <ul className="flex flex-col gap-1 px-4 py-4">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="block text-slate-300"
+                  className="focus-ring block rounded-lg px-3 py-2.5 text-slate-300 hover:bg-white/5"
                   onClick={() => setMenuOpen(false)}
                 >
                   {link.label}
@@ -90,7 +127,7 @@ export default function NavBar() {
                 href={profile.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sky-300"
+                className="focus-ring block rounded-lg px-3 py-2.5 text-theme-light hover:bg-white/5"
               >
                 GitHub
               </a>

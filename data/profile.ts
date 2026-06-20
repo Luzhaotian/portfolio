@@ -6,9 +6,15 @@ export const profile = {
   tagline: "构建高性能、可扩展的前端应用 · 金融科技 · AI 应用 · 企业 SaaS",
   github: "https://github.com/Luzhaotian",
   location: "中国",
+  highlights: [
+    { label: "前端经验", value: "8 年" },
+    { label: "企业级项目", value: "20+" },
+    { label: "GitHub 仓库", value: "13" },
+    { label: "双栈主力", value: "Vue + React" },
+  ],
   summary: [
     "拥有 8 年前端开发经验，专注于 React / Vue 生态与现代工程化体系，擅长复杂 B 端管理系统、数据可视化与 AI 应用落地。",
-    "在宜信（Yixin）期间主导并参与多个核心业务平台的前端架构与开发，涵盖金融科技、智能外呼、CRM、AI 质检、短剧内容平台等领域。",
+    "主导并参与多个大型企业核心业务平台的前端架构与开发，涵盖金融科技、智能外呼、CRM、AI 质检、短剧内容平台等领域。",
     "持续探索 AI Agent、OpenAPI 集成与前端智能化工具链，GitHub 上维护多个开源项目，包括智能招聘助手、前端智能体等。",
   ],
 };
@@ -17,13 +23,13 @@ export const experienceDomains = [
   {
     title: "金融科技",
     description:
-      "宜享花管理系统、资金管理平台、宜享花国际等核心业务系统，涵盖信贷、资金流转与国际化场景。",
+      "消费金融管理系统、资金管理平台、国际化信贷平台等核心业务系统，涵盖信贷、资金流转与跨境场景。",
     icon: "💰",
   },
   {
     title: "AI 应用",
     description:
-      "璇玑 AI 平台、AI 智检系统、前端智能体（fe-agent），将大模型能力融入企业级产品与工作流。",
+      "企业 AI 应用平台、AI 智检系统、前端智能体（fe-agent），将大模型能力融入企业级产品与工作流。",
     icon: "🤖",
   },
   {
@@ -47,7 +53,7 @@ export const experienceDomains = [
   {
     title: "工程化 & 开源",
     description:
-      "Vite / Webpack / Rspack 构建优化，Chrome 扩展、npm 组件库发布，持续输出技术方案。",
+      "Vite / Webpack / Rspack 构建优化，Chrome 扩展、npm 组件库与 SDK 发布，持续输出技术方案。",
     icon: "⚙️",
   },
 ];

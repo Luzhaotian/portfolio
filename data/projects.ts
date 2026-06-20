@@ -9,7 +9,15 @@ export interface Project {
 
 export const enterpriseProjects: Project[] = [
   {
-    name: "璇玑 AI 平台",
+    name: "ce-telephone SDK",
+    description:
+      "呼叫中心软电话 TypeScript SDK，封装 WebSocket 信令、通话状态管理与事件驱动 API，支持 3PCC 呼叫模式，以 Rollup 构建并发布 npm 包。",
+    tech: ["TypeScript", "Rollup", "WebSocket", "SDK"],
+    category: "enterprise",
+    highlight: true,
+  },
+  {
+    name: "企业 AI 应用平台",
     description:
       "企业级 AI 应用平台，集成大模型能力，支持智能对话、工作流编排与知识库管理。",
     tech: ["React", "Next.js", "Rspack", "Ant Design", "ECharts"],
@@ -17,7 +25,7 @@ export const enterpriseProjects: Project[] = [
     highlight: true,
   },
   {
-    name: "宜享花管理系统",
+    name: "消费金融管理系统",
     description: "消费金融核心业务管理系统，涵盖用户管理、订单流转、风控审核等模块。",
     tech: ["React", "Ant Design", "TypeScript"],
     category: "enterprise",
@@ -55,7 +63,7 @@ export const enterpriseProjects: Project[] = [
     category: "enterprise",
   },
   {
-    name: "宜看短剧平台",
+    name: "短剧内容平台",
     description: "短剧内容管理与运营后台，支持内容上架、数据统计与用户分析。",
     tech: ["React", "Ant Design"],
     category: "enterprise",
@@ -67,7 +75,7 @@ export const enterpriseProjects: Project[] = [
     category: "enterprise",
   },
   {
-    name: "宜享花国际",
+    name: "国际化消费金融平台",
     description: "国际化消费金融平台，多语言支持与跨境业务管理。",
     tech: ["React", "Next.js", "Ant Design"],
     category: "enterprise",

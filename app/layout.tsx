@@ -57,9 +57,12 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen font-sans antialiased`}
         suppressHydrationWarning
       >
+        <a href="#main-content" className="skip-link">
+          跳到主要内容
+        </a>
         {children}
       </body>
     </html>
