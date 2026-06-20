@@ -1,18 +1,22 @@
+"use client";
+
 import SectionHeader from "@/components/SectionHeader";
-import { experienceDomains } from "@/data/profile";
+import { useI18n } from "@/components/I18nProvider";
 
 export default function ExperienceSection() {
+  const { t } = useI18n();
+
   return (
     <section id="experience" className="section-shell bg-surface/40">
       <div className="section-inner">
         <SectionHeader
-          index="06 — DOMAINS"
-          title="经验领域"
-          subtitle="8 年职业生涯中深耕的业务方向与技术实践"
+          index={t.experience.index}
+          title={t.experience.title}
+          subtitle={t.experience.subtitle}
         />
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {experienceDomains.map((domain, index) => (
+          {t.experience.domains.map((domain, index) => (
             <article
               key={domain.title}
               className="glass-card-interactive relative overflow-hidden p-5 pl-6 sm:p-6 sm:pl-7"

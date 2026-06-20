@@ -1,3 +1,7 @@
+"use client";
+
+"use client";
+
 import NavBar from "@/components/NavBar";
 import ViewportSync from "@/components/ViewportSync";
 import VantaBackground from "@/components/VantaBackgroundClient";
@@ -11,11 +15,13 @@ import BlogSection from "@/components/BlogSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import FooterSection from "@/components/FooterSection";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { enterpriseProjects, githubProjects } from "@/data/projects";
+import { useI18n } from "@/components/I18nProvider";
 
-export default function Home() {
+function HomeContent() {
+  const { t } = useI18n();
+
   return (
-    <ThemeProvider>
+    <>
       <ViewportSync />
       <VantaBackground />
       <div className="relative z-10">
@@ -26,17 +32,17 @@ export default function Home() {
           <SkillsSection />
           <ProjectsSection
             id="enterprise"
-            sectionIndex="03 — ENTERPRISE"
-            title="近期企业项目"
-            subtitle="近年参与的代表性核心业务平台与管理系统"
-            projects={enterpriseProjects}
+            sectionIndex={t.enterprise.index}
+            title={t.enterprise.title}
+            subtitle={t.enterprise.subtitle}
+            projects={t.enterprise.projects}
           />
           <ProjectsSection
             id="github"
-            sectionIndex="04 — OPEN SOURCE"
-            title="开源项目"
-            subtitle="GitHub 上的个人开源项目与技术探索"
-            projects={githubProjects}
+            sectionIndex={t.github.index}
+            title={t.github.title}
+            subtitle={t.github.subtitle}
+            projects={t.github.projects}
             showLinks
           />
           <BlogSection />
@@ -46,6 +52,14 @@ export default function Home() {
         <BackToTop />
         <CookieConsent />
       </div>
+    </>
+  );
+}
+
+export default function Home() {
+  return (
+    <ThemeProvider>
+      <HomeContent />
     </ThemeProvider>
   );
 }

@@ -1,6 +1,11 @@
+"use client";
+
+import { useI18n } from "@/components/I18nProvider";
 import { profile } from "@/data/profile";
 
 export default function HeroSection() {
+  const { t } = useI18n();
+
   return (
     <section className="relative flex min-h-[80vh] items-center overflow-hidden px-4 pb-12 pt-24 sm:min-h-[88vh] sm:px-6 sm:pb-16 sm:pt-28 md:min-h-[92vh]">
       <div
@@ -18,24 +23,24 @@ export default function HeroSection() {
             className="animate-fade-in mb-5 font-mono text-xs tracking-[0.25em] text-theme-light uppercase"
             translate="no"
           >
-            Senior Frontend Engineer
+            {t.hero.role}
           </p>
 
           <h1 className="animate-slide-up mb-4 text-3xl font-bold tracking-tight text-balance sm:mb-5 sm:text-5xl md:text-6xl lg:text-7xl">
-            <span className="theme-text">{profile.name}</span>
+            <span className="theme-text">{t.profile.name}</span>
           </h1>
 
           <p className="animate-slide-up animate-delay-100 mb-2 text-lg font-medium text-body sm:mb-3 sm:text-xl md:text-2xl">
-            {profile.title}
+            {t.profile.title}
           </p>
 
           <p className="animate-slide-up animate-delay-200 mb-6 max-w-xl text-sm leading-relaxed text-muted sm:mb-8 sm:text-base md:text-lg text-pretty">
-            {profile.tagline}
+            {t.profile.tagline}
           </p>
 
           <div className="animate-slide-up animate-delay-300 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <a href="#about" className="btn-primary">
-              查看履历
+              {t.hero.viewResume}
             </a>
             <a
               href={profile.github}
@@ -43,13 +48,13 @@ export default function HeroSection() {
               rel="noopener noreferrer"
               className="btn-ghost"
             >
-              GitHub →
+              {t.hero.github} →
             </a>
           </div>
         </div>
 
         <div className="animate-slide-up animate-delay-400 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
-          {profile.highlights.map((item) => (
+          {t.profile.highlights.map((item) => (
             <article key={item.label} className="stat-card group">
               <div className="mb-3 inline-flex rounded-full bg-theme px-2.5 py-0.5 text-[10px] font-medium tracking-wide text-white uppercase">
                 {item.label}

@@ -1,13 +1,8 @@
 "use client";
 
 import { useTheme } from "@/components/ThemeProvider";
+import { useI18n } from "@/components/I18nProvider";
 import type { ThemeMode } from "@/lib/theme";
-
-const MODE_LABELS: Record<ThemeMode, string> = {
-  light: "白天",
-  dark: "夜晚",
-  auto: "自动",
-};
 
 interface ThemeToggleProps {
   compact?: boolean;
@@ -16,6 +11,13 @@ interface ThemeToggleProps {
 
 export default function ThemeToggle({ compact = false, onSelect }: ThemeToggleProps) {
   const { mode, setMode } = useTheme();
+  const { t } = useI18n();
+
+  const modeLabels: Record<ThemeMode, string> = {
+    light: t.theme.light,
+    dark: t.theme.dark,
+    auto: t.theme.auto,
+  };
 
   const handleSelect = (next: ThemeMode) => {
     setMode(next);
@@ -27,7 +29,7 @@ export default function ThemeToggle({ compact = false, onSelect }: ThemeTogglePr
       <div
         className="inline-flex rounded-full border border-divider bg-[var(--glass-bg)] p-0.5"
         role="group"
-        aria-label="主题模式"
+        aria-label={t.theme.ariaLabel}
       >
         {(["light", "dark", "auto"] as ThemeMode[]).map((item) => (
           <button
@@ -39,7 +41,7 @@ export default function ThemeToggle({ compact = false, onSelect }: ThemeTogglePr
                 : "text-muted hover:text-body"
             }`}
             aria-pressed={mode === item}
-            aria-label={`${MODE_LABELS[item]}模式`}
+            aria-label={modeLabels[item]}
             onClick={() => handleSelect(item)}
           >
             {item === "light" ? "☀" : item === "dark" ? "☾" : "◐"}
@@ -50,7 +52,7 @@ export default function ThemeToggle({ compact = false, onSelect }: ThemeTogglePr
   }
 
   return (
-    <div className="flex flex-col gap-1" role="group" aria-label="主题模式">
+    <div className="flex flex-col gap-1" role="group" aria-label={t.theme.ariaLabel}>
       {(["light", "dark", "auto"] as ThemeMode[]).map((item) => (
         <button
           key={item}
@@ -64,7 +66,7 @@ export default function ThemeToggle({ compact = false, onSelect }: ThemeTogglePr
           <span aria-hidden="true">
             {item === "light" ? "☀" : item === "dark" ? "☾" : "◐"}
           </span>
-          {MODE_LABELS[item]}模式
+          {modeLabels[item]}
         </button>
       ))}
     </div>

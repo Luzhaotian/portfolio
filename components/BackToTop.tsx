@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useI18n } from "@/components/I18nProvider";
 
 const SHOW_AFTER = 400;
 
 export default function BackToTop() {
+  const { t } = useI18n();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -24,7 +26,7 @@ export default function BackToTop() {
   return (
     <button
       type="button"
-      aria-label="回到顶部"
+      aria-label={t.common.backToTop}
       onClick={scrollToTop}
       className={`focus-ring fixed bottom-6 right-4 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-[var(--glass-border)] bg-[var(--glass-bg)] text-body shadow-lg backdrop-blur-md transition-[opacity,transform,visibility] duration-300 hover:border-theme/40 hover:text-theme-light sm:bottom-8 sm:right-6 ${
         visible

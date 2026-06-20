@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useI18n } from "@/components/I18nProvider";
 
 const STORAGE_KEY = "portfolio-cookie-consent";
 
 type ConsentChoice = "accepted" | "rejected";
 
 export default function CookieConsent() {
+  const { t } = useI18n();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -31,12 +33,10 @@ export default function CookieConsent() {
       <div className="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="space-y-1.5">
           <p id="cookie-consent-title" className="text-sm font-medium text-heading">
-            我们使用 Cookie
+            {t.cookie.title}
           </p>
           <p id="cookie-consent-desc" className="text-sm leading-relaxed text-muted">
-            为保障网站正常运行、记住您的主题偏好并了解访问情况，我们会使用必要 Cookie
-            及类似技术。您可以选择全部接受，或拒绝非必要
-            Cookie；拒绝后不影响浏览本站内容。
+            {t.cookie.description}
           </p>
         </div>
 
@@ -46,14 +46,14 @@ export default function CookieConsent() {
             onClick={() => saveChoice("rejected")}
             className="focus-ring rounded-full border border-[var(--border-medium)] bg-[var(--glass-bg)] px-5 py-2.5 text-sm font-semibold text-body transition-colors hover:border-theme/40 hover:text-theme-light"
           >
-            全部拒绝
+            {t.cookie.reject}
           </button>
           <button
             type="button"
             onClick={() => saveChoice("accepted")}
             className="focus-ring rounded-full bg-theme px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
           >
-            全部接受
+            {t.cookie.accept}
           </button>
         </div>
       </div>

@@ -1,16 +1,21 @@
+"use client";
+
 import ContentCard from "@/components/ContentCard";
 import SectionHeader from "@/components/SectionHeader";
+import { useI18n } from "@/components/I18nProvider";
 import { blogPosts, csdnProfile } from "@/data/blogs";
 import { formatCount } from "@/lib/format";
 
 export default function BlogSection() {
+  const { t } = useI18n();
+
   return (
     <section id="blog" className="section-shell bg-surface/40">
       <div className="section-inner">
         <SectionHeader
-          index="05 — BLOG"
-          title="技术博客"
-          subtitle="CSDN 上点赞最多的文章，分享前端工程化、AI 工具链与实战踩坑"
+          index={t.blog.index}
+          title={t.blog.title}
+          subtitle={t.blog.subtitle}
         />
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -20,10 +25,10 @@ export default function BlogSection() {
               title={post.title}
               description={post.description}
               href={post.url}
-              badge={index === 0 ? "最热" : undefined}
+              badge={index === 0 ? t.common.hot : undefined}
               highlight={index === 0}
               clampDescription
-              linkLabel="阅读全文 →"
+              linkLabel={`${t.common.readMore} →`}
               footer={
                 <div className="mt-auto flex flex-wrap items-center gap-3 text-xs text-faint">
                   <span className="inline-flex items-center gap-1">
@@ -52,7 +57,7 @@ export default function BlogSection() {
             rel="noopener noreferrer"
             className="btn-ghost !mx-auto !inline-flex !w-auto"
           >
-            查看 CSDN 主页 →
+            {t.common.viewCsdn} →
           </a>
         </div>
       </div>

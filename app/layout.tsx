@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { I18nProvider } from "@/components/I18nProvider";
+import SkipLink from "@/components/SkipLink";
+import { localeInitScript } from "@/lib/i18n";
 import { themeInitScript } from "@/lib/theme";
 import "@unocss/reset/tailwind.css";
 import "./globals.css";
@@ -60,15 +63,16 @@ export default function RootLayout({
     <html lang="zh-CN" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <script dangerouslySetInnerHTML={{ __html: localeInitScript }} />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} min-h-screen font-sans antialiased`}
         suppressHydrationWarning
       >
-        <a href="#main-content" className="skip-link">
-          跳到主要内容
-        </a>
-        {children}
+        <I18nProvider>
+          <SkipLink />
+          {children}
+        </I18nProvider>
       </body>
     </html>
   );

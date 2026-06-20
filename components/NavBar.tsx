@@ -1,17 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import LocaleToggle from "@/components/LocaleToggle";
 import ThemeToggle from "@/components/ThemeToggle";
-import { navLinks, profile } from "@/data/profile";
+import { useI18n } from "@/components/I18nProvider";
+import { profile } from "@/data/profile";
 import { useViewport } from "@/lib/hooks/useViewport";
 
-const SECTION_IDS = navLinks.map((link) => link.href.slice(1));
-
 export default function NavBar() {
+  const { t } = useI18n();
   const { isMobile } = useViewport();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("about");
+
+  const sectionIds = useMemo(() => t.nav.map((link) => link.href.slice(1)), [t.nav]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -22,7 +25,7 @@ export default function NavBar() {
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
 
-    SECTION_IDS.forEach((id) => {
+    sectionIds.forEach((id) => {
       const el = document.getElementById(id);
       if (!el) return;
 
@@ -38,7 +41,7 @@ export default function NavBar() {
     });
 
     return () => observers.forEach((o) => o.disconnect());
-  }, []);
+  }, [sectionIds]);
 
   useEffect(() => {
     if (!isMobile) setMenuOpen(false);
@@ -65,19 +68,19 @@ export default function NavBar() {
     >
       <nav
         className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4"
-        aria-label="主导航"
+        aria-label={t.navAria.main}
       >
         <a
           href="#"
           className="focus-ring rounded-lg text-base font-bold theme-text sm:text-lg"
           onClick={() => setMenuOpen(false)}
         >
-          {profile.name}
+          {t.profile.name}
         </a>
 
         <div className="hidden items-center gap-2 md:flex">
           <ul className="flex items-center gap-1">
-            {navLinks.map((link) => {
+            {t.nav.map((link) => {
               const id = link.href.slice(1);
               const isActive = activeSection === id;
 
@@ -97,6 +100,7 @@ export default function NavBar() {
               );
             })}
           </ul>
+          <LocaleToggle compact />
           <ThemeToggle compact />
           <a
             href={profile.github}
@@ -104,7 +108,7 @@ export default function NavBar() {
             rel="noopener noreferrer"
             className="btn-ghost !w-auto !px-4 !py-2 text-xs"
           >
-            GitHub
+            {t.hero.github}
           </a>
         </div>
 
@@ -112,7 +116,7 @@ export default function NavBar() {
           <button
             type="button"
             className="focus-ring flex flex-col gap-1.5 rounded-lg p-2 text-body"
-            aria-label={menuOpen ? "关闭菜单" : "打开菜单"}
+            aria-label={menuOpen ? t.navAria.closeMenu : t.navAria.openMenu}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen(!menuOpen)}
           >
@@ -132,7 +136,7 @@ export default function NavBar() {
       {menuOpen && (
         <div className="border-b border-divider bg-[var(--nav-bg-solid)] backdrop-blur-xl md:hidden">
           <ul className="flex max-h-[calc(100dvh-3.5rem)] flex-col gap-1 overflow-y-auto px-4 py-4">
-            {navLinks.map((link) => {
+            {t.nav.map((link) => {
               const id = link.href.slice(1);
               const isActive = activeSection === id;
 
@@ -153,6 +157,9 @@ export default function NavBar() {
               );
             })}
             <li className="mt-2 border-t border-divider pt-3">
+              <LocaleToggle onSelect={() => setMenuOpen(false)} />
+            </li>
+            <li className="mt-2 border-t border-divider pt-3">
               <ThemeToggle onSelect={() => setMenuOpen(false)} />
             </li>
             <li className="mt-2 border-t border-divider pt-3">
@@ -163,7 +170,7 @@ export default function NavBar() {
                 className="btn-ghost !py-2.5"
                 onClick={() => setMenuOpen(false)}
               >
-                GitHub
+                {t.hero.github}
               </a>
             </li>
           </ul>

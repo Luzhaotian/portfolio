@@ -1,5 +1,8 @@
+"use client";
+
 import ContentCard from "@/components/ContentCard";
 import SectionHeader from "@/components/SectionHeader";
+import { useI18n } from "@/components/I18nProvider";
 import type { Project } from "@/data/projects";
 
 interface ProjectsSectionProps {
@@ -19,6 +22,8 @@ export default function ProjectsSection({
   projects,
   showLinks = false,
 }: ProjectsSectionProps) {
+  const { t } = useI18n();
+
   return (
     <section id={id} className="section-shell">
       <div className="section-inner">
@@ -31,9 +36,11 @@ export default function ProjectsSection({
               title={project.name}
               description={project.description}
               href={showLinks ? project.link : undefined}
-              badge={project.highlight ? "精选" : undefined}
+              badge={project.highlight ? t.common.featured : undefined}
               highlight={project.highlight}
-              linkLabel={showLinks && project.link ? "查看仓库 →" : undefined}
+              linkLabel={
+                showLinks && project.link ? `${t.common.viewRepo} →` : undefined
+              }
               footer={
                 <div className="flex flex-wrap gap-2">
                   {project.tech.slice(0, 5).map((tech) => (
