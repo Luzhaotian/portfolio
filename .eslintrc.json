@@ -5,6 +5,7 @@
     "out/**",
     "build/**",
     "node_modules/**",
-    "next-env.d.ts"
+    "next-env.d.ts",
+    "postcss-unocss.cjs"
   ]
 }

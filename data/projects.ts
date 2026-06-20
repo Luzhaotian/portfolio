@@ -57,39 +57,15 @@ export const enterpriseProjects: Project[] = [
     category: "enterprise",
   },
   {
-    name: "OMS 订单管理",
-    description: "订单管理系统，覆盖订单全生命周期与库存联动。",
-    tech: ["Vue 3", "Vite", "Pinia"],
-    category: "enterprise",
-  },
-  {
     name: "短剧内容平台",
     description: "短剧内容管理与运营后台，支持内容上架、数据统计与用户分析。",
     tech: ["React", "Ant Design"],
     category: "enterprise",
   },
   {
-    name: "投顾管理系统",
-    description: "投资顾问业务管理平台，数据可视化与业绩分析。",
-    tech: ["React", "Ant Design", "ECharts"],
-    category: "enterprise",
-  },
-  {
     name: "国际化消费金融平台",
     description: "国际化消费金融平台，多语言支持与跨境业务管理。",
     tech: ["React", "Next.js", "Ant Design"],
-    category: "enterprise",
-  },
-  {
-    name: "保险 H5",
-    description: "移动端保险产品展示与投保流程，优化 C 端用户体验。",
-    tech: ["Vue", "TypeScript"],
-    category: "enterprise",
-  },
-  {
-    name: "广告管理平台",
-    description: "广告投放与素材管理系统，支持多渠道投放策略配置。",
-    tech: ["React", "Ant Design"],
     category: "enterprise",
   },
 ];

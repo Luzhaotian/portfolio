@@ -27,15 +27,14 @@ export const experienceDomains = [
     icon: "💰",
   },
   {
-    title: "AI 应用",
+    title: "AI 应用与 MCP",
     description:
-      "企业 AI 应用平台、AI 智检系统、前端智能体（fe-agent），将大模型能力融入企业级产品与工作流。",
+      "落地企业 AI 平台、智检系统与前端智能体，引入 AI Skills 与 MCP 工具链贯穿研发协作与外呼话术配置等环节，团队效率与交付质量整体提升约 30%。",
     icon: "🤖",
   },
   {
     title: "企业 SaaS",
-    description:
-      "CRM、OMS 订单管理、投顾管理、广告管理等 B 端平台，服务内部运营与业务团队。",
+    description: "CRM、智能外呼、短剧运营等 B 端平台，服务内部运营与业务团队。",
     icon: "🏢",
   },
   {

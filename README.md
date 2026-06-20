@@ -1,25 +1,44 @@
 # 卢照天 · 个人作品集
 
-卢照天（Luzhaotian）的个人作品集网站，展示 8 年前端开发经验、技术栈、企业项目与开源作品。
+卢照天（Luzhaotian）的个人作品集网站 — 基于 **Next.js 15** 的单页应用，展示 8 年前端经验、技术栈、企业项目与开源作品。
 
-在线预览：本地运行后访问 [http://localhost:3000](http://localhost:3000)
+本地预览：[http://localhost:3000](http://localhost:3000)（需先执行 `npm run dev`）
 
 ## 功能特性
 
-- 响应式单页布局，深色主题 + 玻璃拟态卡片
-- SEO 优化（Next.js Metadata、OpenGraph、语义化 HTML）
-- [Vanta.js](https://github.com/tengbao/vanta) 飞鸟 3D 背景（基于 Three.js，支持鼠标交互）
-- 内容模块化：个人简介、技能、企业项目、开源项目、经验领域均可在 `data/` 中维护
+- 响应式单页布局：深色主题、玻璃拟态卡片、Editorial 区块编排
+- 单色 Teal 主题（`#14b8a6`），无渐变强调
+- [UnoCSS](https://unocss.dev/) 原子化样式 + `shortcuts` 组件级快捷类
+- [Vanta.js](https://github.com/tengbao/vanta) 飞鸟 3D 背景（Three.js，支持鼠标交互）
+- SEO：Next.js Metadata、OpenGraph、语义化 HTML、跳过导航链接
+- 内容数据化：`data/` 目录维护简介、技能、项目与经验领域
+
+## 页面结构
+
+| 区块     | 锚点          | 说明                                        |
+| -------- | ------------- | ------------------------------------------- |
+| Hero     | —             | 姓名、职位、关键数据卡片                    |
+| 关于     | `#about`      | 个人简介与 GitHub 入口                      |
+| 技能     | `#skills`     | Bento 布局技术栈分类                        |
+| 企业项目 | `#enterprise` | 9 项代表性企业级项目（含 ce-telephone SDK） |
+| 开源项目 | `#github`     | GitHub 个人仓库与外链                       |
+| 经验领域 | `#experience` | 6 个业务与技术方向（含 AI 应用与 MCP）      |
 
 ## 技术栈
 
-| 类别    | 技术                               |
-| ------- | ---------------------------------- |
-| 框架    | Next.js 15（App Router）+ React 19 |
-| 语言    | TypeScript                         |
-| 样式    | Tailwind CSS                       |
-| 3D 背景 | Three.js 0.134 + Vanta.js BIRDS    |
-| 字体    | Geist Sans / Geist Mono            |
+| 类别    | 技术                                             |
+| ------- | ------------------------------------------------ |
+| 框架    | Next.js 15（App Router）+ React 19               |
+| 语言    | TypeScript 5                                     |
+| 样式    | UnoCSS 66 + `@unocss/preset-wind3` + PostCSS     |
+| 3D 背景 | Three.js 0.134 + Vanta.js BIRDS                  |
+| 字体    | Geist Sans / Geist Mono（`next/font`）           |
+| 规范    | ESLint、Prettier、Husky、lint-staged、Commitlint |
+
+## 环境要求
+
+- Node.js 18+（推荐 20+）
+- npm 9+
 
 ## 本地开发
 
@@ -28,9 +47,7 @@ npm install
 npm run dev
 ```
 
-`dev` 会自动清理 `.next` 缓存后启动开发服务器，避免构建缓存导致的运行时错误。
-
-访问 [http://localhost:3000](http://localhost:3000) 查看网站。
+`dev` 会先执行 `npm run clean` 清理 `.next` 缓存，再启动开发服务器，避免陈旧缓存引发运行时异常。
 
 ## 常用命令
 
@@ -41,61 +58,165 @@ npm run dev
 | `npm start`            | 启动生产服务器（需先 `build`） |
 | `npm run lint`         | ESLint 检查                    |
 | `npm run lint:fix`     | ESLint 自动修复                |
-| `npm run format`       | Prettier 格式化全部文件        |
-| `npm run format:check` | 检查格式是否符合 Prettier 规则 |
+| `npm run format`       | Prettier 格式化                |
+| `npm run format:check` | Prettier 格式检查              |
 | `npm run clean`        | 删除 `.next` 构建缓存          |
+
+## 项目结构
+
+```
+app/
+  layout.tsx          # 根布局、SEO metadata、字体与全局样式入口
+  page.tsx            # 首页（组合各区块）
+  globals.css         # UnoCSS 注入入口（@unocss all）
+components/
+  VantaBackground.tsx         # Vanta 飞鸟背景
+  VantaBackgroundClient.tsx   # dynamic import，禁用 SSR
+  NavBar.tsx                  # 导航栏（滚动高亮当前区块）
+  HeroSection.tsx             # 首屏
+  AboutSection.tsx            # 关于
+  SkillsSection.tsx           # 技能
+  ProjectsSection.tsx         # 项目列表
+  ExperienceSection.tsx       # 经验领域
+  SectionHeader.tsx           # 区块标题
+  FooterSection.tsx           # 页脚
+data/
+  profile.ts          # 个人信息、导航、经验领域
+  skills.ts           # 技能分类
+  projects.ts         # 企业项目与开源项目
+lib/
+  vantaThree.ts       # Three.js 兼容层（适配 Vanta.js）
+types/
+  vanta.d.ts          # Vanta 类型声明
+public/
+  favicon.svg
+uno.config.ts         # UnoCSS 主题、shortcuts、rules、preflights
+postcss.config.cjs    # PostCSS 配置
+postcss-unocss.cjs    # UnoCSS PostCSS 桥接（兼容 Next.js require）
+next.config.ts        # Next.js 配置
+.husky/               # Git 钩子（pre-commit / commit-msg）
+```
+
+## 自定义内容
+
+编辑 `data/` 即可更新站点内容，无需改动组件逻辑：
+
+| 文件          | 说明                                                    |
+| ------------- | ------------------------------------------------------- |
+| `profile.ts`  | 姓名、职位、简介、GitHub、导航、经验领域（建议 ≤ 6 项） |
+| `skills.ts`   | 技能分类与标签                                          |
+| `projects.ts` | 企业项目（当前 9 项）与开源项目列表                     |
+
+企业项目描述建议使用通用业务名称，避免在公开站点展示敏感公司或产品名称。
+
+## 样式体系（UnoCSS）
+
+### 架构
+
+```
+layout.tsx
+  ├── @unocss/reset/tailwind.css   # 基础 reset
+  └── globals.css (@unocss all)    # PostCSS 生成最终 CSS
+
+postcss.config.cjs → postcss-unocss.cjs → uno.config.ts
+```
+
+`postcss-unocss.cjs` 用于解决 Next.js 通过 `require()` 加载 `@unocss/postcss` 时的 ESM/CJS 兼容问题。
+
+### 三层样式
+
+| 层级       | 位置             | 用途                                                           |
+| ---------- | ---------------- | -------------------------------------------------------------- |
+| 原子类     | 组件 `className` | Wind 兼容工具类，如 `text-slate-400`、`hover:text-theme-light` |
+| shortcuts  | `uno.config.ts`  | 复用组合类，见下表                                             |
+| preflights | `uno.config.ts`  | 全局基础样式：`html`、`body`、`::selection`、动画 keyframes 等 |
+
+### 常用 shortcuts
+
+| 类名                                 | 用途                     |
+| ------------------------------------ | ------------------------ |
+| `glass-card`                         | 玻璃拟态卡片             |
+| `glass-card-interactive`             | 可交互卡片（hover 动效） |
+| `btn-primary` / `btn-ghost`          | 主按钮 / 幽灵按钮        |
+| `section-shell` / `section-inner`    | 区块外层 / 内容容器      |
+| `section-title` / `section-subtitle` | 区块标题 / 副标题        |
+| `tech-tag`                           | 技术标签                 |
+| `stat-card`                          | Hero 数据卡片            |
+| `theme-text`                         | 主题色文字               |
+| `focus-ring`                         | 焦点环样式               |
+| `skip-link`                          | 跳过导航链接             |
+| `bg-grid-pattern` / `bg-grid`        | 网格背景                 |
+
+新增组件级样式时，优先在 `uno.config.ts` 的 `shortcuts` 中扩展，避免在 `globals.css` 写 `@apply`。
+
+### 主题色
+
+当前为 Teal 单色体系：
+
+| 用途               | 色值      |
+| ------------------ | --------- |
+| 主色 `theme`       | `#14b8a6` |
+| 浅色 `theme-light` | `#5eead4` |
+| 背景 `background`  | `#050508` |
+| 表面 `surface`     | `#0c0c14` |
+
+修改主题时需同步以下文件：
+
+| 文件                             | 修改项                                            |
+| -------------------------------- | ------------------------------------------------- |
+| `uno.config.ts`                  | `theme.colors.theme`、`preflights` 中的 `--theme` |
+| `components/VantaBackground.tsx` | `color` / `color1` / `color2`（如 `0x14b8a6`）    |
+| `public/favicon.svg`             | 图标填充色                                        |
+
+## 背景特效
+
+默认 **BIRDS**（飞鸟），颜色与主题色同步；GPGPU 初始化失败时自动回退 **NET**（粒子网格）。
+
+更换效果：编辑 `components/VantaBackground.tsx`，可选效果见 [vantajs.com](https://www.vantajs.com/)。
+
+> Vanta.js 与新版 Three.js 存在兼容问题，项目锁定 `three@0.134.0`。升级前请先验证背景效果。
 
 ## 代码规范与 Git 校验
 
-项目集成了 **Prettier**（格式化）、**ESLint**（代码检查）、**Husky**（Git 钩子）与 **Commitlint**（提交信息规范）。
+集成 **Prettier**、**ESLint**、**Husky**、**lint-staged**、**Commitlint**。
 
-### 本地格式化
+### 格式化
 
 ```bash
-npm run format        # 格式化所有文件
-npm run format:check  # 仅检查，不修改
+npm run format        # 格式化全部文件
+npm run format:check  # 仅检查
 npm run lint:fix      # ESLint 自动修复
 ```
 
-推荐在 VS Code 中安装 `.vscode/extensions.json` 推荐的扩展，已配置保存时自动格式化。
+推荐安装 `.vscode/extensions.json` 中的扩展（ESLint、Prettier 等）。
 
-### Git 提交校验
+### Git 钩子
 
-`npm install` 后会通过 `husky` 自动注册钩子：
+| 钩子         | 行为                                            |
+| ------------ | ----------------------------------------------- |
+| `pre-commit` | 对暂存文件运行 ESLint + Prettier（lint-staged） |
+| `commit-msg` | Commitlint 校验提交信息格式                     |
 
-| 钩子         | 行为                                                    |
-| ------------ | ------------------------------------------------------- |
-| `pre-commit` | 对暂存文件运行 ESLint + Prettier（lint-staged）         |
-| `commit-msg` | 校验 `feat`/`fix` 等前缀 + 中文单行说明（可含技术名词） |
+提交格式建议：`type: 说明`（Conventional Commits 前缀）
 
-提交格式：`type: 中文说明`（仅一行；说明须含中文，可含 Next.js、React 等技术名词）
-
-| 前缀       | 用途                   |
-| ---------- | ---------------------- |
-| `feat`     | 新功能                 |
-| `fix`      | 修复问题               |
-| `docs`     | 文档变更               |
-| `style`    | 代码格式（不影响逻辑） |
-| `refactor` | 重构                   |
-| `perf`     | 性能优化               |
-| `test`     | 测试                   |
-| `build`    | 构建/依赖              |
-| `ci`       | CI 配置                |
-| `chore`    | 其他杂项               |
-| `revert`   | 回滚                   |
+| 前缀       | 用途               |
+| ---------- | ------------------ |
+| `feat`     | 新功能             |
+| `fix`      | 修复               |
+| `docs`     | 文档               |
+| `style`    | 格式（不影响逻辑） |
+| `refactor` | 重构               |
+| `perf`     | 性能               |
+| `test`     | 测试               |
+| `build`    | 构建 / 依赖        |
+| `ci`       | CI                 |
+| `chore`    | 杂项               |
+| `revert`   | 回滚               |
 
 ```bash
-git commit -m "feat: 搭建 Next.js 个人作品集网站"
-git commit -m "fix: 修复 Vanta 背景层级问题"
-git commit -m "docs: 更新 README 说明"
-```
-
-以下提交会被拒绝：
-
-```bash
-git commit -m "feat: add feature"      # 说明无中文
-git commit -m "feat(api): 新功能"       # 不允许 scope
-git commit -m "feat: 标题\n\n正文"       # 不允许多行
+git commit -m "feat: 搭建 Next.js 个人作品集"
+git commit -m "fix: 修复 Vanta 背景层级"
+git commit -m "docs: 更新 README"
 ```
 
 ## 构建与部署
@@ -105,57 +226,14 @@ npm run build
 npm start
 ```
 
-支持部署到 Vercel、Node.js 服务器等 Next.js 兼容平台。推送到 GitHub 后可在 Vercel 一键关联部署。
+支持 Vercel、Node.js 等 Next.js 兼容平台。关联 GitHub 仓库后可在 Vercel 一键部署。
 
-## 项目结构
+## 相关链接
 
-```
-app/
-  layout.tsx      # 根布局与 SEO metadata
-  page.tsx        # 首页（各区块组合）
-  globals.css     # 全局样式
-components/
-  VantaBackground.tsx       # Vanta 飞鸟背景（Client Component）
-  VantaBackgroundClient.tsx # dynamic import，禁用 SSR
-  NavBar.tsx                # 导航栏
-  HeroSection.tsx           # 首屏
-  AboutSection.tsx          # 关于
-  SkillsSection.tsx         # 技能
-  ProjectsSection.tsx       # 项目列表
-  ExperienceSection.tsx     # 经验领域
-  FooterSection.tsx         # 页脚
-data/
-  profile.ts      # 个人信息与导航
-  skills.ts       # 技能分类
-  projects.ts     # 企业项目与 GitHub 开源项目
-lib/
-  vantaThree.ts   # Three.js 兼容层（适配 Vanta.js）
-types/
-  vanta.d.ts      # Vanta 类型声明
-public/
-  favicon.svg
-```
-
-## 自定义内容
-
-编辑 `data/` 目录下的文件即可更新网站内容，无需改动组件逻辑：
-
-- `profile.ts` — 姓名、职位、简介、GitHub 链接
-- `skills.ts` — 技能分类与标签
-- `projects.ts` — 企业项目与开源项目列表
-
-## 背景特效
-
-默认使用 Vanta.js **BIRDS**（飞鸟）效果。若 GPGPU 初始化失败，会自动回退到 **NET**（粒子网格）。
-
-更换效果：修改 `components/VantaBackground.tsx` 中的 import 与初始化配置，可选效果见 [vantajs.com](https://www.vantajs.com/)。
-
-> **注意**：Vanta.js 与 Three.js 新版本存在兼容性问题，项目已锁定 `three@0.134.0`。升级 Three.js 前请先验证 Vanta 效果是否正常。
-
-## 链接
-
-- GitHub：[https://github.com/Luzhaotian](https://github.com/Luzhaotian)
+- 作者 GitHub：[https://github.com/Luzhaotian](https://github.com/Luzhaotian)
+- UnoCSS：[https://unocss.dev](https://unocss.dev)
 - Vanta.js：[https://github.com/tengbao/vanta](https://github.com/tengbao/vanta)
+- Next.js：[https://nextjs.org](https://nextjs.org)
 
 ## License
 

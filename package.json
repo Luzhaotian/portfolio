@@ -14,13 +14,16 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,mjs,cjs}": [
+    "{app,components,lib,data,types}/**/*.{js,jsx,ts,tsx,mjs,cjs}": [
       "eslint --fix --max-warnings 0",
       "prettier --write"
     ],
-    "*.{json,md,css,yml,yaml}": [
+    "*.{js,ts,mjs}": [
+      "eslint --fix --max-warnings 0",
       "prettier --write"
-    ]
+    ],
+    "postcss*.cjs": "prettier --write",
+    "*.{json,md,css,yml,yaml}": "prettier --write"
   },
   "dependencies": {
     "next": "^15.3.3",
@@ -36,7 +39,9 @@
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.5",
     "@types/three": "^0.134.0",
-    "autoprefixer": "^10.4.21",
+    "@unocss/postcss": "^66.7.2",
+    "@unocss/preset-wind3": "^66.7.2",
+    "@unocss/reset": "^66.7.2",
     "eslint": "^8.57.1",
     "eslint-config-next": "^15.5.19",
     "eslint-config-prettier": "^10.1.8",
@@ -44,7 +49,7 @@
     "lint-staged": "^16.4.0",
     "postcss": "^8.5.4",
     "prettier": "^3.8.4",
-    "tailwindcss": "^3.4.17",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "unocss": "^66.7.2"
   }
 }
