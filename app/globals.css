@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gradient-primary: linear-gradient(135deg, #38bdf8 0%, #a78bfa 100%);
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: transparent;
+  color: #e2e8f0;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: rgba(56, 189, 248, 0.3);
+  color: #fff;
+}
+
+@layer components {
+  .glass-card {
+    @apply rounded-2xl border border-white/[0.08] bg-white/[0.04] backdrop-blur-md;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-sky-400 to-purple-400 bg-clip-text text-transparent;
+  }
+
+  .section-title {
+    @apply mb-4 text-3xl font-bold tracking-tight md:text-4xl;
+  }
+
+  .section-subtitle {
+    @apply mb-12 text-base text-slate-400 md:text-lg;
+  }
+
+  .tech-tag {
+    @apply rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300 transition-colors hover:border-sky-400/30 hover:text-sky-300;
+  }
+}
+
+@layer utilities {
+  .animate-delay-100 {
+    animation-delay: 100ms;
+  }
+  .animate-delay-200 {
+    animation-delay: 200ms;
+  }
+  .animate-delay-300 {
+    animation-delay: 300ms;
+  }
+  .animate-delay-400 {
+    animation-delay: 400ms;
+  }
+}
