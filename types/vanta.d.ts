@@ -26,6 +26,7 @@ declare module "vanta/dist/vanta.birds.min" {
 
   interface VantaEffect {
     destroy: () => void;
+    resize?: () => void;
   }
 
   export default function BIRDS(options: VantaBirdsOptions): VantaEffect;
@@ -53,6 +54,7 @@ declare module "vanta/dist/vanta.net.min" {
 
   interface VantaEffect {
     destroy: () => void;
+    resize?: () => void;
   }
 
   export default function NET(options: VantaNetOptions): VantaEffect;

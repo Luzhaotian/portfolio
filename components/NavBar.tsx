@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import ThemeToggle from "@/components/ThemeToggle";
 import { navLinks, profile } from "@/data/profile";
 import { useViewport } from "@/lib/hooks/useViewport";
 
-const SECTION_IDS = navLinks.map((link) => link.href.replace("#", ""));
+const SECTION_IDS = navLinks.map((link) => link.href.slice(1));
 
 export default function NavBar() {
   const { isMobile } = useViewport();
@@ -53,13 +54,14 @@ export default function NavBar() {
     };
   }, [menuOpen, isMobile]);
 
+  const headerBg =
+    scrolled || menuOpen
+      ? "border-b border-divider bg-[var(--nav-bg)] backdrop-blur-xl"
+      : "bg-transparent";
+
   return (
     <header
-      className={`fixed top-0 z-50 w-full transition-[background-color,border-color,backdrop-filter] duration-300 ${
-        scrolled || menuOpen
-          ? "border-b border-white/10 bg-background/75 backdrop-blur-xl"
-          : "bg-transparent"
-      }`}
+      className={`fixed top-0 z-50 w-full transition-[background-color,border-color,backdrop-filter] duration-300 ${headerBg}`}
     >
       <nav
         className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4"
@@ -73,62 +75,65 @@ export default function NavBar() {
           {profile.name}
         </a>
 
-        <ul className="hidden items-center gap-1 md:flex">
-          {navLinks.map((link) => {
-            const id = link.href.replace("#", "");
-            const isActive = activeSection === id;
+        <div className="hidden items-center gap-2 md:flex">
+          <ul className="flex items-center gap-1">
+            {navLinks.map((link) => {
+              const id = link.href.slice(1);
+              const isActive = activeSection === id;
 
-            return (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  className={`focus-ring rounded-full px-3.5 py-2 text-sm transition-colors ${
-                    isActive
-                      ? "bg-white/10 text-theme-light"
-                      : "text-slate-400 hover:text-slate-200"
-                  }`}
-                >
-                  {link.label}
-                </a>
-              </li>
-            );
-          })}
-          <li className="ml-2">
-            <a
-              href={profile.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-ghost !w-auto !px-4 !py-2 text-xs"
-            >
-              GitHub
-            </a>
-          </li>
-        </ul>
+              return (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    className={`focus-ring rounded-full px-3.5 py-2 text-sm transition-colors ${
+                      isActive
+                        ? "bg-active text-theme-light"
+                        : "text-muted hover:text-body"
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+          <ThemeToggle compact />
+          <a
+            href={profile.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-ghost !w-auto !px-4 !py-2 text-xs"
+          >
+            GitHub
+          </a>
+        </div>
 
-        <button
-          type="button"
-          className="focus-ring flex flex-col gap-1.5 rounded-lg p-2 md:hidden"
-          aria-label={menuOpen ? "关闭菜单" : "打开菜单"}
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          <span
-            className={`block h-0.5 w-6 bg-slate-300 transition-transform ${menuOpen ? "translate-y-2 rotate-45" : ""}`}
-          />
-          <span
-            className={`block h-0.5 w-6 bg-slate-300 transition-opacity ${menuOpen ? "opacity-0" : ""}`}
-          />
-          <span
-            className={`block h-0.5 w-6 bg-slate-300 transition-transform ${menuOpen ? "-translate-y-2 -rotate-45" : ""}`}
-          />
-        </button>
+        <div className="flex items-center gap-2 md:hidden">
+          <button
+            type="button"
+            className="focus-ring flex flex-col gap-1.5 rounded-lg p-2 text-body"
+            aria-label={menuOpen ? "关闭菜单" : "打开菜单"}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <span
+              className={`block h-0.5 w-6 bg-current transition-transform ${menuOpen ? "translate-y-2 rotate-45" : ""}`}
+            />
+            <span
+              className={`block h-0.5 w-6 bg-current transition-opacity ${menuOpen ? "opacity-0" : ""}`}
+            />
+            <span
+              className={`block h-0.5 w-6 bg-current transition-transform ${menuOpen ? "-translate-y-2 -rotate-45" : ""}`}
+            />
+          </button>
+        </div>
       </nav>
 
       {menuOpen && (
-        <div className="border-b border-white/10 bg-background/95 backdrop-blur-xl md:hidden">
+        <div className="border-b border-divider bg-[var(--nav-bg-solid)] backdrop-blur-xl md:hidden">
           <ul className="flex max-h-[calc(100dvh-3.5rem)] flex-col gap-1 overflow-y-auto px-4 py-4">
             {navLinks.map((link) => {
-              const id = link.href.replace("#", "");
+              const id = link.href.slice(1);
               const isActive = activeSection === id;
 
               return (
@@ -137,8 +142,8 @@ export default function NavBar() {
                     href={link.href}
                     className={`focus-ring block rounded-lg px-3 py-3 text-base transition-colors ${
                       isActive
-                        ? "bg-white/10 text-theme-light"
-                        : "text-slate-300 hover:bg-white/5"
+                        ? "bg-active text-theme-light"
+                        : "text-muted hover:bg-hover"
                     }`}
                     onClick={() => setMenuOpen(false)}
                   >
@@ -147,7 +152,10 @@ export default function NavBar() {
                 </li>
               );
             })}
-            <li className="mt-2 border-t border-white/10 pt-3">
+            <li className="mt-2 border-t border-divider pt-3">
+              <ThemeToggle onSelect={() => setMenuOpen(false)} />
+            </li>
+            <li className="mt-2 border-t border-divider pt-3">
               <a
                 href={profile.github}
                 target="_blank"

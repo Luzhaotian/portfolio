@@ -8,11 +8,12 @@ import ProjectsSection from "@/components/ProjectsSection";
 import BlogSection from "@/components/BlogSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import FooterSection from "@/components/FooterSection";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import { enterpriseProjects, githubProjects } from "@/data/projects";
 
 export default function Home() {
   return (
-    <>
+    <ThemeProvider>
       <ViewportSync />
       <VantaBackground />
       <div className="relative z-10">
@@ -24,8 +25,8 @@ export default function Home() {
           <ProjectsSection
             id="enterprise"
             sectionIndex="03 — ENTERPRISE"
-            title="企业项目"
-            subtitle="参与的核心业务平台与管理系统"
+            title="近期企业项目"
+            subtitle="近年参与的代表性核心业务平台与管理系统"
             projects={enterpriseProjects}
           />
           <ProjectsSection
@@ -41,6 +42,6 @@ export default function Home() {
         </main>
         <FooterSection />
       </div>
-    </>
+    </ThemeProvider>
   );
 }

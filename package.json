@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "npm run clean && next dev",
+    "dev": "next dev",
+    "dev:clean": "npm run clean && next dev",
     "build": "next build",
+    "preview": "GITHUB_PAGES=true npm run build && npx --yes serve out -p 3000",
     "start": "next start",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx,.mjs,.cjs --max-warnings 0",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx,.mjs,.cjs --fix",

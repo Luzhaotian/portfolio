@@ -10,11 +10,11 @@ export default defineConfig({
   presets: [presetWind3()],
   theme: {
     colors: {
-      background: "#050508",
-      surface: "#0c0c14",
+      background: "var(--color-background)",
+      surface: "var(--color-surface)",
       theme: {
-        DEFAULT: "#14b8a6",
-        light: "#5eead4",
+        DEFAULT: "var(--theme-accent)",
+        light: "var(--theme-accent-light)",
       },
     },
     fontFamily: {
@@ -23,31 +23,38 @@ export default defineConfig({
     },
   },
   shortcuts: {
-    "glass-card": "rounded-2xl border border-white/8 bg-white/3 backdrop-blur-md",
+    "text-heading": "text-[var(--text-heading)]",
+    "text-body": "text-[var(--text-body)]",
+    "text-muted": "text-[var(--text-muted)]",
+    "text-faint": "text-[var(--text-faint)]",
+    "border-divider": "border-[var(--border-subtle)]",
+    "bg-active": "bg-[var(--nav-active)]",
+    "bg-hover": "bg-[var(--nav-hover)]",
+    "glass-card":
+      "rounded-2xl border border-[var(--glass-border)] bg-[var(--glass-bg)] backdrop-blur-md",
     "glass-card-interactive":
-      "glass-card transition-[border-color,background-color,transform] duration-300 hover:border-theme/25 hover:bg-white/6 hover:-translate-y-0.5",
+      "glass-card transition-[border-color,background-color,transform] duration-300 hover:border-theme/25 hover:bg-[var(--glass-bg-hover)] hover:-translate-y-0.5",
     "theme-text": "text-theme",
     "section-shell": "relative px-4 py-16 sm:px-6 sm:py-20 md:py-28",
     "section-inner": "mx-auto max-w-6xl",
     "section-title":
-      "text-2xl font-bold tracking-tight text-slate-50 sm:text-3xl md:text-4xl lg:text-[2.75rem] lg:leading-tight",
-    "section-subtitle":
-      "text-sm leading-relaxed text-slate-400 sm:text-base md:text-lg",
+      "text-2xl font-bold tracking-tight text-heading sm:text-3xl md:text-4xl lg:text-[2.75rem] lg:leading-tight",
+    "section-subtitle": "text-sm leading-relaxed text-muted sm:text-base md:text-lg",
     "tech-tag":
-      "rounded-md border border-white/10 bg-white/4 px-2.5 py-1 text-xs text-slate-300 transition-[border-color,color] duration-200 hover:border-theme/35 hover:text-theme-light",
+      "rounded-md border border-[var(--glass-border)] bg-[var(--tag-bg)] px-2.5 py-1 text-xs text-muted transition-[border-color,color] duration-200 hover:border-theme/35 hover:text-theme-light",
     "focus-ring":
-      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-theme/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-theme/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]",
     "btn-primary":
       "inline-flex w-full items-center justify-center rounded-full bg-theme px-6 py-3 text-sm font-semibold text-white transition-[opacity,transform] duration-200 hover:opacity-90 hover:scale-[1.02] focus-ring sm:w-auto sm:px-7",
     "btn-ghost":
-      "inline-flex w-full items-center justify-center rounded-full border border-white/15 bg-white/3 px-6 py-3 text-sm font-semibold text-slate-200 transition-[border-color,color,background-color] duration-200 hover:border-theme/40 hover:bg-white/6 hover:text-theme-light focus-ring sm:w-auto sm:px-7",
+      "inline-flex w-full items-center justify-center rounded-full border border-[var(--border-medium)] bg-[var(--glass-bg)] px-6 py-3 text-sm font-semibold text-body transition-[border-color,color,background-color] duration-200 hover:border-theme/40 hover:bg-[var(--glass-bg-hover)] hover:text-theme-light focus-ring sm:w-auto sm:px-7",
     "stat-card":
       "glass-card relative overflow-hidden p-4 sm:p-5 md:p-6 before:content-empty before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-theme/40",
     "skip-link":
       "fixed left-4 top-4 z-[100] -translate-y-20 rounded-lg bg-theme px-4 py-2 text-sm font-medium text-white opacity-0 transition-transform focus-visible:translate-y-0 focus-visible:opacity-100 focus-ring",
-    "bg-grid-pattern":
-      "bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)]",
+    "bg-grid-pattern": "bg-grid-lines",
     "bg-grid": "bg-[length:48px_48px]",
+    "hero-overlay": "hero-gradient-overlay",
   },
   rules: [
     ["animate-fade-in", { animation: "fadeIn 0.7s ease-out forwards" }],
@@ -58,16 +65,89 @@ export default defineConfig({
     ["animate-delay-400", { "animation-delay": "400ms" }],
     ["text-balance", { "text-wrap": "balance" }],
     ["text-pretty", { "text-wrap": "pretty" }],
+    [
+      "line-clamp-3",
+      {
+        overflow: "hidden",
+        display: "-webkit-box",
+        "-webkit-line-clamp": "3",
+        "-webkit-box-orient": "vertical",
+      },
+    ],
+    [
+      "bg-grid-lines",
+      {
+        "background-image":
+          "linear-gradient(to right, var(--grid-color) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px)",
+      },
+    ],
+    [
+      "hero-gradient-overlay",
+      {
+        background:
+          "linear-gradient(to bottom, transparent, var(--hero-overlay-mid), var(--hero-overlay-end))",
+      },
+    ],
   ],
   preflights: [
     {
       getCSS: () => `
-        :root {
-          --theme: #14b8a6;
+        html[data-theme="dark"],
+        html:not([data-theme]) {
+          color-scheme: dark;
+          --color-background: #050508;
+          --color-surface: #0c0c14;
+          --text-heading: #f8fafc;
+          --text-body: #e2e8f0;
+          --text-muted: #94a3b8;
+          --text-faint: #64748b;
+          --border-subtle: rgba(255, 255, 255, 0.08);
+          --border-medium: rgba(255, 255, 255, 0.15);
+          --glass-bg: rgba(255, 255, 255, 0.03);
+          --glass-bg-hover: rgba(255, 255, 255, 0.06);
+          --glass-border: rgba(255, 255, 255, 0.08);
+          --tag-bg: rgba(255, 255, 255, 0.04);
+          --nav-bg: rgba(5, 5, 8, 0.75);
+          --nav-bg-solid: rgba(5, 5, 8, 0.95);
+          --nav-active: rgba(255, 255, 255, 0.1);
+          --nav-hover: rgba(255, 255, 255, 0.05);
+          --grid-color: rgba(255, 255, 255, 0.03);
+          --hero-overlay-mid: rgba(5, 5, 8, 0.1);
+          --hero-overlay-end: rgba(5, 5, 8, 0.8);
+          --vanta-bg: #050508;
+          --theme-accent: #14b8a6;
+          --theme-accent-light: #5eead4;
           --theme-muted: rgba(20, 184, 166, 0.15);
+          --selection-bg: rgba(20, 184, 166, 0.35);
+        }
+        html[data-theme="light"] {
+          color-scheme: light;
+          --color-background: #f8fafc;
+          --color-surface: #f1f5f9;
+          --text-heading: #0f172a;
+          --text-body: #334155;
+          --text-muted: #64748b;
+          --text-faint: #94a3b8;
+          --border-subtle: rgba(15, 23, 42, 0.08);
+          --border-medium: rgba(15, 23, 42, 0.14);
+          --glass-bg: rgba(255, 255, 255, 0.78);
+          --glass-bg-hover: rgba(255, 255, 255, 0.92);
+          --glass-border: rgba(15, 23, 42, 0.08);
+          --tag-bg: rgba(255, 255, 255, 0.9);
+          --nav-bg: rgba(248, 250, 252, 0.85);
+          --nav-bg-solid: rgba(248, 250, 252, 0.96);
+          --nav-active: rgba(20, 184, 166, 0.12);
+          --nav-hover: rgba(15, 23, 42, 0.04);
+          --grid-color: rgba(15, 23, 42, 0.06);
+          --hero-overlay-mid: rgba(248, 250, 252, 0.2);
+          --hero-overlay-end: rgba(248, 250, 252, 0.88);
+          --vanta-bg: #e2e8f0;
+          --theme-accent: #0d9488;
+          --theme-accent-light: #14b8a6;
+          --theme-muted: rgba(13, 148, 136, 0.12);
+          --selection-bg: rgba(13, 148, 136, 0.22);
         }
         html {
-          color-scheme: dark;
           scroll-behavior: smooth;
         }
         @media (prefers-reduced-motion: reduce) {
@@ -84,12 +164,12 @@ export default defineConfig({
         }
         body {
           background-color: transparent;
-          color: #e2e8f0;
+          color: var(--text-body);
           overflow-x: hidden;
         }
         ::selection {
-          background-color: rgba(20, 184, 166, 0.35);
-          color: #fff;
+          background-color: var(--selection-bg);
+          color: var(--text-heading);
         }
         [id] {
           scroll-margin-top: 5.5rem;
@@ -104,6 +184,9 @@ export default defineConfig({
         }
         html[data-viewport="mobile"] .glass-card-interactive:hover {
           transform: none;
+        }
+        html[data-theme="light"] .glass-card-interactive:hover {
+          box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
         }
         @keyframes fadeIn {
           0% { opacity: 0; }

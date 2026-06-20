@@ -25,14 +25,14 @@ export default function ExperienceSection() {
                 <span className="text-2xl" aria-hidden="true">
                   {domain.icon}
                 </span>
-                <span className="font-mono text-xs text-slate-500">
+                <span className="font-mono text-xs text-faint">
                   {String(index + 1).padStart(2, "0")}
                 </span>
               </div>
-              <h3 className="mb-2 text-lg font-semibold text-slate-100">
+              <h3 className="mb-2 text-lg font-semibold text-heading">
                 {domain.title}
               </h3>
-              <p className="text-sm leading-relaxed text-slate-400 text-pretty">
+              <p className="text-sm leading-relaxed text-muted text-pretty">
                 {domain.description}
               </p>
             </article>

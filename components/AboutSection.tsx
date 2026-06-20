@@ -13,12 +13,12 @@ export default function AboutSection() {
 
         <div className="grid gap-6 sm:gap-8 lg:grid-cols-[1fr_1.2fr]">
           <aside className="glass-card p-5 sm:p-8 md:p-10">
-            <p className="mb-5 text-xl font-semibold leading-snug text-slate-100 text-balance sm:mb-6 sm:text-2xl">
+            <p className="mb-5 text-xl font-semibold leading-snug text-heading text-balance sm:mb-6 sm:text-2xl">
               用工程化思维交付
               <span className="theme-text">可扩展、可维护</span>
               的前端系统
             </p>
-            <ul className="space-y-4 text-sm text-slate-400">
+            <ul className="space-y-4 text-sm text-muted">
               <li className="flex items-center gap-3">
                 <span className="text-theme" aria-hidden="true">
                   ◎
@@ -52,7 +52,7 @@ export default function AboutSection() {
             {profile.summary.map((paragraph, index) => (
               <p
                 key={index}
-                className="text-base leading-relaxed text-slate-300 md:text-lg text-pretty"
+                className="text-base leading-relaxed text-body md:text-lg text-pretty"
               >
                 {paragraph}
               </p>

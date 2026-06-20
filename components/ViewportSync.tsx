@@ -3,24 +3,16 @@
 import { useEffect } from "react";
 import { useViewport } from "@/lib/hooks/useViewport";
 
-/** 将视口状态同步到 <html>，供 CSS [data-viewport] 与全局样式使用 */
+/** 将视口状态同步到 <html data-viewport>，供 CSS 选择器使用 */
 export default function ViewportSync() {
-  const { viewport, isMobile, breakpoint } = useViewport();
+  const { viewport } = useViewport();
 
   useEffect(() => {
-    const root = document.documentElement;
-
-    root.dataset.viewport = viewport;
-    root.dataset.breakpoint = breakpoint;
-    root.classList.toggle("is-mobile", isMobile);
-    root.classList.toggle("is-desktop", !isMobile);
-
+    document.documentElement.dataset.viewport = viewport;
     return () => {
-      delete root.dataset.viewport;
-      delete root.dataset.breakpoint;
-      root.classList.remove("is-mobile", "is-desktop");
+      delete document.documentElement.dataset.viewport;
     };
-  }, [viewport, isMobile, breakpoint]);
+  }, [viewport]);
 
   return null;
 }

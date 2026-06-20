@@ -1,6 +1,5 @@
 export const profile = {
   name: "卢照天",
-  nameEn: "Luzhaotian",
   title: "高级前端工程师",
   yearsOfExperience: 8,
   tagline: "构建高性能、可扩展的前端应用 · 金融科技 · AI 应用 · 企业 SaaS",
@@ -60,7 +59,7 @@ export const experienceDomains = [
 export const navLinks = [
   { href: "#about", label: "关于" },
   { href: "#skills", label: "技能" },
-  { href: "#enterprise", label: "企业项目" },
+  { href: "#enterprise", label: "企业精选" },
   { href: "#github", label: "开源项目" },
   { href: "#blog", label: "博客" },
   { href: "#experience", label: "经验领域" },

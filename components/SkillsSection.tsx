@@ -19,10 +19,8 @@ export default function SkillsSection() {
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2">
           <article className="glass-card-interactive lg:col-span-2 lg:row-span-2 p-6 md:p-8">
-            <h3 className="mb-2 text-xl font-semibold text-slate-100">
-              {featured.name}
-            </h3>
-            <p className="mb-6 text-sm text-slate-400">
+            <h3 className="mb-2 text-xl font-semibold text-heading">{featured.name}</h3>
+            <p className="mb-6 text-sm text-muted">
               双栈深耕，覆盖现代 Web 应用核心链路
             </p>
             <div className="flex flex-wrap gap-2">
@@ -36,7 +34,7 @@ export default function SkillsSection() {
 
           {rest.map((category) => (
             <article key={category.name} className="glass-card-interactive p-5 md:p-6">
-              <h3 className="mb-4 text-base font-semibold text-slate-200">
+              <h3 className="mb-4 text-base font-semibold text-body">
                 {category.name}
               </h3>
               <div className="flex flex-wrap gap-2">

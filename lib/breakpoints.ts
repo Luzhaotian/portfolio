@@ -6,16 +6,7 @@ export const BREAKPOINTS = {
   xl: 1280,
 } as const;
 
-export type BreakpointKey = keyof typeof BREAKPOINTS;
 export type ViewportSize = "mobile" | "tablet" | "desktop";
-
-export function getBreakpoint(width: number): BreakpointKey | "xs" {
-  if (width >= BREAKPOINTS.xl) return "xl";
-  if (width >= BREAKPOINTS.lg) return "lg";
-  if (width >= BREAKPOINTS.md) return "md";
-  if (width >= BREAKPOINTS.sm) return "sm";
-  return "xs";
-}
 
 export function getViewportSize(width: number): ViewportSize {
   if (width < BREAKPOINTS.md) return "mobile";
@@ -28,7 +19,5 @@ export const MEDIA_QUERIES = {
   mobile: `(max-width: ${BREAKPOINTS.md - 1}px)`,
   tablet: `(min-width: ${BREAKPOINTS.md}px) and (max-width: ${BREAKPOINTS.lg - 1}px)`,
   desktop: `(min-width: ${BREAKPOINTS.lg}px)`,
-  smUp: `(min-width: ${BREAKPOINTS.sm}px)`,
-  mdUp: `(min-width: ${BREAKPOINTS.md}px)`,
-  lgUp: `(min-width: ${BREAKPOINTS.lg}px)`,
+  reducedMotion: "(prefers-reduced-motion: reduce)",
 } as const;

@@ -8,7 +8,7 @@ export default function HeroSection() {
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-background/10 to-background/80"
+        className="pointer-events-none absolute inset-0 hero-overlay"
         aria-hidden="true"
       />
 
@@ -25,11 +25,11 @@ export default function HeroSection() {
             <span className="theme-text">{profile.name}</span>
           </h1>
 
-          <p className="animate-slide-up animate-delay-100 mb-2 text-lg font-medium text-slate-200 sm:mb-3 sm:text-xl md:text-2xl">
+          <p className="animate-slide-up animate-delay-100 mb-2 text-lg font-medium text-body sm:mb-3 sm:text-xl md:text-2xl">
             {profile.title}
           </p>
 
-          <p className="animate-slide-up animate-delay-200 mb-6 max-w-xl text-sm leading-relaxed text-slate-400 sm:mb-8 sm:text-base md:text-lg text-pretty">
+          <p className="animate-slide-up animate-delay-200 mb-6 max-w-xl text-sm leading-relaxed text-muted sm:mb-8 sm:text-base md:text-lg text-pretty">
             {profile.tagline}
           </p>
 
@@ -51,11 +51,11 @@ export default function HeroSection() {
         <div className="animate-slide-up animate-delay-400 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
           {profile.highlights.map((item) => (
             <article key={item.label} className="stat-card group">
-              <div className="mb-3 inline-flex rounded-full bg-theme/15 px-2.5 py-0.5 text-[10px] font-medium tracking-wide text-theme-light uppercase">
+              <div className="mb-3 inline-flex rounded-full bg-theme px-2.5 py-0.5 text-[10px] font-medium tracking-wide text-white uppercase">
                 {item.label}
               </div>
               <p
-                className="font-mono text-xl font-bold tracking-tight text-slate-50 sm:text-2xl md:text-3xl"
+                className="font-mono text-xl font-bold tracking-tight text-heading sm:text-2xl md:text-3xl"
                 translate="no"
               >
                 {item.value}
@@ -70,7 +70,7 @@ export default function HeroSection() {
         aria-hidden="true"
       >
         <svg
-          className="h-5 w-5 text-slate-500"
+          className="h-5 w-5 text-faint"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
