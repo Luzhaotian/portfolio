@@ -13,8 +13,10 @@
 - 移动端适配：UnoCSS 媒体查询 + `useViewport` 视口 Hook，窄屏自动切换布局
 - 单色 Teal 强调色（`#14b8a6`），白天 / 夜晚双主题 CSS 变量
 - [UnoCSS](https://unocss.dev/) 原子化样式 + 语义化 `shortcuts`
-- [Vanta.js](https://github.com/tengbao/vanta) 3D 背景（动态加载，随主题切换配色）
+- [Vanta.js](https://github.com/tengbao/vanta) 3D 背景（夜晚飞鸟 / 白天网格，动态加载）
 - CSDN 博客展示：抓取点赞最多的文章（`npm run fetch:blogs`）
+- 回到顶部：滚动超过阈值后显示浮动按钮
+- Cookie 提示：底部横幅，支持「全部接受 / 全部拒绝」，选择后持久化
 - SEO：Next.js Metadata、OpenGraph、语义化 HTML、跳过导航链接
 - 内容数据化：`data/` 目录维护简介、技能、项目、博客与经验领域
 
@@ -94,6 +96,8 @@ components/
   ExperienceSection.tsx # 经验领域
   SectionHeader.tsx     # 区块标题
   FooterSection.tsx     # 页脚
+  BackToTop.tsx         # 回到顶部按钮
+  CookieConsent.tsx     # Cookie 同意横幅
 data/
   profile.ts            # 个人信息、导航、经验领域
   skills.ts             # 技能分类
@@ -160,24 +164,24 @@ postcss.config.cjs → postcss-unocss.cjs → uno.config.ts
 
 ### 语义化 shortcuts
 
-| 类名                                 | 用途                     |
-| ------------------------------------ | ------------------------ |
-| `text-heading` / `text-body`         | 标题 / 正文色            |
-| `text-muted` / `text-faint`          | 次要 / 辅助文字色        |
-| `border-divider`                     | 分隔线 / 边框色          |
-| `bg-active` / `bg-hover`             | 导航激活 / 悬停背景      |
-| `glass-card`                         | 玻璃拟态卡片             |
-| `glass-card-interactive`             | 可交互卡片（hover 动效） |
-| `btn-primary` / `btn-ghost`          | 主按钮 / 幽灵按钮        |
-| `section-shell` / `section-inner`    | 区块外层 / 内容容器      |
-| `section-title` / `section-subtitle` | 区块标题 / 副标题        |
-| `tech-tag`                           | 技术标签                 |
-| `stat-card`                          | Hero 数据卡片            |
-| `theme-text`                         | 主题色文字               |
-| `focus-ring`                         | 焦点环样式               |
-| `skip-link`                          | 跳过导航链接             |
-| `bg-grid-pattern` / `bg-grid`        | 网格背景                 |
-| `hero-overlay`                       | Hero 区域渐变遮罩        |
+| 类名                                 | 用途                             |
+| ------------------------------------ | -------------------------------- |
+| `text-heading` / `text-body`         | 标题 / 正文色                    |
+| `text-muted` / `text-faint`          | 次要 / 辅助文字色                |
+| `border-divider`                     | 分隔线 / 边框色                  |
+| `bg-active` / `bg-hover`             | 导航激活 / 悬停背景              |
+| `glass-card`                         | 玻璃拟态卡片                     |
+| `glass-card-interactive`             | 可交互卡片（hover 动效）         |
+| `btn-primary` / `btn-ghost`          | 主按钮 / 幽灵按钮                |
+| `section-shell` / `section-inner`    | 区块外层 / 内容容器              |
+| `section-title` / `section-subtitle` | 区块标题 / 副标题                |
+| `tech-tag`                           | 技术标签                         |
+| `stat-card`                          | Hero 数据卡片                    |
+| `theme-text`                         | 主题色文字                       |
+| `focus-ring`                         | 键盘焦点环（鼠标点击不显示边框） |
+| `skip-link`                          | 跳过导航链接                     |
+| `bg-grid-pattern` / `bg-grid`        | 网格背景                         |
+| `hero-overlay`                       | Hero 区域渐变遮罩                |
 
 新增组件级样式时，优先在 `uno.config.ts` 的 `shortcuts` 中扩展，避免在 `globals.css` 写 `@apply`。
 
@@ -193,6 +197,8 @@ postcss.config.cjs → postcss-unocss.cjs → uno.config.ts
 
 偏好存储键：`portfolio-theme`（值为 `light` / `dark` / `auto`）。
 
+Cookie 同意状态：`portfolio-cookie-consent`（值为 `accepted` / `rejected`，任一值均不再弹出）。
+
 主色 Teal 在两种模式下均保留，背景 / 文字 / 玻璃卡片等通过 CSS 变量适配：
 
 | 变量（节选）         | 夜晚      | 白天      |
@@ -205,15 +211,32 @@ postcss.config.cjs → postcss-unocss.cjs → uno.config.ts
 
 ## 背景特效
 
-- **夜晚 + 桌面**：BIRDS（飞鸟），GPGPU 失败时自动回退 NET
-- **夜晚 + 移动**：NET（粒子网格）
-- **白天**：统一使用 NET + 浅色背景
+| 主题 | 效果            | 说明                                                |
+| ---- | --------------- | --------------------------------------------------- |
+| 夜晚 | BIRDS（飞鸟）   | 移动端与桌面端一致；移动端减少鸟数量以降低 GPU 压力 |
+| 白天 | NET（粒子网格） | 浅色背景                                            |
+| 回退 | NET             | BIRDS 初始化或 GPGPU 失败时自动切换                 |
+
 - **无障碍**：`prefers-reduced-motion` 时禁用 3D 背景
-- 切换主题时自动重建效果，Vanta 与 NET 均 `dynamic import` 按需加载
+- 切换主题或视口档位时自动重建效果，Vanta 均 `dynamic import` 按需加载
 
 更换效果：编辑 `components/VantaBackground.tsx`，可选效果见 [vantajs.com](https://www.vantajs.com/)。
 
 > Vanta.js 与新版 Three.js 存在兼容问题，项目锁定 `three@0.134.0`。升级前请先验证背景效果。
+
+## 交互组件
+
+### 回到顶部（`BackToTop`）
+
+- 向下滚动超过 400px 后，右下角显示浮动按钮
+- 点击平滑滚回顶部；系统开启「减少动效」时改为瞬间跳转
+
+### Cookie 提示（`CookieConsent`）
+
+- 首次访问时在页面底部显示横幅
+- 提供「全部接受」「全部拒绝」两个等权重按钮
+- 点击任一选项后写入 `localStorage`，后续访问不再显示
+- 开发调试时可在控制台执行 `localStorage.removeItem('portfolio-cookie-consent')` 重置
 
 ## 代码规范与 Git 校验
 

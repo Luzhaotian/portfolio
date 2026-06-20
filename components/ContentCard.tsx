@@ -43,7 +43,7 @@ export default function ContentCard({
           )}
         </h3>
         {badge && (
-          <span className="shrink-0 rounded-md bg-theme/10 px-2 py-0.5 text-[11px] font-medium text-theme-light">
+          <span className="shrink-0 rounded-md bg-theme px-2 py-0.5 text-[11px] font-medium text-white">
             {badge}
           </span>
         )}

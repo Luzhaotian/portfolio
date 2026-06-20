@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { BREAKPOINTS, MEDIA_QUERIES } from "@/lib/breakpoints";
+import { MEDIA_QUERIES } from "@/lib/breakpoints";
 import { useTheme } from "@/components/ThemeProvider";
+import { useViewport } from "@/lib/hooks/useViewport";
 import { getVantaTHREE } from "@/lib/vantaThree";
 
 type VantaEffect = { destroy: () => void; resize?: () => void };
@@ -18,6 +19,7 @@ function getThemeColors(resolved: "light" | "dark") {
 
 export default function VantaBackground() {
   const { resolved } = useTheme();
+  const { isMobile } = useViewport();
   const containerRef = useRef<HTMLDivElement>(null);
   const effectRef = useRef<VantaEffect | null>(null);
 
@@ -31,7 +33,6 @@ export default function VantaBackground() {
     let effect: VantaEffect | null = null;
     let fallbackTimer: number | undefined;
     let cancelled = false;
-    const isMobile = window.innerWidth < BREAKPOINTS.md;
     const colors = getThemeColors(resolved);
 
     const sharedOptions = {
@@ -62,7 +63,7 @@ export default function VantaBackground() {
     };
 
     const init = async () => {
-      if (isMobile || resolved === "light") {
+      if (resolved === "light") {
         await initNet();
         return;
       }
@@ -78,13 +79,13 @@ export default function VantaBackground() {
           color1: colors.accent,
           color2: colors.accent,
           colorMode: "lerp",
-          birdSize: 1.15,
-          wingSpan: 28,
-          speedLimit: 4.5,
+          birdSize: isMobile ? 1 : 1.15,
+          wingSpan: isMobile ? 22 : 28,
+          speedLimit: isMobile ? 3.5 : 4.5,
           separation: 22,
           alignment: 22,
           cohesion: 22,
-          quantity: 4,
+          quantity: isMobile ? 2 : 4,
         });
         effectRef.current = effect;
 
@@ -113,7 +114,7 @@ export default function VantaBackground() {
       effect?.destroy();
       effectRef.current = null;
     };
-  }, [resolved]);
+  }, [resolved, isMobile]);
 
   return (
     <div

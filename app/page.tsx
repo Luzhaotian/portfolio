@@ -5,6 +5,8 @@ import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import SkillsSection from "@/components/SkillsSection";
 import ProjectsSection from "@/components/ProjectsSection";
+import BackToTop from "@/components/BackToTop";
+import CookieConsent from "@/components/CookieConsent";
 import BlogSection from "@/components/BlogSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import FooterSection from "@/components/FooterSection";
@@ -41,6 +43,8 @@ export default function Home() {
           <ExperienceSection />
         </main>
         <FooterSection />
+        <BackToTop />
+        <CookieConsent />
       </div>
     </ThemeProvider>
   );

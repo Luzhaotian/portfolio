@@ -42,8 +42,7 @@ export default defineConfig({
     "section-subtitle": "text-sm leading-relaxed text-muted sm:text-base md:text-lg",
     "tech-tag":
       "rounded-md border border-[var(--glass-border)] bg-[var(--tag-bg)] px-2.5 py-1 text-xs text-muted transition-[border-color,color] duration-200 hover:border-theme/35 hover:text-theme-light",
-    "focus-ring":
-      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-theme/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]",
+    "focus-ring": "outline-none",
     "btn-primary":
       "inline-flex w-full items-center justify-center rounded-full bg-theme px-6 py-3 text-sm font-semibold text-white transition-[opacity,transform] duration-200 hover:opacity-90 hover:scale-[1.02] focus-ring sm:w-auto sm:px-7",
     "btn-ghost":
@@ -119,6 +118,7 @@ export default defineConfig({
           --theme-accent-light: #5eead4;
           --theme-muted: rgba(20, 184, 166, 0.15);
           --selection-bg: rgba(20, 184, 166, 0.35);
+          --focus-ring-color: rgba(20, 184, 166, 0.6);
         }
         html[data-theme="light"] {
           color-scheme: light;
@@ -146,6 +146,7 @@ export default defineConfig({
           --theme-accent-light: #14b8a6;
           --theme-muted: rgba(13, 148, 136, 0.12);
           --selection-bg: rgba(13, 148, 136, 0.22);
+          --focus-ring-color: rgba(13, 148, 136, 0.55);
         }
         html {
           scroll-behavior: smooth;
@@ -166,6 +167,18 @@ export default defineConfig({
           background-color: transparent;
           color: var(--text-body);
           overflow-x: hidden;
+        }
+        a:focus:not(:focus-visible),
+        button:focus:not(:focus-visible),
+        .focus-ring:focus:not(:focus-visible) {
+          outline: none;
+          box-shadow: none;
+        }
+        .focus-ring:focus-visible {
+          outline: none;
+          box-shadow:
+            0 0 0 2px var(--color-background),
+            0 0 0 4px var(--focus-ring-color);
         }
         ::selection {
           background-color: var(--selection-bg);
