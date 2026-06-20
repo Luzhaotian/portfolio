@@ -6,7 +6,7 @@ export default function ExperienceSection() {
     <section id="experience" className="section-shell bg-surface/40">
       <div className="section-inner">
         <SectionHeader
-          index="05 — DOMAINS"
+          index="06 — DOMAINS"
           title="经验领域"
           subtitle="8 年职业生涯中深耕的业务方向与技术实践"
         />

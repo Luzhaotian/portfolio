@@ -32,10 +32,18 @@ export default function FooterSection() {
             关于
           </a>
           <a
-            href="#skills"
+            href="#blog"
             className="focus-ring text-sm text-slate-400 transition-colors hover:text-theme-light"
           >
-            技能
+            博客
+          </a>
+          <a
+            href="https://blog.csdn.net/paopao_pop"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="focus-ring text-sm text-slate-400 transition-colors hover:text-theme-light"
+          >
+            CSDN
           </a>
         </nav>
 

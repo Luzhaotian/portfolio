@@ -62,5 +62,6 @@ export const navLinks = [
   { href: "#skills", label: "技能" },
   { href: "#enterprise", label: "企业项目" },
   { href: "#github", label: "开源项目" },
+  { href: "#blog", label: "博客" },
   { href: "#experience", label: "经验领域" },
 ];
