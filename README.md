@@ -221,16 +221,43 @@ git commit -m "docs: 更新 README"
 
 ## 构建与部署
 
+### 本地生产预览
+
 ```bash
 npm run build
 npm start
 ```
 
-支持 Vercel、Node.js 等 Next.js 兼容平台。关联 GitHub 仓库后可在 Vercel 一键部署。
+### GitHub Pages（已配置 CI）
+
+仓库已配置 GitHub Actions 工作流（`.github/workflows/deploy.yml`），推送到 `main` 分支后自动构建并部署。
+
+**在线地址：** [https://luzhaotian.github.io/portfolio/](https://luzhaotian.github.io/portfolio/)
+
+**首次启用步骤：**
+
+1. 打开仓库 [Settings → Pages](https://github.com/Luzhaotian/portfolio/settings/pages)
+2. **Build and deployment → Source** 选择 **GitHub Actions**
+3. 推送代码到 `main`，或在 Actions 页手动运行 **Deploy to GitHub Pages** 工作流
+4. 等待工作流完成，Pages 地址即可访问
+
+**本地模拟 GitHub Pages 构建：**
+
+```bash
+GITHUB_PAGES=true npm run build
+# 静态产物在 out/ 目录
+```
+
+> GitHub Pages 使用静态导出（`output: 'export'`）并设置 `basePath: /portfolio`。本地 `npm run dev` 不受影响。
+
+### 其他平台
+
+也可部署到 Vercel 等平台（无需 `GITHUB_PAGES` 环境变量，支持完整 Next.js 运行时）。
 
 ## 相关链接
 
-- 作者 GitHub：[https://github.com/Luzhaotian](https://github.com/Luzhaotian)
+- 在线站点：[https://luzhaotian.github.io/portfolio/](https://luzhaotian.github.io/portfolio/)
+- 仓库：[https://github.com/Luzhaotian/portfolio](https://github.com/Luzhaotian/portfolio)
 - UnoCSS：[https://unocss.dev](https://unocss.dev)
 - Vanta.js：[https://github.com/tengbao/vanta](https://github.com/tengbao/vanta)
 - Next.js：[https://nextjs.org](https://nextjs.org)
