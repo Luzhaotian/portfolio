@@ -1,6 +1,8 @@
-/** 校验 commit subject 仅含中文、数字与中文标点 */
-const CHINESE_SUBJECT_PATTERN =
-  /^[\u4e00-\u9fa50-9，。！？、：；（）【】《》「」『』·—…\s]+$/;
+/**
+ * 说明以中文为主，允许技术名词中的英文字母与符号（如 Next.js、React、TypeScript）
+ */
+const SUBJECT_PATTERN =
+  /^[\u4e00-\u9fa50-9a-zA-Z.+_\-/，。！？、：；（）【】《》「」『』·—…\s]+$/;
 
 const chineseSubjectRule = (parsed) => {
   const { subject } = parsed;
@@ -9,9 +11,14 @@ const chineseSubjectRule = (parsed) => {
     return [true];
   }
 
-  const valid = CHINESE_SUBJECT_PATTERN.test(subject);
+  const hasChinese = /[\u4e00-\u9fa5]/.test(subject);
+  const validFormat = SUBJECT_PATTERN.test(subject);
+  const valid = hasChinese && validFormat;
 
-  return [valid, "提交说明只能使用中文、数字和中文标点，不能包含英文或其他字符"];
+  return [
+    valid,
+    "提交说明需包含中文，可含技术名词（如 Next.js、React），纯英文说明不被允许",
+  ];
 };
 
 const chinesePlugin = {

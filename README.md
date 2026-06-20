@@ -63,12 +63,12 @@ npm run lint:fix      # ESLint 自动修复
 
 `npm install` 后会通过 `husky` 自动注册钩子：
 
-| 钩子         | 行为                                              |
-| ------------ | ------------------------------------------------- |
-| `pre-commit` | 对暂存文件运行 ESLint + Prettier（lint-staged）   |
-| `commit-msg` | 校验提交前缀 + 中文单行说明（禁止英文正文与多行） |
+| 钩子         | 行为                                                    |
+| ------------ | ------------------------------------------------------- |
+| `pre-commit` | 对暂存文件运行 ESLint + Prettier（lint-staged）         |
+| `commit-msg` | 校验 `feat`/`fix` 等前缀 + 中文单行说明（可含技术名词） |
 
-提交格式：`type: 中文说明`（仅一行，说明只能中文）
+提交格式：`type: 中文说明`（仅一行；说明须含中文，可含 Next.js、React 等技术名词）
 
 | 前缀       | 用途                   |
 | ---------- | ---------------------- |
@@ -85,15 +85,15 @@ npm run lint:fix      # ESLint 自动修复
 | `revert`   | 回滚                   |
 
 ```bash
-git commit -m "feat: 添加技能展示区块"
-git commit -m "fix: 修复背景层级问题"
-git commit -m "docs: 更新项目说明"
+git commit -m "feat: 搭建 Next.js 个人作品集网站"
+git commit -m "fix: 修复 Vanta 背景层级问题"
+git commit -m "docs: 更新 README 说明"
 ```
 
 以下提交会被拒绝：
 
 ```bash
-git commit -m "feat: add feature"      # 说明含英文
+git commit -m "feat: add feature"      # 说明无中文
 git commit -m "feat(api): 新功能"       # 不允许 scope
 git commit -m "feat: 标题\n\n正文"       # 不允许多行
 ```
