@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { I18nProvider } from "@/components/I18nProvider";
 import SkipLink from "@/components/SkipLink";
 import { localeInitScript } from "@/lib/i18n";
+import { basePath } from "@/lib/site";
 import { themeInitScript } from "@/lib/theme";
 import "@unocss/reset/tailwind.css";
 import "./globals.css";
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
-    icon: "/favicon.svg",
+    icon: `${basePath}/favicon.svg`,
   },
 };
 

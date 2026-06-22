@@ -40,9 +40,9 @@ function applyLocale(locale: Locale) {
 }
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(() =>
-    typeof window !== "undefined" ? readStoredLocale() : defaultLocale
-  );
+  // Always start with defaultLocale so SSR HTML matches the first client render.
+  // Sync from localStorage after mount to avoid React hydration mismatch (#418).
+  const [locale, setLocaleState] = useState<Locale>(defaultLocale);
 
   useEffect(() => {
     const stored = readStoredLocale();

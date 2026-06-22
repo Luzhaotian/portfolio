@@ -1,15 +1,13 @@
 import type { NextConfig } from "next";
-
-const isGithubPages = process.env.GITHUB_PAGES === "true";
-const repoName = "portfolio";
+import { basePath, isGithubPages } from "./lib/site";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   ...(isGithubPages
     ? {
         output: "export",
-        basePath: `/${repoName}`,
-        assetPrefix: `/${repoName}/`,
+        basePath,
+        assetPrefix: `${basePath}/`,
       }
     : {}),
   images: {
