@@ -9,16 +9,17 @@
 ## 功能特性
 
 - 响应式单页布局：玻璃拟态卡片、Editorial 区块编排
+- **中英文切换**：导航栏语言切换（中文 / English），偏好持久化到 `localStorage`
 - 主题切换：白天 / 夜晚 / 自动（跟随系统），偏好持久化到 `localStorage`
 - 移动端适配：UnoCSS 媒体查询 + `useViewport` 视口 Hook，窄屏自动切换布局
 - 单色 Teal 强调色（`#14b8a6`），白天 / 夜晚双主题 CSS 变量
 - [UnoCSS](https://unocss.dev/) 原子化样式 + 语义化 `shortcuts`
 - [Vanta.js](https://github.com/tengbao/vanta) 3D 背景（夜晚飞鸟 / 白天网格，动态加载）
-- CSDN 博客展示：抓取点赞最多的文章（`npm run fetch:blogs`）
+- CSDN 博客展示：抓取点赞最多的文章（`npm run fetch:blogs`），卡片标题 / 摘要截断与 SVG 元数据图标
 - 回到顶部：滚动超过阈值后显示浮动按钮
 - Cookie 提示：底部横幅，支持「全部接受 / 全部拒绝」，选择后持久化
 - SEO：Next.js Metadata、OpenGraph、语义化 HTML、跳过导航链接
-- 内容数据化：`data/` 目录维护简介、技能、项目、博客与经验领域
+- 内容数据化：`lib/i18n/locales/` 维护文案，`data/` 维护博客与基础配置
 
 ## 页面结构
 
@@ -39,6 +40,7 @@
 | 框架    | Next.js 15（App Router）+ React 19               |
 | 语言    | TypeScript 5                                     |
 | 样式    | UnoCSS 66 + `@unocss/preset-wind3` + PostCSS     |
+| 国际化  | 自研 i18n（`lib/i18n` + `I18nProvider`）         |
 | 3D 背景 | Three.js 0.134 + Vanta.js（BIRDS / NET）         |
 | 字体    | Geist Sans / Geist Mono（`next/font`）           |
 | 规范    | ESLint、Prettier、Husky、lint-staged、Commitlint |
@@ -81,34 +83,42 @@ app/
   page.tsx              # 首页（组合各区块）
   globals.css           # UnoCSS 注入入口（@unocss all）
 components/
-  ThemeProvider.tsx     # 主题状态（白天 / 夜晚 / 自动）
-  ThemeToggle.tsx       # 主题切换按钮
-  ViewportSync.tsx      # 视口状态同步到 <html data-viewport>
-  VantaBackground.tsx   # Vanta 背景（动态加载，随主题配色）
+  I18nProvider.tsx     # 国际化 Context（locale / setLocale / t）
+  LocaleToggle.tsx     # 语言切换按钮
+  ThemeProvider.tsx    # 主题状态（白天 / 夜晚 / 自动）
+  ThemeToggle.tsx      # 主题切换按钮
+  ViewportSync.tsx     # 视口状态同步到 <html data-viewport>
+  VantaBackground.tsx  # Vanta 背景（动态加载，随主题配色）
   VantaBackgroundClient.tsx
-  ContentCard.tsx       # 通用内容卡片（项目 / 博客复用）
-  NavBar.tsx            # 导航栏（滚动高亮 + 主题切换）
-  HeroSection.tsx       # 首屏
-  AboutSection.tsx      # 关于
-  SkillsSection.tsx     # 技能
-  ProjectsSection.tsx   # 项目列表
-  BlogSection.tsx       # CSDN 博客
+  ContentCard.tsx      # 通用内容卡片（项目 / 博客复用，支持标题与摘要截断）
+  NavBar.tsx           # 导航栏（滚动高亮 + 语言 / 主题切换）
+  HeroSection.tsx      # 首屏
+  AboutSection.tsx     # 关于
+  SkillsSection.tsx    # 技能
+  ProjectsSection.tsx  # 项目列表
+  BlogSection.tsx      # CSDN 博客
   ExperienceSection.tsx # 经验领域
-  SectionHeader.tsx     # 区块标题
-  FooterSection.tsx     # 页脚
-  BackToTop.tsx         # 回到顶部按钮
-  CookieConsent.tsx     # Cookie 同意横幅
+  SectionHeader.tsx    # 区块标题
+  FooterSection.tsx    # 页脚
+  BackToTop.tsx        # 回到顶部按钮
+  CookieConsent.tsx    # Cookie 同意横幅
+  SkipLink.tsx         # 跳过导航链接
 data/
-  profile.ts            # 个人信息、导航、经验领域
-  skills.ts             # 技能分类
-  projects.ts           # 近期企业项目与开源项目
-  blogs.ts              # CSDN 博客（由 fetch:blogs 生成）
+  profile.ts           # GitHub 链接、工作年限等基础配置
+  projects.ts          # Project 类型定义（项目内容见 i18n locales）
+  blogs.ts             # CSDN 博客（由 fetch:blogs 生成）
 lib/
-  theme.ts              # 主题模式常量与工具函数
-  breakpoints.ts        # 断点常量与 MEDIA_QUERIES
-  format.ts             # 数字格式化工具
-  hooks/useViewport.ts  # 视口 Hook
-  vantaThree.ts         # Three.js 兼容层（适配 Vanta.js）
+  i18n/
+    index.ts           # locale 常量、初始化脚本
+    types.ts           # LocaleMessages 类型
+    locales/zh.ts      # 中文文案（导航、区块、项目、技能等）
+    locales/en.ts      # 英文文案
+  site.ts              # GitHub Pages basePath 与站点 origin
+  theme.ts             # 主题模式常量与工具函数
+  breakpoints.ts       # 断点常量与 MEDIA_QUERIES
+  format.ts            # 数字格式化工具
+  hooks/useViewport.ts # 视口 Hook
+  vantaThree.ts        # Three.js 兼容层（适配 Vanta.js）
 scripts/
   fetch-csdn-blogs.mjs  # CSDN 博客抓取脚本
 types/
@@ -126,16 +136,27 @@ next.config.ts          # Next.js 配置（GitHub Pages 静态导出）
 
 ## 自定义内容
 
-编辑 `data/` 即可更新站点内容，无需改动组件逻辑：
+### 国际化文案
 
-| 文件          | 说明                                                    |
-| ------------- | ------------------------------------------------------- |
-| `profile.ts`  | 姓名、职位、简介、GitHub、导航、经验领域（建议 ≤ 6 项） |
-| `skills.ts`   | 技能分类与标签                                          |
-| `projects.ts` | 近期企业项目（当前 9 项）与开源项目列表                 |
-| `blogs.ts`    | CSDN 博客列表（运行 `npm run fetch:blogs` 自动更新）    |
+站点可见文案（导航、Hero、各区块标题、项目描述、技能分类、经验领域等）集中在 `lib/i18n/locales/`：
 
-导航标签在 `profile.ts` 的 `navLinks` 中配置；区块标题在 `app/page.tsx` 各 Section 的 `title` prop 中配置（例如导航「企业精选」对应区块标题「近期企业项目」）。
+| 文件       | 说明                                      |
+| ---------- | ----------------------------------------- |
+| `zh.ts`    | 中文文案（默认语言）                      |
+| `en.ts`    | 英文文案，结构与 `zh.ts` 保持一致         |
+| `types.ts` | `LocaleMessages` 类型，新增字段需同步两端 |
+
+导航标签在 `nav` 数组中配置；区块序号与标题在各 section 对象（如 `about`、`skills`、`enterprise`）中维护。切换语言后 `document.title` 与 `<html lang>` 会同步更新。
+
+语言偏好存储键：`portfolio-locale`（值为 `zh` / `en`）。
+
+### 数据文件
+
+| 文件          | 说明                                                   |
+| ------------- | ------------------------------------------------------ |
+| `profile.ts`  | GitHub 链接、工作年限等组件共用的基础配置              |
+| `blogs.ts`    | CSDN 博客列表（运行 `npm run fetch:blogs` 自动更新）   |
+| `projects.ts` | `Project` 接口类型定义；实际项目数据在 i18n locales 中 |
 
 企业项目描述建议使用通用业务名称，避免在公开站点展示敏感公司或产品名称。
 
@@ -146,6 +167,7 @@ next.config.ts          # Next.js 配置（GitHub Pages 静态导出）
 ```
 layout.tsx
   ├── 内联 themeInitScript     # 防主题闪烁
+  ├── 内联 localeInitScript    # 防语言 / lang 闪烁
   ├── @unocss/reset/tailwind.css
   └── globals.css (@unocss all)
 
@@ -182,6 +204,7 @@ postcss.config.cjs → postcss-unocss.cjs → uno.config.ts
 | `skip-link`                          | 跳过导航链接                     |
 | `bg-grid-pattern` / `bg-grid`        | 网格背景                         |
 | `hero-overlay`                       | Hero 区域渐变遮罩                |
+| `line-clamp-3`                       | 三行文本截断（博客摘要等）       |
 
 新增组件级样式时，优先在 `uno.config.ts` 的 `shortcuts` 中扩展，避免在 `globals.css` 写 `@apply`。
 
@@ -226,6 +249,12 @@ Cookie 同意状态：`portfolio-cookie-consent`（值为 `accepted` / `rejected
 
 ## 交互组件
 
+### 语言切换（`LocaleToggle`）
+
+- 导航栏提供中文 / English 切换
+- 选择后写入 `localStorage`（`portfolio-locale`），并更新 `<html lang>` 与页面标题
+- `layout.tsx` 内联 `localeInitScript` 防止首屏语言闪烁
+
 ### 回到顶部（`BackToTop`）
 
 - 向下滚动超过 400px 后，右下角显示浮动按钮
@@ -257,9 +286,9 @@ npm run lint:fix      # ESLint 自动修复
 | 钩子         | 行为                                            |
 | ------------ | ----------------------------------------------- |
 | `pre-commit` | 对暂存文件运行 ESLint + Prettier（lint-staged） |
-| `commit-msg` | Commitlint 校验提交信息格式                     |
+| `commit-msg` | Commitlint 校验提交信息格式（中文 subject）     |
 
-提交格式建议：`type: 说明`（Conventional Commits 前缀）
+提交格式：`type: 中文说明`（Conventional Commits 前缀 + 中文描述，单行无正文）
 
 | 前缀       | 用途               |
 | ---------- | ------------------ |
