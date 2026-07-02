@@ -23,18 +23,24 @@ export default function ContentCard({
 }: ContentCardProps) {
   return (
     <article
-      className={`glass-card-interactive group flex flex-col p-5 sm:p-6 ${
+      className={`glass-card-interactive group flex h-full flex-col p-5 sm:p-6 ${
         highlight ? "ring-1 ring-theme/20" : ""
       }`}
     >
       <div className="mb-3 flex items-start justify-between gap-3">
-        <h3 className="text-base font-semibold leading-snug text-heading transition-colors group-hover:text-theme-light sm:text-lg">
+        <h3
+          className={`text-base font-semibold leading-snug text-heading transition-colors group-hover:text-theme-light sm:text-lg ${
+            clampDescription ? "min-w-0" : ""
+          } ${clampDescription && !href ? "line-clamp-2" : ""}`}
+        >
           {href ? (
             <a
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="focus-ring rounded-sm hover:underline"
+              className={`focus-ring rounded-sm hover:underline ${
+                clampDescription ? "line-clamp-2" : ""
+              }`}
             >
               {title}
             </a>
@@ -50,8 +56,8 @@ export default function ContentCard({
       </div>
 
       <p
-        className={`flex-1 text-sm leading-relaxed text-muted text-pretty ${
-          clampDescription ? "mb-4 line-clamp-3" : "mb-5"
+        className={`text-sm leading-relaxed text-muted text-pretty ${
+          clampDescription ? "mb-4 line-clamp-3" : "mb-5 flex-1"
         }`}
       >
         {description}
