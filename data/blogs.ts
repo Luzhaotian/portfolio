@@ -10,7 +10,7 @@ export interface BlogPost {
 /** CSDN 博客主页 */
 export const csdnProfile = "https://blog.csdn.net/paopao_pop";
 
-/** 数据更新时间：2026-07-02，运行 npm run fetch:blogs 可刷新 */
+/** 数据更新时间：2026-07-06，运行 npm run fetch:blogs 可刷新 */
 export const blogPosts: BlogPost[] = [
   {
     title:
@@ -19,7 +19,7 @@ export const blogPosts: BlogPost[] = [
       '摘要 本文分享了如何通过合理配置 Skills（方法）和 MCP（工具能力）将 AI 助手从"问答工具"升级为"开发搭档"的经验。作者指出 AI 落地效果差往往不是模型问题，而是缺乏稳定的工作方法和执行能力。文章提供了20个高频Skills分类清单和5个核心MCP工具，建议从最小可用组合（3个MCP+4个Skills）',
     url: "https://blog.csdn.net/paopao_pop/article/details/159546739",
     likes: 22,
-    views: 1159,
+    views: 1164,
     date: "2026-03-27",
   },
   {
@@ -46,7 +46,7 @@ export const blogPosts: BlogPost[] = [
       "本文介绍了如何配置Figma与Cursor的集成方案。主要内容包括：1)下载安装Figma软件；2)安装Bun运行时环境；3)克隆cursor-talk-to-figma-mcp插件项目并启动WebSocket服务；4)在Figma中导入插件manifest文件；5)配置Cursor的MCP连接；6)测试连接；7)添加",
     url: "https://blog.csdn.net/paopao_pop/article/details/159427862",
     likes: 14,
-    views: 580,
+    views: 581,
     date: "2026-03-24",
   },
   {
@@ -64,7 +64,7 @@ export const blogPosts: BlogPost[] = [
       "本文介绍了在 Cursor 中配置和使用多种 MCP（Model Context Protocol）的指南。主要内容包括：1）环境准备（Node.js 18+、Python 3.10+）；2）5个常用MCP的功能说明、触发条件和安装方法（neural-memory、playwright、filesystem、seque",
     url: "https://blog.csdn.net/paopao_pop/article/details/159546584",
     likes: 10,
-    views: 483,
+    views: 491,
     date: "2026-03-27",
   },
 ];
