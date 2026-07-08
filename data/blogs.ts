@@ -10,7 +10,7 @@ export interface BlogPost {
 /** CSDN 博客主页 */
 export const csdnProfile = "https://blog.csdn.net/paopao_pop";
 
-/** 数据更新时间：2026-07-06，运行 npm run fetch:blogs 可刷新 */
+/** 数据更新时间：2026-07-08，运行 npm run fetch:blogs 可刷新 */
 export const blogPosts: BlogPost[] = [
   {
     title:
@@ -19,7 +19,7 @@ export const blogPosts: BlogPost[] = [
       '摘要 本文分享了如何通过合理配置 Skills（方法）和 MCP（工具能力）将 AI 助手从"问答工具"升级为"开发搭档"的经验。作者指出 AI 落地效果差往往不是模型问题，而是缺乏稳定的工作方法和执行能力。文章提供了20个高频Skills分类清单和5个核心MCP工具，建议从最小可用组合（3个MCP+4个Skills）',
     url: "https://blog.csdn.net/paopao_pop/article/details/159546739",
     likes: 22,
-    views: 1164,
+    views: 1168,
     date: "2026-03-27",
   },
   {
@@ -28,7 +28,7 @@ export const blogPosts: BlogPost[] = [
       "解决控制台报错# 报错：Blocked aria-hidden on a ＜input＞ element because the element that just...这个bug是最近才出现的，之前自己也这样写也没有问题，网上说是chrome浏览器升级出现的问题。",
     url: "https://blog.csdn.net/paopao_pop/article/details/145722668",
     likes: 21,
-    views: 874,
+    views: 875,
     date: "2025-02-19",
   },
   {
@@ -64,7 +64,7 @@ export const blogPosts: BlogPost[] = [
       "本文介绍了在 Cursor 中配置和使用多种 MCP（Model Context Protocol）的指南。主要内容包括：1）环境准备（Node.js 18+、Python 3.10+）；2）5个常用MCP的功能说明、触发条件和安装方法（neural-memory、playwright、filesystem、seque",
     url: "https://blog.csdn.net/paopao_pop/article/details/159546584",
     likes: 10,
-    views: 491,
+    views: 494,
     date: "2026-03-27",
   },
 ];
