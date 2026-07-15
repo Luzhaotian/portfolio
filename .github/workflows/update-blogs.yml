@@ -19,6 +19,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # 需要完整历史，便于 rebase 到最新 main
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -36,10 +39,26 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+
           git add data/blogs.ts
           if git diff --staged --quiet; then
             echo "No changes to commit"
-          else
-            git commit -m "chore: 更新 CSDN 博客数据"
-            git push
+            exit 0
           fi
+
+          git commit -m "chore: 更新 CSDN 博客数据"
+
+          # 任务执行期间 main 可能已有新提交，先 rebase 再推送
+          for attempt in 1 2 3; do
+            git fetch origin main
+            if git pull --rebase origin main && git push origin HEAD:main; then
+              echo "Pushed successfully"
+              exit 0
+            fi
+            echo "Push attempt ${attempt} failed, retrying..."
+            git rebase --abort 2>/dev/null || true
+            sleep 5
+          done
+
+          echo "Failed to push after retries"
+          exit 1
