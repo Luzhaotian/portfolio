@@ -13,7 +13,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "clean": "rm -rf .next",
-    "fetch:blogs": "node scripts/fetch-csdn-blogs.mjs",
+    "fetch:blogs": "node scripts/fetch-csdn-blogs.mjs && prettier --write data/blogs.ts",
     "prepare": "husky"
   },
   "lint-staged": {

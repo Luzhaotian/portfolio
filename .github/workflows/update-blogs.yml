@@ -38,7 +38,7 @@ jobs:
 
       - name: Commit and push if changed
         env:
-          # 跳过 husky，避免 lint-staged stash 干扰 CI 推送
+          # 跳过 husky，避免 lint-staged 再次改格式制造差异
           HUSKY: "0"
         run: |
           set -eux
@@ -61,6 +61,7 @@ jobs:
             if ! git rebase origin/main; then
               echo "Rebase conflict on blogs.ts — keeping freshly fetched data"
               git checkout --theirs -- data/blogs.ts
+              npx prettier --write data/blogs.ts
               git add data/blogs.ts
               if ! GIT_EDITOR=true git rebase --continue; then
                 git rebase --abort || true
@@ -83,6 +84,7 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
 
+            # fetch:blogs 内已包含 prettier --write data/blogs.ts
             npm run fetch:blogs
             git add data/blogs.ts
             if git diff --staged --quiet; then
