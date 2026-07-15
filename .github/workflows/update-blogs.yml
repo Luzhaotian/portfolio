@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: update-blogs
+  group: main-git-write
   cancel-in-progress: false
 
 jobs:
@@ -20,8 +20,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          # 需要完整历史，便于 rebase 到最新 main
           fetch-depth: 0
+          ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -36,7 +37,12 @@ jobs:
         run: npm run fetch:blogs
 
       - name: Commit and push if changed
+        env:
+          # 跳过 husky，避免 lint-staged stash 干扰 CI 推送
+          HUSKY: "0"
         run: |
+          set -eux
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
@@ -48,17 +54,44 @@ jobs:
 
           git commit -m "chore: 更新 CSDN 博客数据"
 
-          # 任务执行期间 main 可能已有新提交，先 rebase 再推送
-          for attempt in 1 2 3; do
+          push_with_rebase() {
             git fetch origin main
-            if git pull --rebase origin main && git push origin HEAD:main; then
-              echo "Pushed successfully"
+
+            # rebase 时：ours = origin/main，theirs = 本地抓取提交 → 冲突保留本地抓取结果
+            if ! git rebase origin/main; then
+              echo "Rebase conflict on blogs.ts — keeping freshly fetched data"
+              git checkout --theirs -- data/blogs.ts
+              git add data/blogs.ts
+              if ! GIT_EDITOR=true git rebase --continue; then
+                git rebase --abort || true
+                return 1
+              fi
+            fi
+
+            git push origin HEAD:main
+          }
+
+          for attempt in 1 2 3 4 5; do
+            echo "=== Push attempt ${attempt}/5 ==="
+            if push_with_rebase; then
+              echo "Pushed successfully on attempt ${attempt}"
               exit 0
             fi
-            echo "Push attempt ${attempt} failed, retrying..."
+
+            echo "Attempt ${attempt} failed; soft-reset to origin/main and retry"
             git rebase --abort 2>/dev/null || true
-            sleep 5
+            git fetch origin main
+            git reset --hard origin/main
+
+            npm run fetch:blogs
+            git add data/blogs.ts
+            if git diff --staged --quiet; then
+              echo "No changes after refresh — blogs already up to date on main"
+              exit 0
+            fi
+            git commit -m "chore: 更新 CSDN 博客数据"
+            sleep $((attempt * 3))
           done
 
-          echo "Failed to push after retries"
+          echo "Failed to push after 5 attempts"
           exit 1
