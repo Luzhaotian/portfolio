@@ -10,7 +10,7 @@ export interface BlogPost {
 /** CSDN 博客主页 */
 export const csdnProfile = "https://blog.csdn.net/paopao_pop";
 
-/** 数据更新时间：2026-07-15，运行 npm run fetch:blogs 可刷新 */
+/** 数据更新时间：2026-07-20，运行 npm run fetch:blogs 可刷新 */
 export const blogPosts: BlogPost[] = [
   {
     title:
@@ -19,7 +19,7 @@ export const blogPosts: BlogPost[] = [
       '摘要 本文分享了如何通过合理配置 Skills（方法）和 MCP（工具能力）将 AI 助手从"问答工具"升级为"开发搭档"的经验。作者指出 AI 落地效果差往往不是模型问题，而是缺乏稳定的工作方法和执行能力。文章提供了20个高频Skills分类清单和5个核心MCP工具，建议从最小可用组合（3个MCP+4个Skills）',
     url: "https://blog.csdn.net/paopao_pop/article/details/159546739",
     likes: 22,
-    views: 1173,
+    views: 1176,
     date: "2026-03-27",
   },
   {
@@ -28,7 +28,7 @@ export const blogPosts: BlogPost[] = [
       "解决控制台报错# 报错：Blocked aria-hidden on a ＜input＞ element because the element that just...这个bug是最近才出现的，之前自己也这样写也没有问题，网上说是chrome浏览器升级出现的问题。",
     url: "https://blog.csdn.net/paopao_pop/article/details/145722668",
     likes: 21,
-    views: 876,
+    views: 877,
     date: "2025-02-19",
   },
   {
@@ -63,7 +63,7 @@ export const blogPosts: BlogPost[] = [
       "因为在 yml 文件中是监控 push 事件，所以会自定发布。新建文件夹 .github 然后再建一个文件夹 workflows。因为静态资源是可以部署到 GitHub 上，自己顺便学习部署网站。在 Actions 里可以查看进度，成功以后就会生成一个地址。因为我使用的是 Vite 工具，官方有提供相应 Demo。打开",
     url: "https://blog.csdn.net/paopao_pop/article/details/139117816",
     likes: 11,
-    views: 856,
+    views: 857,
     date: "2024-05-22",
   },
 ];
