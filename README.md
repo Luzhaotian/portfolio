@@ -15,7 +15,7 @@
 - 单色 Teal 强调色（`#14b8a6`），白天 / 夜晚双主题 CSS 变量
 - [UnoCSS](https://unocss.dev/) 原子化样式 + 语义化 `shortcuts`
 - [Vanta.js](https://github.com/tengbao/vanta) 3D 背景（夜晚飞鸟 / 白天网格，动态加载）
-- CSDN 博客展示：抓取点赞最多的文章（`npm run fetch:blogs`），卡片标题 / 摘要截断与 SVG 元数据图标
+- CSDN 博客展示：抓取点赞最多的文章（`npm run fetch:blogs`），卡片标题 / 摘要截断与 SVG 元数据图标；GitHub Actions 每日自动更新
 - 回到顶部：滚动超过阈值后显示浮动按钮
 - Cookie 提示：底部横幅，支持「全部接受 / 全部拒绝」，选择后持久化
 - SEO：Next.js Metadata、OpenGraph、语义化 HTML、跳过导航链接
@@ -131,6 +131,7 @@ postcss-unocss.cjs
 next.config.ts          # Next.js 配置（GitHub Pages 静态导出）
 .github/workflows/
   deploy.yml            # GitHub Pages CI 部署
+  update-blogs.yml      # 每日定时抓取并提交 CSDN 博客数据
 .husky/                 # Git 钩子（pre-commit / commit-msg）
 ```
 
@@ -152,11 +153,11 @@ next.config.ts          # Next.js 配置（GitHub Pages 静态导出）
 
 ### 数据文件
 
-| 文件          | 说明                                                   |
-| ------------- | ------------------------------------------------------ |
-| `profile.ts`  | GitHub 链接、工作年限等组件共用的基础配置              |
-| `blogs.ts`    | CSDN 博客列表（运行 `npm run fetch:blogs` 自动更新）   |
-| `projects.ts` | `Project` 接口类型定义；实际项目数据在 i18n locales 中 |
+| 文件          | 说明                                                            |
+| ------------- | --------------------------------------------------------------- |
+| `profile.ts`  | GitHub 链接、工作年限等组件共用的基础配置                       |
+| `blogs.ts`    | CSDN 博客列表（本地 `npm run fetch:blogs`，或 CI 每日自动更新） |
+| `projects.ts` | `Project` 接口类型定义；实际项目数据在 i18n locales 中          |
 
 企业项目描述建议使用通用业务名称，避免在公开站点展示敏感公司或产品名称。
 
@@ -325,6 +326,8 @@ npm run preview
 ### GitHub Pages（已配置 CI）
 
 仓库已配置 GitHub Actions 工作流（`.github/workflows/deploy.yml`），推送到 `main` 分支后自动构建并部署。CI 会尝试运行 `fetch:blogs` 更新博客数据（失败不阻断构建）。
+
+另有定时工作流（`.github/workflows/update-blogs.yml`）：每天 UTC 02:00（北京时间 10:00）自动抓取 CSDN 博客并提交到 `main`（有变更才提交）；也可在 Actions 页手动触发 **Update CSDN Blogs**。
 
 **首次启用步骤：**
 
