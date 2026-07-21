@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: main-git-write
@@ -37,11 +38,14 @@ jobs:
         run: npm run fetch:blogs
 
       - name: Commit and push if changed
+        id: push
         env:
           # 跳过 husky，避免 lint-staged 再次改格式制造差异
           HUSKY: "0"
         run: |
           set -eux
+
+          echo "pushed=false" >> "$GITHUB_OUTPUT"
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -76,6 +80,7 @@ jobs:
             echo "=== Push attempt ${attempt}/5 ==="
             if push_with_rebase; then
               echo "Pushed successfully on attempt ${attempt}"
+              echo "pushed=true" >> "$GITHUB_OUTPUT"
               exit 0
             fi
 
@@ -97,3 +102,9 @@ jobs:
 
           echo "Failed to push after 5 attempts"
           exit 1
+
+      - name: Trigger GitHub Pages deploy
+        if: steps.push.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run "Deploy to GitHub Pages" --ref main

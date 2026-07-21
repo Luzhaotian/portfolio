@@ -131,7 +131,7 @@ postcss-unocss.cjs
 next.config.ts          # Next.js 配置（GitHub Pages 静态导出）
 .github/workflows/
   deploy.yml            # GitHub Pages CI 部署
-  update-blogs.yml      # 每日定时抓取并提交 CSDN 博客数据
+  update-blogs.yml      # 每日定时抓取博客；有变更则推送并触发 Pages 部署
 .husky/                 # Git 钩子（pre-commit / commit-msg）
 ```
 
@@ -327,7 +327,7 @@ npm run preview
 
 仓库已配置 GitHub Actions 工作流（`.github/workflows/deploy.yml`），推送到 `main` 分支后自动构建并部署。CI 会尝试运行 `fetch:blogs` 更新博客数据（失败不阻断构建）。
 
-另有定时工作流（`.github/workflows/update-blogs.yml`）：每天 UTC 02:00（北京时间 10:00）自动抓取 CSDN 博客并提交到 `main`（有变更才提交）；也可在 Actions 页手动触发 **Update CSDN Blogs**。
+另有定时工作流（`.github/workflows/update-blogs.yml`）：每天 UTC 02:00（北京时间 10:00）自动抓取 CSDN 博客并提交到 `main`（有变更才提交），成功推送后会再触发 **Deploy to GitHub Pages** 部署站点；也可在 Actions 页手动触发 **Update CSDN Blogs**。
 
 **首次启用步骤：**
 
