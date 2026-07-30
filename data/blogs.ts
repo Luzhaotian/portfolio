@@ -10,7 +10,7 @@ export interface BlogPost {
 /** CSDN 博客主页 */
 export const csdnProfile = "https://blog.csdn.net/paopao_pop";
 
-/** 数据更新时间：2026-07-29，运行 npm run fetch:blogs 可刷新 */
+/** 数据更新时间：2026-07-30，运行 npm run fetch:blogs 可刷新 */
 export const blogPosts: BlogPost[] = [
   {
     title:
@@ -19,7 +19,7 @@ export const blogPosts: BlogPost[] = [
       '摘要 本文分享了如何通过合理配置 Skills（方法）和 MCP（工具能力）将 AI 助手从"问答工具"升级为"开发搭档"的经验。作者指出 AI 落地效果差往往不是模型问题，而是缺乏稳定的工作方法和执行能力。文章提供了20个高频Skills分类清单和5个核心MCP工具，建议从最小可用组合（3个MCP+4个Skills）',
     url: "https://blog.csdn.net/paopao_pop/article/details/159546739",
     likes: 22,
-    views: 1179,
+    views: 1180,
     date: "2026-03-27",
   },
   {
@@ -30,14 +30,6 @@ export const blogPosts: BlogPost[] = [
     likes: 21,
     views: 877,
     date: "2025-02-19",
-  },
-  {
-    title: "Element Plus 全局 Confirm 弹窗取消和意外关闭处理",
-    description: "Element Plus 全局 Confirm 弹窗取消和意外关闭处理",
-    url: "https://blog.csdn.net/paopao_pop/article/details/135063298",
-    likes: 18,
-    views: 2663,
-    date: "2023-12-18",
   },
   {
     title: "Vite + Vue3 开发",
@@ -65,5 +57,14 @@ export const blogPosts: BlogPost[] = [
     likes: 11,
     views: 860,
     date: "2024-05-22",
+  },
+  {
+    title: "个人精选 MCP 清单",
+    description:
+      "本文介绍了在 Cursor 中配置和使用多种 MCP（Model Context Protocol）的指南。主要内容包括：1）环境准备（Node.js 18+、Python 3.10+）；2）5个常用MCP的功能说明、触发条件和安装方法（neural-memory、playwright、filesystem、seque",
+    url: "https://blog.csdn.net/paopao_pop/article/details/159546584",
+    likes: 10,
+    views: 503,
+    date: "2026-03-27",
   },
 ];
