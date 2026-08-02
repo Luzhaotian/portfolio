@@ -10,7 +10,7 @@ export interface BlogPost {
 /** CSDN 博客主页 */
 export const csdnProfile = "https://blog.csdn.net/paopao_pop";
 
-/** 数据更新时间：2026-08-01，运行 npm run fetch:blogs 可刷新 */
+/** 数据更新时间：2026-08-02，运行 npm run fetch:blogs 可刷新 */
 export const blogPosts: BlogPost[] = [
   {
     title:
@@ -19,7 +19,7 @@ export const blogPosts: BlogPost[] = [
       '摘要 本文分享了如何通过合理配置 Skills（方法）和 MCP（工具能力）将 AI 助手从"问答工具"升级为"开发搭档"的经验。作者指出 AI 落地效果差往往不是模型问题，而是缺乏稳定的工作方法和执行能力。文章提供了20个高频Skills分类清单和5个核心MCP工具，建议从最小可用组合（3个MCP+4个Skills）',
     url: "https://blog.csdn.net/paopao_pop/article/details/159546739",
     likes: 22,
-    views: 1181,
+    views: 1183,
     date: "2026-03-27",
   },
   {
@@ -45,7 +45,7 @@ export const blogPosts: BlogPost[] = [
       "项目里引入了全局监听报错机制 onErrorCaptured 但是如果一直报错，会出现内存泄漏的问题（只会在开发环境上出现，不确定是这个钩子导致的，但是复现也不太容易，总结太菜，待解决。封装二次表单的 Select 组件的数据循环 Children 需要循环才能写入（这个不符合我的初始设计想法，但是，目前也没有好的解决",
     url: "https://blog.csdn.net/paopao_pop/article/details/137513698",
     likes: 17,
-    views: 630,
+    views: 631,
     date: "2024-04-08",
   },
   {
@@ -54,7 +54,7 @@ export const blogPosts: BlogPost[] = [
       "本文介绍了如何配置Figma与Cursor的集成方案。主要内容包括：1)下载安装Figma软件；2)安装Bun运行时环境；3)克隆cursor-talk-to-figma-mcp插件项目并启动WebSocket服务；4)在Figma中导入插件manifest文件；5)配置Cursor的MCP连接；6)测试连接；7)添加",
     url: "https://blog.csdn.net/paopao_pop/article/details/159427862",
     likes: 14,
-    views: 589,
+    views: 590,
     date: "2026-03-24",
   },
   {
