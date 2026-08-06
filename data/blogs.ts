@@ -10,7 +10,7 @@ export interface BlogPost {
 /** CSDN 博客主页 */
 export const csdnProfile = "https://blog.csdn.net/paopao_pop";
 
-/** 数据更新时间：2026-08-05，运行 npm run fetch:blogs 可刷新 */
+/** 数据更新时间：2026-08-06，运行 npm run fetch:blogs 可刷新 */
 export const blogPosts: BlogPost[] = [
   {
     title:
@@ -19,7 +19,7 @@ export const blogPosts: BlogPost[] = [
       '摘要 本文分享了如何通过合理配置 Skills（方法）和 MCP（工具能力）将 AI 助手从"问答工具"升级为"开发搭档"的经验。作者指出 AI 落地效果差往往不是模型问题，而是缺乏稳定的工作方法和执行能力。文章提供了20个高频Skills分类清单和5个核心MCP工具，建议从最小可用组合（3个MCP+4个Skills）',
     url: "https://blog.csdn.net/paopao_pop/article/details/159546739",
     likes: 22,
-    views: 1184,
+    views: 1188,
     date: "2026-03-27",
   },
   {
@@ -36,7 +36,7 @@ export const blogPosts: BlogPost[] = [
     description: "Element Plus 全局 Confirm 弹窗取消和意外关闭处理",
     url: "https://blog.csdn.net/paopao_pop/article/details/135063298",
     likes: 18,
-    views: 2663,
+    views: 2664,
     date: "2023-12-18",
   },
   {
