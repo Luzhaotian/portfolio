@@ -4,7 +4,6 @@ import { useEffect, useMemo, useState } from "react";
 import LocaleToggle from "@/components/LocaleToggle";
 import ThemeToggle from "@/components/ThemeToggle";
 import { useI18n } from "@/components/I18nProvider";
-import { profile } from "@/data/profile";
 import { useViewport } from "@/lib/hooks/useViewport";
 
 export default function NavBar() {
@@ -12,7 +11,7 @@ export default function NavBar() {
   const { isMobile } = useViewport();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("about");
+  const [activeSection, setActiveSection] = useState("selected");
 
   const sectionIds = useMemo(() => t.nav.map((link) => link.href.slice(1)), [t.nav]);
 
@@ -33,7 +32,7 @@ export default function NavBar() {
         ([entry]) => {
           if (entry.isIntersecting) setActiveSection(id);
         },
-        { rootMargin: "-40% 0px -50% 0px", threshold: 0 }
+        { rootMargin: "-40% 0px -50% 0px", threshold: 0 },
       );
 
       observer.observe(el);
@@ -59,7 +58,7 @@ export default function NavBar() {
 
   const headerBg =
     scrolled || menuOpen
-      ? "border-b border-divider bg-[var(--nav-bg)] backdrop-blur-xl"
+      ? "border-b border-divider bg-[var(--nav-bg)] backdrop-blur-md"
       : "bg-transparent";
 
   return (
@@ -67,18 +66,19 @@ export default function NavBar() {
       className={`fixed top-0 z-50 w-full transition-[background-color,border-color,backdrop-filter] duration-300 ${headerBg}`}
     >
       <nav
-        className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4"
+        className="mx-auto flex max-w-[1080px] items-center justify-between px-4 py-4 sm:px-6 sm:py-5 md:px-8"
         aria-label={t.navAria.main}
       >
         <a
           href="#"
-          className="focus-ring rounded-lg text-base font-bold theme-text sm:text-lg"
+          className="focus-ring rounded-sm font-serif text-base font-medium tracking-tight text-heading transition-colors duration-300 hover:text-theme sm:text-lg"
           onClick={() => setMenuOpen(false)}
+          translate="no"
         >
-          {t.profile.name}
+          Luzhaotian
         </a>
 
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-6 md:flex">
           <ul className="flex items-center gap-1">
             {t.nav.map((link) => {
               const id = link.href.slice(1);
@@ -88,10 +88,9 @@ export default function NavBar() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className={`focus-ring rounded-full px-3.5 py-2 text-sm transition-colors ${
-                      isActive
-                        ? "bg-active text-theme-light"
-                        : "text-muted hover:text-body"
+                    data-active={isActive ? "true" : "false"}
+                    className={`nav-link ${
+                      isActive ? "text-theme" : "text-muted hover:text-heading"
                     }`}
                   >
                     {link.label}
@@ -102,40 +101,32 @@ export default function NavBar() {
           </ul>
           <LocaleToggle compact />
           <ThemeToggle compact />
-          <a
-            href={profile.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-ghost !w-auto !px-4 !py-2 text-xs"
-          >
-            {t.hero.github}
-          </a>
         </div>
 
         <div className="flex items-center gap-2 md:hidden">
           <button
             type="button"
-            className="focus-ring flex flex-col gap-1.5 rounded-lg p-2 text-body"
+            className="focus-ring flex flex-col gap-1.5 rounded-sm p-2 text-heading"
             aria-label={menuOpen ? t.navAria.closeMenu : t.navAria.openMenu}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen(!menuOpen)}
           >
             <span
-              className={`block h-0.5 w-6 bg-current transition-transform ${menuOpen ? "translate-y-2 rotate-45" : ""}`}
+              className={`block h-px w-5 bg-current transition-transform ${menuOpen ? "translate-y-[7px] rotate-45" : ""}`}
             />
             <span
-              className={`block h-0.5 w-6 bg-current transition-opacity ${menuOpen ? "opacity-0" : ""}`}
+              className={`block h-px w-5 bg-current transition-opacity ${menuOpen ? "opacity-0" : ""}`}
             />
             <span
-              className={`block h-0.5 w-6 bg-current transition-transform ${menuOpen ? "-translate-y-2 -rotate-45" : ""}`}
+              className={`block h-px w-5 bg-current transition-transform ${menuOpen ? "-translate-y-[7px] -rotate-45" : ""}`}
             />
           </button>
         </div>
       </nav>
 
       {menuOpen && (
-        <div className="border-b border-divider bg-[var(--nav-bg-solid)] backdrop-blur-xl md:hidden">
-          <ul className="flex max-h-[calc(100dvh-3.5rem)] flex-col gap-1 overflow-y-auto px-4 py-4">
+        <div className="border-b border-divider bg-[var(--nav-bg-solid)] md:hidden">
+          <ul className="flex max-h-[calc(100dvh-3.5rem)] flex-col gap-1 overflow-y-auto px-4 py-5">
             {t.nav.map((link) => {
               const id = link.href.slice(1);
               const isActive = activeSection === id;
@@ -144,10 +135,8 @@ export default function NavBar() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className={`focus-ring block rounded-lg px-3 py-3 text-base transition-colors ${
-                      isActive
-                        ? "bg-active text-theme-light"
-                        : "text-muted hover:bg-hover"
+                    className={`focus-ring block rounded-sm px-3 py-3 text-base transition-colors ${
+                      isActive ? "text-theme" : "text-muted hover:bg-hover"
                     }`}
                     onClick={() => setMenuOpen(false)}
                   >
@@ -156,22 +145,11 @@ export default function NavBar() {
                 </li>
               );
             })}
-            <li className="mt-2 border-t border-divider pt-3">
+            <li className="mt-3 border-t border-divider pt-4">
               <LocaleToggle onSelect={() => setMenuOpen(false)} />
             </li>
-            <li className="mt-2 border-t border-divider pt-3">
+            <li className="mt-2 border-t border-divider pt-4">
               <ThemeToggle onSelect={() => setMenuOpen(false)} />
-            </li>
-            <li className="mt-2 border-t border-divider pt-3">
-              <a
-                href={profile.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-ghost !py-2.5"
-                onClick={() => setMenuOpen(false)}
-              >
-                {t.hero.github}
-              </a>
             </li>
           </ul>
         </div>

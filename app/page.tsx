@@ -2,50 +2,35 @@
 
 import NavBar from "@/components/NavBar";
 import ViewportSync from "@/components/ViewportSync";
-import VantaBackground from "@/components/VantaBackgroundClient";
+import PointerAura from "@/components/PointerAura";
+import PageDroplets from "@/components/PageDroplets";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import SkillsSection from "@/components/SkillsSection";
-import ProjectsSection from "@/components/ProjectsSection";
+import SelectedProjects from "@/components/SelectedProjects";
+import WorkIndex from "@/components/WorkIndex";
 import BackToTop from "@/components/BackToTop";
 import CookieConsent from "@/components/CookieConsent";
 import BlogSection from "@/components/BlogSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import FooterSection from "@/components/FooterSection";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { useI18n } from "@/components/I18nProvider";
-import { enterpriseProjects, githubProjects } from "@/data/projects";
 
 function HomeContent() {
-  const { t } = useI18n();
-
   return (
     <>
       <ViewportSync />
-      <VantaBackground />
+      <div className="page-noise fixed inset-0 z-[1]" aria-hidden="true" />
+      <PointerAura />
+      <PageDroplets />
       <div className="relative z-10">
         <NavBar />
         <main id="main-content">
           <HeroSection />
+          <SelectedProjects />
           <AboutSection />
+          <WorkIndex />
           <SkillsSection />
-          <ProjectsSection
-            id="enterprise"
-            sectionIndex={t.enterprise.index}
-            title={t.enterprise.title}
-            subtitle={t.enterprise.subtitle}
-            projects={enterpriseProjects}
-            texts={t.enterprise.projects}
-          />
-          <ProjectsSection
-            id="github"
-            sectionIndex={t.github.index}
-            title={t.github.title}
-            subtitle={t.github.subtitle}
-            projects={githubProjects}
-            texts={t.github.projects}
-            showLinks
-          />
           <BlogSection />
           <ExperienceSection />
         </main>

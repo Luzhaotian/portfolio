@@ -28,9 +28,9 @@ export default function CookieConsent() {
       role="dialog"
       aria-labelledby="cookie-consent-title"
       aria-describedby="cookie-consent-desc"
-      className="fixed inset-x-0 bottom-0 z-[60] border-t border-divider bg-[var(--nav-bg-solid)] p-4 backdrop-blur-xl sm:p-5"
+      className="fixed inset-x-0 bottom-0 z-[60] border-t border-divider bg-[var(--nav-bg-solid)] p-4 sm:p-5"
     >
-      <div className="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mx-auto flex max-w-[1080px] flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="space-y-1.5">
           <p id="cookie-consent-title" className="text-sm font-medium text-heading">
             {t.cookie.title}
@@ -44,14 +44,14 @@ export default function CookieConsent() {
           <button
             type="button"
             onClick={() => saveChoice("rejected")}
-            className="focus-ring rounded-full border border-[var(--border-medium)] bg-[var(--glass-bg)] px-5 py-2.5 text-sm font-semibold text-body transition-colors hover:border-theme/40 hover:text-theme-light"
+            className="focus-ring border border-divider px-5 py-2.5 text-sm text-body transition-colors hover:text-theme"
           >
             {t.cookie.reject}
           </button>
           <button
             type="button"
             onClick={() => saveChoice("accepted")}
-            className="focus-ring rounded-full bg-theme px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+            className="focus-ring bg-[var(--text-heading)] px-5 py-2.5 text-sm text-[var(--color-background)] transition-opacity hover:opacity-90"
           >
             {t.cookie.accept}
           </button>

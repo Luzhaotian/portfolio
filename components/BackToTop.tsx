@@ -18,7 +18,7 @@ export default function BackToTop() {
 
   const scrollToTop = () => {
     const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
+      "(prefers-reduced-motion: reduce)",
     ).matches;
     window.scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" });
   };
@@ -28,14 +28,14 @@ export default function BackToTop() {
       type="button"
       aria-label={t.common.backToTop}
       onClick={scrollToTop}
-      className={`focus-ring fixed bottom-6 right-4 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-[var(--glass-border)] bg-[var(--glass-bg)] text-body shadow-lg backdrop-blur-md transition-[opacity,transform,visibility] duration-300 hover:border-theme/40 hover:text-theme-light sm:bottom-8 sm:right-6 ${
+      className={`focus-ring fixed bottom-6 right-4 z-50 flex h-10 w-10 items-center justify-center border border-divider bg-[var(--nav-bg-solid)] text-body transition-[opacity,transform,visibility] duration-300 hover:border-theme/40 hover:text-theme sm:bottom-8 sm:right-6 ${
         visible
           ? "visible translate-y-0 opacity-100"
-          : "invisible translate-y-2 opacity-0 pointer-events-none"
+          : "invisible pointer-events-none translate-y-2 opacity-0"
       }`}
     >
       <svg
-        className="h-5 w-5"
+        className="h-4 w-4"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -44,7 +44,7 @@ export default function BackToTop() {
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth={2}
+          strokeWidth={1.5}
           d="M5 10l7-7m0 0l7 7m-7-7v18"
         />
       </svg>

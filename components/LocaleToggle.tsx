@@ -24,7 +24,7 @@ export default function LocaleToggle({ compact = false, onSelect }: LocaleToggle
   if (compact) {
     return (
       <div
-        className="inline-flex rounded-full border border-divider bg-[var(--glass-bg)] p-0.5"
+        className="inline-flex border border-divider p-0.5"
         role="group"
         aria-label="Language"
       >
@@ -32,10 +32,8 @@ export default function LocaleToggle({ compact = false, onSelect }: LocaleToggle
           <button
             key={value}
             type="button"
-            className={`focus-ring rounded-full px-2.5 py-1.5 text-xs font-medium transition-colors ${
-              locale === value
-                ? "bg-active text-theme-light"
-                : "text-muted hover:text-body"
+            className={`focus-ring px-2 py-1 text-[11px] transition-colors duration-250 ${
+              locale === value ? "bg-active text-theme" : "text-muted hover:text-heading"
             }`}
             aria-pressed={locale === value}
             aria-label={label}
@@ -54,10 +52,8 @@ export default function LocaleToggle({ compact = false, onSelect }: LocaleToggle
         <button
           key={value}
           type="button"
-          className={`focus-ring flex items-center gap-2 rounded-lg px-3 py-2.5 text-base transition-colors ${
-            locale === value
-              ? "bg-active text-theme-light"
-              : "text-muted hover:bg-hover"
+          className={`focus-ring flex items-center gap-2 px-3 py-2.5 text-base transition-colors ${
+            locale === value ? "bg-active text-theme" : "text-muted hover:bg-hover"
           }`}
           aria-pressed={locale === value}
           onClick={() => handleSelect(value)}

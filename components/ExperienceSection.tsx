@@ -8,44 +8,32 @@ export default function ExperienceSection() {
   const { t } = useI18n();
 
   return (
-    <section id="experience" className="section-shell bg-surface/40">
+    <section id="experience" className="section-shell-mute">
       <div className="section-inner">
         <SectionHeader
-          index={t.experience.index}
+          eyebrow="Fields"
           title={t.experience.title}
           subtitle={t.experience.subtitle}
         />
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {experienceDomains.map((domain, index) => {
+        <dl className="flex flex-col">
+          {experienceDomains.map((domain) => {
             const text = t.experience.domains[domain.id];
             return (
-              <article
+              <div
                 key={domain.id}
-                className="glass-card-interactive relative overflow-hidden p-5 pl-6 sm:p-6 sm:pl-7"
+                className="grid gap-3 border-t border-divider py-8 first:border-t-0 first:pt-0 sm:grid-cols-[minmax(0,0.4fr)_minmax(0,1fr)] sm:gap-10 sm:py-10"
               >
-                <div
-                  className="absolute left-0 top-0 h-full w-1 bg-theme/70"
-                  aria-hidden="true"
-                />
-                <div className="mb-3 flex items-center gap-3">
-                  <span className="text-2xl" aria-hidden="true">
-                    {domain.icon}
-                  </span>
-                  <span className="font-mono text-xs text-faint">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                </div>
-                <h3 className="mb-2 text-lg font-semibold text-heading">
+                <dt className="font-serif text-lg font-medium tracking-tight text-heading sm:text-xl">
                   {text.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-muted text-pretty">
+                </dt>
+                <dd className="text-[15px] leading-relaxed text-muted sm:text-base text-pretty">
                   {text.description}
-                </p>
-              </article>
+                </dd>
+              </div>
             );
           })}
-        </div>
+        </dl>
       </div>
     </section>
   );

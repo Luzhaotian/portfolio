@@ -1,17 +1,17 @@
 interface SectionHeaderProps {
-  index: string;
+  eyebrow?: string;
   title: string;
-  subtitle: string;
+  subtitle?: string;
 }
 
-export default function SectionHeader({ index, title, subtitle }: SectionHeaderProps) {
+export default function SectionHeader({ eyebrow, title, subtitle }: SectionHeaderProps) {
   return (
-    <header className="mb-8 sm:mb-12 md:mb-16">
-      <p className="mb-3 font-mono text-xs tracking-[0.2em] text-theme-light/80">
-        {index}
-      </p>
+    <header className="mb-12 sm:mb-16 md:mb-20">
+      {eyebrow ? <p className="section-eyebrow">{eyebrow}</p> : null}
       <h2 className="section-title text-balance">{title}</h2>
-      <p className="section-subtitle mt-3 max-w-2xl text-pretty">{subtitle}</p>
+      {subtitle ? (
+        <p className="section-subtitle mt-4 text-pretty">{subtitle}</p>
+      ) : null}
     </header>
   );
 }
