@@ -1,7 +1,5 @@
 "use client";
 
-"use client";
-
 import NavBar from "@/components/NavBar";
 import ViewportSync from "@/components/ViewportSync";
 import VantaBackground from "@/components/VantaBackgroundClient";
@@ -16,6 +14,7 @@ import ExperienceSection from "@/components/ExperienceSection";
 import FooterSection from "@/components/FooterSection";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { useI18n } from "@/components/I18nProvider";
+import { enterpriseProjects, githubProjects } from "@/data/projects";
 
 function HomeContent() {
   const { t } = useI18n();
@@ -35,14 +34,16 @@ function HomeContent() {
             sectionIndex={t.enterprise.index}
             title={t.enterprise.title}
             subtitle={t.enterprise.subtitle}
-            projects={t.enterprise.projects}
+            projects={enterpriseProjects}
+            texts={t.enterprise.projects}
           />
           <ProjectsSection
             id="github"
             sectionIndex={t.github.index}
             title={t.github.title}
             subtitle={t.github.subtitle}
-            projects={t.github.projects}
+            projects={githubProjects}
+            texts={t.github.projects}
             showLinks
           />
           <BlogSection />

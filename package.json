@@ -2,6 +2,10 @@
   "name": "luzhaotian-portfolio",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=20",
+    "npm": ">=9"
+  },
   "scripts": {
     "dev": "next dev",
     "dev:clean": "npm run clean && next dev",

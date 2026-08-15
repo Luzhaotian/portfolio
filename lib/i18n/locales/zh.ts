@@ -68,163 +68,179 @@ export const zh: LocaleMessages = {
     title: "技术栈",
     subtitle: "从 GitHub 开源与企业级平台中沉淀的全栈前端能力",
     featuredDesc: "双栈深耕，覆盖现代 Web 应用核心链路",
-    categories: [
-      {
+    categories: {
+      coreFrameworks: {
         name: "核心框架",
-        skills: ["Vue 2/3", "React 18/19", "Next.js", "TypeScript", "Pinia", "Vuex"],
+        skills: {
+          vue23: "Vue 2/3",
+          react1819: "React 18/19",
+          nextjs: "Next.js",
+          typescript: "TypeScript",
+          pinia: "Pinia",
+          vuex: "Vuex",
+        },
       },
-      {
+      uiLibraries: {
         name: "UI 组件库",
-        skills: ["Ant Design", "Element Plus", "Tailwind CSS", "Ant Design Mobile"],
+        skills: {
+          antDesign: "Ant Design",
+          elementPlus: "Element Plus",
+          tailwindCss: "Tailwind CSS",
+          antDesignMobile: "Ant Design Mobile",
+        },
       },
-      {
+      buildTools: {
         name: "构建工具",
-        skills: ["Vite", "Webpack", "Rspack", "Rollup", "Babel", "ESLint"],
+        skills: {
+          vite: "Vite",
+          webpack: "Webpack",
+          rspack: "Rspack",
+          rollup: "Rollup",
+          babel: "Babel",
+          eslint: "ESLint",
+        },
       },
-      {
+      dataVisualization: {
         name: "数据可视化",
-        skills: ["ECharts", "Three.js", "D3.js", "Canvas", "SVG"],
+        skills: {
+          echarts: "ECharts",
+          threeJs: "Three.js",
+          d3js: "D3.js",
+          canvas: "Canvas",
+          svg: "SVG",
+        },
       },
-      {
+      crossPlatform: {
         name: "跨端 & 扩展",
-        skills: ["微信小程序", "UniApp", "Chrome Extension", "H5 移动端"],
+        skills: {
+          wechatMiniProgram: "微信小程序",
+          uniapp: "UniApp",
+          chromeExtension: "Chrome Extension",
+          mobileH5: "H5 移动端",
+        },
       },
-      {
+      aiAutomation: {
         name: "AI & 智能化",
-        skills: ["AI Agent", "OpenAPI", "LLM 集成", "智能体编排", "Prompt Engineering"],
+        skills: {
+          aiAgent: "AI Agent",
+          openapi: "OpenAPI",
+          llmIntegration: "LLM 集成",
+          agentOrchestration: "智能体编排",
+          promptEngineering: "Prompt Engineering",
+        },
       },
-      {
+      backendCollaboration: {
         name: "后端协作",
-        skills: ["RESTful API", "GraphQL", "Node.js", "Java 协作", "微前端"],
+        skills: {
+          restfulApi: "RESTful API",
+          graphql: "GraphQL",
+          nodejs: "Node.js",
+          javaCollaboration: "Java 协作",
+          microFrontends: "微前端",
+        },
       },
-      {
+      engineeringPractices: {
         name: "工程实践",
-        skills: ["Git", "CI/CD", "Monorepo", "性能优化", "单元测试", "Code Review"],
+        skills: {
+          git: "Git",
+          cicd: "CI/CD",
+          monorepo: "Monorepo",
+          performanceOptimization: "性能优化",
+          unitTesting: "单元测试",
+          codeReview: "Code Review",
+        },
       },
-    ],
+    },
   },
   enterprise: {
     index: "03 — ENTERPRISE",
     title: "近期企业项目",
     subtitle: "近年参与的代表性核心业务平台与管理系统",
-    projects: [
-      {
+    projects: {
+      ceTelephone: {
         name: "ce-telephone SDK",
         description:
           "呼叫中心软电话 TypeScript SDK，封装 WebSocket 信令、通话状态管理与事件驱动 API，支持 3PCC 呼叫模式，以 Rollup 构建并发布 npm 包。",
-        tech: ["TypeScript", "Rollup", "WebSocket", "SDK"],
-        highlight: true,
       },
-      {
+      enterpriseAiPlatform: {
         name: "企业 AI 应用平台",
         description:
           "企业级 AI 应用平台，集成大模型能力，支持智能对话、工作流编排与知识库管理。",
-        tech: ["React", "Next.js", "Rspack", "Ant Design", "ECharts"],
-        highlight: true,
       },
-      {
+      consumerFinance: {
         name: "消费金融管理系统",
         description:
           "消费金融核心业务管理系统，涵盖用户管理、订单流转、风控审核等模块。",
-        tech: ["React", "Ant Design", "TypeScript"],
-        highlight: true,
       },
-      {
+      fundManagement: {
         name: "资金管理平台",
         description: "资金流转与账务管理平台，实时数据监控与多维度报表分析。",
-        tech: ["React", "Ant Design", "ECharts"],
       },
-      {
+      aiQualityInspection: {
         name: "AI 智检系统",
         description: "基于 AI 的智能质检平台，自动化检测通话与服务质量，提升运营效率。",
-        tech: ["React", "Ant Design", "AI"],
-        highlight: true,
       },
-      {
+      intelligentOutbound: {
         name: "智能外呼系统",
         description:
           "智能外呼与呼叫中心管理平台，支持任务调度、话术配置与通话数据分析。",
-        tech: ["Vue", "React", "ECharts"],
       },
-      {
+      crm: {
         name: "CRM 客户管理",
         description: "客户关系管理系统，支持线索跟进、客户画像与销售业绩追踪。",
-        tech: ["Vue 3", "Vite", "Pinia", "ECharts"],
       },
-      {
+      shortDrama: {
         name: "短剧内容平台",
         description: "短剧内容管理与运营后台，支持内容上架、数据统计与用户分析。",
-        tech: ["React", "Ant Design"],
       },
-      {
+      intlConsumerFinance: {
         name: "国际化消费金融平台",
         description: "国际化消费金融平台，多语言支持与跨境业务管理。",
-        tech: ["React", "Next.js", "Ant Design"],
       },
-    ],
+    },
   },
   github: {
     index: "04 — OPEN SOURCE",
     title: "开源项目",
     subtitle: "GitHub 上的个人开源项目与技术探索",
-    projects: [
-      {
+    projects: {
+      hireHelper: {
         name: "hire-helper",
         description: "智能招聘助手，基于 AI 的简历分析与岗位匹配工具。",
-        tech: ["JavaScript", "AI Agent"],
-        link: "https://github.com/Luzhaotian/hire-helper",
-        highlight: true,
       },
-      {
+      feAgent: {
         name: "fe-agent",
         description: "前端智能体，探索 AI 驱动的前端开发自动化与工作流。",
-        tech: ["TypeScript", "AI Agent"],
-        link: "https://github.com/Luzhaotian/fe-agent",
-        highlight: true,
       },
-      {
+      agentHub: {
         name: "agent-hub",
         description: "通用代理插件系统，可扩展的 Agent 能力编排框架。",
-        tech: ["JavaScript", "Plugin System"],
-        link: "https://github.com/Luzhaotian/agent-hub",
       },
-      {
+      viteVueTemplate: {
         name: "vite-vue3-vueuse-tailwindcss",
         description: "Vue 3 + Vite + VueUse + Tailwind CSS 现代化脚手架模板。",
-        tech: ["Vue 3", "Vite", "Tailwind CSS"],
-        link: "https://github.com/Luzhaotian/vite-vue3-vueuse-tailwindcss",
       },
-      {
+      elementFilePreview: {
         name: "element-file-preview",
         description: "基于 Element UI 的文件预览 npm 组件包，支持多种文件格式。",
-        tech: ["Vue 2", "npm"],
-        link: "https://github.com/Luzhaotian/element-file-preview",
       },
-      {
+      reactAntdLog: {
         name: "react-antd-log",
         description: "React + Ant Design 日志管理组件，结构化日志展示与筛选。",
-        tech: ["React", "Ant Design", "TypeScript"],
-        link: "https://github.com/Luzhaotian/react-antd-log",
       },
-      {
+      cookiesCopy: {
         name: "CookiesCopy",
         description: "Chrome 浏览器扩展，便捷复制与管理 Cookie 信息。",
-        tech: ["JavaScript", "Chrome Extension"],
-        link: "https://github.com/Luzhaotian/CookiesCopy",
       },
-      {
+      caidianfangUniapp: {
         name: "caidianfang-uniapp",
         description: "微信小程序，基于 UniApp 跨端开发框架。",
-        tech: ["UniApp", "Vue", "微信小程序"],
-        link: "https://github.com/Luzhaotian/caidianfang-uniapp",
       },
-      {
+      workDiary: {
         name: "work-diary",
         description: "工时记录小程序，简洁高效的日常工时追踪工具。",
-        tech: ["Vue", "微信小程序"],
-        link: "https://github.com/Luzhaotian/work-diary",
       },
-    ],
+    },
   },
   blog: {
     index: "05 — BLOG",
@@ -235,43 +251,37 @@ export const zh: LocaleMessages = {
     index: "06 — DOMAINS",
     title: "经验领域",
     subtitle: "8 年职业生涯中深耕的业务方向与技术实践",
-    domains: [
-      {
+    domains: {
+      fintech: {
         title: "金融科技",
         description:
           "消费金融管理系统、资金管理平台、国际化信贷平台等核心业务系统，涵盖信贷、资金流转与跨境场景。",
-        icon: "💰",
       },
-      {
+      aiMcp: {
         title: "AI 应用与 MCP",
         description:
           "落地企业 AI 平台、智检系统与前端智能体，引入 AI Skills 与 MCP 工具链贯穿研发协作与外呼话术配置等环节，团队效率与交付质量整体提升约 30%。",
-        icon: "🤖",
       },
-      {
+      enterpriseSaas: {
         title: "企业 SaaS",
         description: "CRM、智能外呼、短剧运营等 B 端平台，服务内部运营与业务团队。",
-        icon: "🏢",
       },
-      {
+      dataViz: {
         title: "数据可视化",
         description:
           "基于 ECharts 构建实时数据大屏、业务报表与监控面板，支撑决策与运营分析。",
-        icon: "📊",
       },
-      {
+      mobileMiniPrograms: {
         title: "移动端 & 小程序",
         description:
           "微信小程序、UniApp 跨端应用、保险 H5 等移动端项目，覆盖 C 端用户触达场景。",
-        icon: "📱",
       },
-      {
+      engineeringOss: {
         title: "工程化 & 开源",
         description:
           "Vite / Webpack / Rspack 构建优化，Chrome 扩展、npm 组件库与 SDK 发布，持续输出技术方案。",
-        icon: "⚙️",
       },
-    ],
+    },
   },
   footer: {
     about: "关于",

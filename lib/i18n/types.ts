@@ -1,4 +1,6 @@
-import type { Project } from "@/data/projects";
+import type { EnterpriseProjectId, GithubProjectId } from "@/data/projects";
+import type { CategorySkillIds, SkillCategoryId } from "@/data/skills";
+import type { ExperienceDomainId } from "@/data/experience";
 
 export type Locale = "zh" | "en";
 
@@ -12,17 +14,29 @@ export interface HighlightItem {
   value: string;
 }
 
-export interface SkillCategory {
+/** 项目中英文文案（按 data/projects.ts 中的 id 索引） */
+export interface ProjectText {
   name: string;
-  description?: string;
-  skills: string[];
+  description: string;
 }
 
-export interface ExperienceDomain {
+/** 经验领域中英文文案（按 data/experience.ts 中的 id 索引） */
+export interface ExperienceDomainText {
   title: string;
   description: string;
-  icon: string;
 }
+
+/**
+ * 技能分类中英文文案（按 data/skills.ts 中的 id 索引）。
+ * 用 mapped type 与 data 绑定：data 里每个分类 id 及其技能 id
+ * 都必须在 zh / en 两份文案中存在，漏写会编译报错。
+ */
+export type SkillCategoriesText = {
+  [C in SkillCategoryId]: {
+    name: string;
+    skills: Record<CategorySkillIds<C>, string>;
+  };
+};
 
 export interface LocaleMessages {
   meta: {
@@ -54,6 +68,12 @@ export interface LocaleMessages {
     viewResume: string;
     github: string;
   };
+  profile: {
+    name: string;
+    title: string;
+    tagline: string;
+    highlights: HighlightItem[];
+  };
   about: {
     index: string;
     title: string;
@@ -69,19 +89,21 @@ export interface LocaleMessages {
     title: string;
     subtitle: string;
     featuredDesc: string;
-    categories: SkillCategory[];
+    categories: SkillCategoriesText;
   };
   enterprise: {
     index: string;
     title: string;
     subtitle: string;
-    projects: Project[];
+    /** 项目文案查找表，key 与 data/projects.ts 的 enterpriseProjects id 一致 */
+    projects: Record<EnterpriseProjectId, ProjectText>;
   };
   github: {
     index: string;
     title: string;
     subtitle: string;
-    projects: Project[];
+    /** 项目文案查找表，key 与 data/projects.ts 的 githubProjects id 一致 */
+    projects: Record<GithubProjectId, ProjectText>;
   };
   blog: {
     index: string;
@@ -92,7 +114,8 @@ export interface LocaleMessages {
     index: string;
     title: string;
     subtitle: string;
-    domains: ExperienceDomain[];
+    /** 领域文案查找表，key 与 data/experience.ts 的 id 一致 */
+    domains: Record<ExperienceDomainId, ExperienceDomainText>;
   };
   footer: {
     about: string;
@@ -114,11 +137,5 @@ export interface LocaleMessages {
   locale: {
     zh: string;
     en: string;
-  };
-  profile: {
-    name: string;
-    title: string;
-    tagline: string;
-    highlights: HighlightItem[];
   };
 }

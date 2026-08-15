@@ -19,7 +19,7 @@
 - 回到顶部：滚动超过阈值后显示浮动按钮
 - Cookie 提示：底部横幅，支持「全部接受 / 全部拒绝」，选择后持久化
 - SEO：Next.js Metadata、OpenGraph、语义化 HTML、跳过导航链接
-- 内容数据化：`lib/i18n/locales/` 维护文案，`data/` 维护博客与基础配置
+- 内容数据化：`data/` 管理内容结构（id、技术标签、链接、顺序），中英文文案留在 `lib/i18n/locales/` 按 id 索引，类型系统保证 id 与两语言文案一一对应
 
 ## 页面结构
 
@@ -47,7 +47,7 @@
 
 ## 环境要求
 
-- Node.js 18+（推荐 20+）
+- Node.js 20+（与 CI 保持一致）
 - npm 9+
 
 ## 本地开发
@@ -104,15 +104,17 @@ components/
   CookieConsent.tsx    # Cookie 同意横幅
   SkipLink.tsx         # 跳过导航链接
 data/
-  profile.ts           # GitHub 链接、工作年限等基础配置
-  projects.ts          # Project 类型定义（项目内容见 i18n locales）
+  profile.ts           # 语言无关的个人配置（GitHub 链接、工作年限）
+  projects.ts          # Project 类型 + 企业/开源项目结构（id、技术标签、链接、顺序）
+  skills.ts            # SkillCategory 类型 + 技能分类结构（分类 id、技能 id、顺序）
+  experience.ts        # ExperienceDomain 类型 + 经验领域结构（id、图标、顺序）
   blogs.ts             # CSDN 博客（由 fetch:blogs 生成）
 lib/
   i18n/
     index.ts           # locale 常量、初始化脚本
-    types.ts           # LocaleMessages 类型
-    locales/zh.ts      # 中文文案（导航、区块、项目、技能等）
-    locales/en.ts      # 英文文案
+    types.ts           # LocaleMessages 类型（含与 data id 绑定的文案查找表类型）
+    locales/zh.ts      # 中文文案（导航、区块、项目、技能等，按 data 的 id 索引）
+    locales/en.ts      # 英文文案（结构与 zh.ts 一致）
   site.ts              # GitHub Pages basePath 与站点 origin
   theme.ts             # 主题模式常量与工具函数
   breakpoints.ts       # 断点常量与 MEDIA_QUERIES
@@ -137,27 +139,45 @@ next.config.ts          # Next.js 配置（GitHub Pages 静态导出）
 
 ## 自定义内容
 
-### 国际化文案
+### 内容与文案的分工（key 引用模型）
 
-站点可见文案（导航、Hero、各区块标题、项目描述、技能分类、经验领域等）集中在 `lib/i18n/locales/`：
+- `data/`：管理**结构数据**——条目 id、技术标签、链接、图标与展示顺序，不含任何中英文文案
+- `lib/i18n/locales/`：中英文**文案**，按 `data/` 中的 id 组织成查找表（`enterprise.projects.ceTelephone`、`skills.categories.coreFrameworks`、`experience.domains.fintech`…）
 
-| 文件       | 说明                                      |
-| ---------- | ----------------------------------------- |
-| `zh.ts`    | 中文文案（默认语言）                      |
-| `en.ts`    | 英文文案，结构与 `zh.ts` 保持一致         |
-| `types.ts` | `LocaleMessages` 类型，新增字段需同步两端 |
+调整展示内容（增删条目、改技术标签、改链接、调顺序）只改 `data/`；修改文字只改 locales。
+
+### 类型绑定（防漏写）
+
+`data/` 中的每个 id 都由 TypeScript 与 zh / en 两份文案**硬性绑定**：
+
+- 在 `data/projects.ts` 里加一条项目 → 编译报错提醒你在 `zh.ts` 和 `en.ts` 补上该项目的名称与描述
+- 在 `data/skills.ts` 里加一个技能 id → 同样强制补全两语言文案
+
+也就是说，任何语言漏写文案都无法通过 `tsc` 或构建，中英文永远不会漂移。
+
+### 数据文件（data/）
+
+| 文件            | 说明                                                                                 |
+| --------------- | ------------------------------------------------------------------------------------ |
+| `profile.ts`    | 语言无关的个人配置：GitHub 链接、工作年限（姓名、简介等文案在 locales）              |
+| `projects.ts`   | 企业项目 `enterpriseProjects` 与开源项目 `githubProjects`（id / tech / 链接 / 顺序） |
+| `skills.ts`     | 技能分类 `skillCategories`（分类 id、技能 id 与顺序，第一项为大卡片）                |
+| `experience.ts` | 经验领域 `experienceDomains`（id、图标与顺序）                                       |
+| `blogs.ts`      | CSDN 博客列表（本地 `npm run fetch:blogs`，或 CI 每日自动更新）                      |
+
+> 技术标签 `tech`、图标 `icon` 等语言无关字段直接写在 data；`yearsOfExperience` 保持数字，供组件拼接文案。
+
+### 文案文件（lib/i18n/locales/）
+
+| 文件       | 说明                                                                   |
+| ---------- | ---------------------------------------------------------------------- |
+| `zh.ts`    | 中文文案（默认语言）：界面文案 + 按 data id 索引的内容查找表           |
+| `en.ts`    | 英文文案，结构与 `zh.ts` 保持一致                                      |
+| `types.ts` | `LocaleMessages` 类型；内容查找表类型与 data 的 id 绑定（缺 key 报错） |
 
 导航标签在 `nav` 数组中配置；区块序号与标题在各 section 对象（如 `about`、`skills`、`enterprise`）中维护。切换语言后 `document.title` 与 `<html lang>` 会同步更新。
 
 语言偏好存储键：`portfolio-locale`（值为 `zh` / `en`）。
-
-### 数据文件
-
-| 文件          | 说明                                                            |
-| ------------- | --------------------------------------------------------------- |
-| `profile.ts`  | GitHub 链接、工作年限等组件共用的基础配置                       |
-| `blogs.ts`    | CSDN 博客列表（本地 `npm run fetch:blogs`，或 CI 每日自动更新） |
-| `projects.ts` | `Project` 接口类型定义；实际项目数据在 i18n locales 中          |
 
 企业项目描述建议使用通用业务名称，避免在公开站点展示敏感公司或产品名称。
 

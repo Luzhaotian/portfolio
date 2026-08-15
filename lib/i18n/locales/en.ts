@@ -71,197 +71,194 @@ export const en: LocaleMessages = {
       "Full-stack frontend capabilities honed through open source and enterprise platforms",
     featuredDesc:
       "Dual-stack expertise covering the core modern web application pipeline",
-    categories: [
-      {
+    categories: {
+      coreFrameworks: {
         name: "Core Frameworks",
-        skills: ["Vue 2/3", "React 18/19", "Next.js", "TypeScript", "Pinia", "Vuex"],
+        skills: {
+          vue23: "Vue 2/3",
+          react1819: "React 18/19",
+          nextjs: "Next.js",
+          typescript: "TypeScript",
+          pinia: "Pinia",
+          vuex: "Vuex",
+        },
       },
-      {
+      uiLibraries: {
         name: "UI Libraries",
-        skills: ["Ant Design", "Element Plus", "Tailwind CSS", "Ant Design Mobile"],
+        skills: {
+          antDesign: "Ant Design",
+          elementPlus: "Element Plus",
+          tailwindCss: "Tailwind CSS",
+          antDesignMobile: "Ant Design Mobile",
+        },
       },
-      {
+      buildTools: {
         name: "Build Tools",
-        skills: ["Vite", "Webpack", "Rspack", "Rollup", "Babel", "ESLint"],
+        skills: {
+          vite: "Vite",
+          webpack: "Webpack",
+          rspack: "Rspack",
+          rollup: "Rollup",
+          babel: "Babel",
+          eslint: "ESLint",
+        },
       },
-      {
+      dataVisualization: {
         name: "Data Visualization",
-        skills: ["ECharts", "Three.js", "D3.js", "Canvas", "SVG"],
+        skills: {
+          echarts: "ECharts",
+          threeJs: "Three.js",
+          d3js: "D3.js",
+          canvas: "Canvas",
+          svg: "SVG",
+        },
       },
-      {
+      crossPlatform: {
         name: "Cross-platform & Extensions",
-        skills: ["WeChat Mini Program", "UniApp", "Chrome Extension", "Mobile H5"],
+        skills: {
+          wechatMiniProgram: "WeChat Mini Program",
+          uniapp: "UniApp",
+          chromeExtension: "Chrome Extension",
+          mobileH5: "Mobile H5",
+        },
       },
-      {
+      aiAutomation: {
         name: "AI & Automation",
-        skills: [
-          "AI Agent",
-          "OpenAPI",
-          "LLM Integration",
-          "Agent Orchestration",
-          "Prompt Engineering",
-        ],
+        skills: {
+          aiAgent: "AI Agent",
+          openapi: "OpenAPI",
+          llmIntegration: "LLM Integration",
+          agentOrchestration: "Agent Orchestration",
+          promptEngineering: "Prompt Engineering",
+        },
       },
-      {
+      backendCollaboration: {
         name: "Backend Collaboration",
-        skills: [
-          "RESTful API",
-          "GraphQL",
-          "Node.js",
-          "Java Collaboration",
-          "Micro-frontends",
-        ],
+        skills: {
+          restfulApi: "RESTful API",
+          graphql: "GraphQL",
+          nodejs: "Node.js",
+          javaCollaboration: "Java Collaboration",
+          microFrontends: "Micro-frontends",
+        },
       },
-      {
+      engineeringPractices: {
         name: "Engineering Practices",
-        skills: [
-          "Git",
-          "CI/CD",
-          "Monorepo",
-          "Performance Optimization",
-          "Unit Testing",
-          "Code Review",
-        ],
+        skills: {
+          git: "Git",
+          cicd: "CI/CD",
+          monorepo: "Monorepo",
+          performanceOptimization: "Performance Optimization",
+          unitTesting: "Unit Testing",
+          codeReview: "Code Review",
+        },
       },
-    ],
+    },
   },
   enterprise: {
     index: "03 — ENTERPRISE",
     title: "Recent Enterprise Projects",
     subtitle:
       "Representative core business platforms and management systems from recent years",
-    projects: [
-      {
+    projects: {
+      ceTelephone: {
         name: "ce-telephone SDK",
         description:
           "Call center softphone TypeScript SDK encapsulating WebSocket signaling, call state management, and event-driven APIs. Supports 3PCC call modes, built with Rollup and published as an npm package.",
-        tech: ["TypeScript", "Rollup", "WebSocket", "SDK"],
-        highlight: true,
       },
-      {
+      enterpriseAiPlatform: {
         name: "Enterprise AI Application Platform",
         description:
           "Enterprise-grade AI platform integrating large language models with intelligent chat, workflow orchestration, and knowledge base management.",
-        tech: ["React", "Next.js", "Rspack", "Ant Design", "ECharts"],
-        highlight: true,
       },
-      {
+      consumerFinance: {
         name: "Consumer Finance Management System",
         description:
           "Core consumer finance business management system covering user management, order flow, and risk control review modules.",
-        tech: ["React", "Ant Design", "TypeScript"],
-        highlight: true,
       },
-      {
+      fundManagement: {
         name: "Fund Management Platform",
         description:
           "Fund flow and accounting management platform with real-time data monitoring and multi-dimensional reporting.",
-        tech: ["React", "Ant Design", "ECharts"],
       },
-      {
+      aiQualityInspection: {
         name: "AI Quality Inspection System",
         description:
           "AI-powered intelligent quality inspection platform that automates call and service quality checks to improve operational efficiency.",
-        tech: ["React", "Ant Design", "AI"],
-        highlight: true,
       },
-      {
+      intelligentOutbound: {
         name: "Intelligent Outbound Calling System",
         description:
           "Intelligent outbound calling and call center management platform supporting task scheduling, script configuration, and call data analytics.",
-        tech: ["Vue", "React", "ECharts"],
       },
-      {
+      crm: {
         name: "CRM Customer Management",
         description:
           "Customer relationship management system supporting lead tracking, customer profiling, and sales performance monitoring.",
-        tech: ["Vue 3", "Vite", "Pinia", "ECharts"],
       },
-      {
+      shortDrama: {
         name: "Short Drama Content Platform",
         description:
           "Short drama content management and operations backend supporting content publishing, data analytics, and user analysis.",
-        tech: ["React", "Ant Design"],
       },
-      {
+      intlConsumerFinance: {
         name: "International Consumer Finance Platform",
         description:
           "International consumer finance platform with multi-language support and cross-border business management.",
-        tech: ["React", "Next.js", "Ant Design"],
       },
-    ],
+    },
   },
   github: {
     index: "04 — OPEN SOURCE",
     title: "Open Source Projects",
     subtitle: "Personal open-source projects and technical explorations on GitHub",
-    projects: [
-      {
+    projects: {
+      hireHelper: {
         name: "hire-helper",
         description:
           "AI-powered hiring assistant for resume analysis and job matching.",
-        tech: ["JavaScript", "AI Agent"],
-        link: "https://github.com/Luzhaotian/hire-helper",
-        highlight: true,
       },
-      {
+      feAgent: {
         name: "fe-agent",
         description:
           "Frontend agent exploring AI-driven frontend development automation and workflows.",
-        tech: ["TypeScript", "AI Agent"],
-        link: "https://github.com/Luzhaotian/fe-agent",
-        highlight: true,
       },
-      {
+      agentHub: {
         name: "agent-hub",
         description:
           "Universal agent plugin system — an extensible framework for orchestrating agent capabilities.",
-        tech: ["JavaScript", "Plugin System"],
-        link: "https://github.com/Luzhaotian/agent-hub",
       },
-      {
+      viteVueTemplate: {
         name: "vite-vue3-vueuse-tailwindcss",
         description:
           "Modern scaffold template with Vue 3, Vite, VueUse, and Tailwind CSS.",
-        tech: ["Vue 3", "Vite", "Tailwind CSS"],
-        link: "https://github.com/Luzhaotian/vite-vue3-vueuse-tailwindcss",
       },
-      {
+      elementFilePreview: {
         name: "element-file-preview",
         description:
           "Element UI-based file preview npm component supporting multiple file formats.",
-        tech: ["Vue 2", "npm"],
-        link: "https://github.com/Luzhaotian/element-file-preview",
       },
-      {
+      reactAntdLog: {
         name: "react-antd-log",
         description:
           "React + Ant Design log management component with structured log display and filtering.",
-        tech: ["React", "Ant Design", "TypeScript"],
-        link: "https://github.com/Luzhaotian/react-antd-log",
       },
-      {
+      cookiesCopy: {
         name: "CookiesCopy",
         description:
           "Chrome browser extension for easily copying and managing cookie information.",
-        tech: ["JavaScript", "Chrome Extension"],
-        link: "https://github.com/Luzhaotian/CookiesCopy",
       },
-      {
+      caidianfangUniapp: {
         name: "caidianfang-uniapp",
         description:
           "WeChat mini program built with the UniApp cross-platform framework.",
-        tech: ["UniApp", "Vue", "WeChat Mini Program"],
-        link: "https://github.com/Luzhaotian/caidianfang-uniapp",
       },
-      {
+      workDiary: {
         name: "work-diary",
         description:
           "Work hours tracking mini program — a simple and efficient daily time tracker.",
-        tech: ["Vue", "WeChat Mini Program"],
-        link: "https://github.com/Luzhaotian/work-diary",
       },
-    ],
+    },
   },
   blog: {
     index: "05 — BLOG",
@@ -273,44 +270,38 @@ export const en: LocaleMessages = {
     index: "06 — DOMAINS",
     title: "Experience Domains",
     subtitle: "Business domains and technical practices honed over an 8-year career",
-    domains: [
-      {
+    domains: {
+      fintech: {
         title: "Fintech",
         description:
           "Core business systems including consumer finance management, fund management platforms, and international lending platforms — covering credit, fund flow, and cross-border scenarios.",
-        icon: "💰",
       },
-      {
+      aiMcp: {
         title: "AI Applications & MCP",
         description:
           "Delivered enterprise AI platforms, intelligent inspection systems, and frontend agents. Introduced AI Skills and MCP toolchains across development collaboration and outbound call script configuration, improving team efficiency and delivery quality by ~30%.",
-        icon: "🤖",
       },
-      {
+      enterpriseSaas: {
         title: "Enterprise SaaS",
         description:
           "B2B platforms including CRM, intelligent outbound calling, and short drama operations — serving internal operations and business teams.",
-        icon: "🏢",
       },
-      {
+      dataViz: {
         title: "Data Visualization",
         description:
           "Built real-time data dashboards, business reports, and monitoring panels with ECharts to support decision-making and operational analysis.",
-        icon: "📊",
       },
-      {
+      mobileMiniPrograms: {
         title: "Mobile & Mini Programs",
         description:
           "WeChat mini programs, UniApp cross-platform apps, insurance H5 pages, and other mobile projects covering consumer-facing touchpoints.",
-        icon: "📱",
       },
-      {
+      engineeringOss: {
         title: "Engineering & Open Source",
         description:
           "Vite / Webpack / Rspack build optimization, Chrome extensions, npm component libraries and SDK publishing — continuously delivering technical solutions.",
-        icon: "⚙️",
       },
-    ],
+    },
   },
   footer: {
     about: "About",
