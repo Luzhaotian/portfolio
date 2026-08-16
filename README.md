@@ -1,6 +1,8 @@
 # 卢照天 · 个人作品集
 
-卢照天（Luzhaotian）的个人作品集网站 — 基于 **Next.js 15** 的单页应用，展示 8 年前端经验、技术栈、近期企业项目、开源作品与技术博客。
+卢照天（Luzhaotian）的个人作品集网站 — 基于 **Next.js 15** 的单页应用，展示 8 年前端经验、技术栈、精选企业项目、开源作品与技术博客。
+
+当前版本：**v1.0.0**（视觉大改前基线已打 tag；其后为「静奢工作室」方向的整站改版）。
 
 本地预览：[http://localhost:3000](http://localhost:3000)（需先执行 `npm run dev`）
 
@@ -8,42 +10,43 @@
 
 ## 功能特性
 
-- 响应式单页布局：玻璃拟态卡片、Editorial 区块编排
+- **静奢工作室**气质：大留白、衬线标题、氧化铜金强调色；无玻璃拟态堆叠、无 Vanta 全屏背景
+- 响应式单页：Hero → 精选 → 关于 → 作品索引 → 技能 → 博客 → 经验领域
 - **中英文切换**：导航栏语言切换（中文 / English），偏好持久化到 `localStorage`
 - 主题切换：白天 / 夜晚 / 自动（跟随系统），偏好持久化到 `localStorage`
-- 移动端适配：UnoCSS 媒体查询 + `useViewport` 视口 Hook，窄屏自动切换布局
-- 单色 Teal 强调色（`#14b8a6`），白天 / 夜晚双主题 CSS 变量
-- [UnoCSS](https://unocss.dev/) 原子化样式 + 语义化 `shortcuts`
-- [Vanta.js](https://github.com/tengbao/vanta) 3D 背景（夜晚飞鸟 / 白天网格，动态加载）
-- CSDN 博客展示：抓取点赞最多的文章（`npm run fetch:blogs`），卡片标题 / 摘要截断与 SVG 元数据图标；GitHub Actions 每日自动更新
-- 回到顶部：滚动超过阈值后显示浮动按钮
-- Cookie 提示：底部横幅，支持「全部接受 / 全部拒绝」，选择后持久化
-- SEO：Next.js Metadata、OpenGraph、语义化 HTML、跳过导航链接
-- 内容数据化：`data/` 管理内容结构（id、技术标签、链接、顺序），中英文文案留在 `lib/i18n/locales/` 按 id 索引，类型系统保证 id 与两语言文案一一对应
+- 移动端适配：UnoCSS 媒体查询 + `useViewport`；窄屏降级 Canvas 特效
+- Canvas 材质感记忆点：
+  - Hero **ParticleObject**（`brand-particles.svg` 粒子造型，桌面端）
+  - 全页 **GlyphRain** 字符雨氛围（桌面端）
+  - 精选项目 **FlameWrap** hover 材质（桌面端）
+  - **PointerAura** 跟随光晕
+- CSDN 博客展示：抓取点赞最多的文章（`npm run fetch:blogs`）；GitHub Actions 每日自动更新
+- 回到顶部、Cookie 提示、SEO（Metadata / OpenGraph / 跳过导航）
+- 内容数据化：`data/` 管结构，`lib/i18n/locales/` 管文案，类型系统保证 id 与双语一一对应
 
 ## 页面结构
 
-| 导航标签 | 区块标题     | 锚点          | 说明                                        |
-| -------- | ------------ | ------------- | ------------------------------------------- |
-| —        | Hero         | —             | 姓名、职位、关键数据卡片                    |
-| 关于     | 关于我       | `#about`      | 个人简介与 GitHub 入口                      |
-| 技能     | 技术栈       | `#skills`     | Bento 布局技术栈分类                        |
-| 企业精选 | 近期企业项目 | `#enterprise` | 9 项代表性企业级项目（含 ce-telephone SDK） |
-| 开源项目 | 开源项目     | `#github`     | GitHub 个人仓库与外链                       |
-| 博客     | 技术博客     | `#blog`       | CSDN 点赞最多的文章                         |
-| 经验领域 | 经验领域     | `#experience` | 6 个业务与技术方向（含 AI 应用与 MCP）      |
+| 导航标签 | 区块           | 锚点           | 说明                                           |
+| -------- | -------------- | -------------- | ---------------------------------------------- |
+| —        | Hero           | `#top`         | 姓名、主张、CTA；桌面端 ParticleObject 粒子背景 |
+| 精选     | 近期企业项目   | `#selected`    | `highlight` 企业项目全宽章节（FlameWrap）      |
+| 关于     | 关于我         | `#about`       | 个人简介与 GitHub 入口                         |
+| 作品     | 作品索引       | `#work`        | 企业 + 开源项目列表行（非卡片网格）            |
+| 技能     | 技术栈         | `#skills`      | 按分类展示技能                                 |
+| 博客     | 技术博客       | `#blog`        | CSDN 点赞最多的文章                            |
+| 领域     | 经验领域       | `#experience`  | 业务与技术方向（含 AI 应用与 MCP）             |
 
 ## 技术栈
 
-| 类别    | 技术                                             |
-| ------- | ------------------------------------------------ |
-| 框架    | Next.js 15（App Router）+ React 19               |
-| 语言    | TypeScript 5                                     |
-| 样式    | UnoCSS 66 + `@unocss/preset-wind3` + PostCSS     |
-| 国际化  | 自研 i18n（`lib/i18n` + `I18nProvider`）         |
-| 3D 背景 | Three.js 0.134 + Vanta.js（BIRDS / NET）         |
-| 字体    | Geist Sans / Geist Mono（`next/font`）           |
-| 规范    | ESLint、Prettier、Husky、lint-staged、Commitlint |
+| 类别   | 技术                                                         |
+| ------ | ------------------------------------------------------------ |
+| 框架   | Next.js 15（App Router）+ React 19                           |
+| 语言   | TypeScript 5                                                 |
+| 样式   | UnoCSS 66 + `@unocss/preset-wind3` + PostCSS                 |
+| 国际化 | 自研 i18n（`lib/i18n` + `I18nProvider`）                     |
+| Canvas | WebGL 组件（`components/canvasui/*`，Three.js 辅助部分效果） |
+| 字体   | Geist Sans / Mono + Fraunces + Noto Serif SC（`next/font`）  |
+| 规范   | ESLint、Prettier、Husky、lint-staged、Commitlint             |
 
 ## 环境要求
 
@@ -79,62 +82,47 @@ npm run dev
 
 ```
 app/
-  layout.tsx            # 根布局、SEO metadata、主题防闪烁脚本
-  page.tsx              # 首页（组合各区块）
-  globals.css           # UnoCSS 注入入口（@unocss all）
+  layout.tsx              # 根布局、SEO metadata、主题 / 语言防闪烁
+  page.tsx                # 首页（组合各区块 + 氛围层）
+  globals.css             # UnoCSS 注入入口（@unocss all）
 components/
-  I18nProvider.tsx     # 国际化 Context（locale / setLocale / t）
-  LocaleToggle.tsx     # 语言切换按钮
-  ThemeProvider.tsx    # 主题状态（白天 / 夜晚 / 自动）
-  ThemeToggle.tsx      # 主题切换按钮
-  ViewportSync.tsx     # 视口状态同步到 <html data-viewport>
-  VantaBackground.tsx  # Vanta 背景（动态加载，随主题配色）
-  VantaBackgroundClient.tsx
-  ContentCard.tsx      # 通用内容卡片（项目 / 博客复用，支持标题与摘要截断）
-  NavBar.tsx           # 导航栏（滚动高亮 + 语言 / 主题切换）
-  HeroSection.tsx      # 首屏
-  AboutSection.tsx     # 关于
-  SkillsSection.tsx    # 技能
-  ProjectsSection.tsx  # 项目列表
-  BlogSection.tsx      # CSDN 博客
-  ExperienceSection.tsx # 经验领域
-  SectionHeader.tsx    # 区块标题
-  FooterSection.tsx    # 页脚
-  BackToTop.tsx        # 回到顶部按钮
-  CookieConsent.tsx    # Cookie 同意横幅
-  SkipLink.tsx         # 跳过导航链接
+  I18nProvider.tsx        # 国际化 Context
+  LocaleToggle.tsx        # 语言切换
+  ThemeProvider.tsx       # 主题状态（白天 / 夜晚 / 自动）
+  ThemeToggle.tsx         # 主题切换
+  ViewportSync.tsx        # 视口状态同步到 <html data-viewport>
+  PointerAura.tsx         # 指针跟随光晕
+  PageDroplets.tsx        # 全页 GlyphRain 包装
+  NavBar.tsx              # 导航（滚动高亮 + 语言 / 主题）
+  HeroSection.tsx         # 首屏 + ParticleObject
+  SelectedProjects.tsx    # 精选企业项目章节
+  AboutSection.tsx        # 关于
+  WorkIndex.tsx           # 作品索引列表
+  SkillsSection.tsx       # 技能
+  BlogSection.tsx         # CSDN 博客
+  ExperienceSection.tsx   # 经验领域
+  SectionHeader.tsx       # 区块标题
+  FooterSection.tsx       # 页脚
+  BackToTop.tsx / CookieConsent.tsx / SkipLink.tsx
+  canvasui/               # Canvas UI 效果（ParticleObject、GlyphRain、FlameWrap 等）
 data/
-  profile.ts           # 语言无关的个人配置（GitHub 链接、工作年限）
-  projects.ts          # Project 类型 + 企业/开源项目结构（id、技术标签、链接、顺序）
-  skills.ts            # SkillCategory 类型 + 技能分类结构（分类 id、技能 id、顺序）
-  experience.ts        # ExperienceDomain 类型 + 经验领域结构（id、图标、顺序）
-  blogs.ts             # CSDN 博客（由 fetch:blogs 生成）
+  profile.ts / projects.ts / skills.ts / experience.ts / blogs.ts
 lib/
-  i18n/
-    index.ts           # locale 常量、初始化脚本
-    types.ts           # LocaleMessages 类型（含与 data id 绑定的文案查找表类型）
-    locales/zh.ts      # 中文文案（导航、区块、项目、技能等，按 data 的 id 索引）
-    locales/en.ts      # 英文文案（结构与 zh.ts 一致）
-  site.ts              # GitHub Pages basePath 与站点 origin
-  theme.ts             # 主题模式常量与工具函数
-  breakpoints.ts       # 断点常量与 MEDIA_QUERIES
-  format.ts            # 数字格式化工具
-  hooks/useViewport.ts # 视口 Hook
-  vantaThree.ts        # Three.js 兼容层（适配 Vanta.js）
-scripts/
-  fetch-csdn-blogs.mjs  # CSDN 博客抓取脚本
-types/
-  vanta.d.ts            # Vanta 类型声明
+  i18n/                   # locale 常量、类型、zh / en 文案
+  site.ts                 # GitHub Pages basePath（含客户端 NEXT_PUBLIC_BASE_PATH）
+  theme.ts / breakpoints.ts / format.ts / hooks/useViewport.ts
 public/
   favicon.svg
-uno.config.ts           # UnoCSS 双主题变量、shortcuts、preflights
-postcss.config.cjs
-postcss-unocss.cjs
-next.config.ts          # Next.js 配置（GitHub Pages 静态导出）
+  brand-particles.svg     # Hero ParticleObject 源图
+docs/design/              # 设计方案文档
+scripts/
+  fetch-csdn-blogs.mjs
+uno.config.ts             # 双主题变量、shortcuts、preflights
+next.config.ts            # 静态导出；注入 NEXT_PUBLIC_BASE_PATH
 .github/workflows/
-  deploy.yml            # GitHub Pages CI 部署
-  update-blogs.yml      # 每日定时抓取博客；有变更则推送并触发 Pages 部署
-.husky/                 # Git 钩子（pre-commit / commit-msg）
+  deploy.yml              # GitHub Pages CI 部署
+  update-blogs.yml        # 每日定时抓取博客
+.husky/
 ```
 
 ## 自定义内容
@@ -142,44 +130,37 @@ next.config.ts          # Next.js 配置（GitHub Pages 静态导出）
 ### 内容与文案的分工（key 引用模型）
 
 - `data/`：管理**结构数据**——条目 id、技术标签、链接、图标与展示顺序，不含任何中英文文案
-- `lib/i18n/locales/`：中英文**文案**，按 `data/` 中的 id 组织成查找表（`enterprise.projects.ceTelephone`、`skills.categories.coreFrameworks`、`experience.domains.fintech`…）
+- `lib/i18n/locales/`：中英文**文案**，按 `data/` 中的 id 组织成查找表
 
 调整展示内容（增删条目、改技术标签、改链接、调顺序）只改 `data/`；修改文字只改 locales。
 
 ### 类型绑定（防漏写）
 
-`data/` 中的每个 id 都由 TypeScript 与 zh / en 两份文案**硬性绑定**：
-
-- 在 `data/projects.ts` 里加一条项目 → 编译报错提醒你在 `zh.ts` 和 `en.ts` 补上该项目的名称与描述
-- 在 `data/skills.ts` 里加一个技能 id → 同样强制补全两语言文案
-
-也就是说，任何语言漏写文案都无法通过 `tsc` 或构建，中英文永远不会漂移。
+`data/` 中的每个 id 都由 TypeScript 与 zh / en 两份文案**硬性绑定**：在 `data/` 加条目后，漏写任一语言文案会在 `tsc` / 构建时报错。
 
 ### 数据文件（data/）
 
 | 文件            | 说明                                                                                 |
 | --------------- | ------------------------------------------------------------------------------------ |
 | `profile.ts`    | 语言无关的个人配置：GitHub 链接、工作年限（姓名、简介等文案在 locales）              |
-| `projects.ts`   | 企业项目 `enterpriseProjects` 与开源项目 `githubProjects`（id / tech / 链接 / 顺序） |
-| `skills.ts`     | 技能分类 `skillCategories`（分类 id、技能 id 与顺序，第一项为大卡片）                |
-| `experience.ts` | 经验领域 `experienceDomains`（id、图标与顺序）                                       |
+| `projects.ts`   | 企业项目 `enterpriseProjects` 与开源项目 `githubProjects`（id / tech / 链接 / 精选） |
+| `skills.ts`     | 技能分类 `skillCategories`                                                           |
+| `experience.ts` | 经验领域 `experienceDomains`                                                         |
 | `blogs.ts`      | CSDN 博客列表（本地 `npm run fetch:blogs`，或 CI 每日自动更新）                      |
 
-> 技术标签 `tech`、图标 `icon` 等语言无关字段直接写在 data；`yearsOfExperience` 保持数字，供组件拼接文案。
+企业项目描述建议使用通用业务名称，避免在公开站点展示敏感公司或产品名称。
+
+精选区块只渲染 `highlight: true` 的企业项目；其余企业与开源项目出现在 `#work` 索引中。
 
 ### 文案文件（lib/i18n/locales/）
 
-| 文件       | 说明                                                                   |
-| ---------- | ---------------------------------------------------------------------- |
-| `zh.ts`    | 中文文案（默认语言）：界面文案 + 按 data id 索引的内容查找表           |
-| `en.ts`    | 英文文案，结构与 `zh.ts` 保持一致                                      |
-| `types.ts` | `LocaleMessages` 类型；内容查找表类型与 data 的 id 绑定（缺 key 报错） |
-
-导航标签在 `nav` 数组中配置；区块序号与标题在各 section 对象（如 `about`、`skills`、`enterprise`）中维护。切换语言后 `document.title` 与 `<html lang>` 会同步更新。
+| 文件    | 说明                                                         |
+| ------- | ------------------------------------------------------------ |
+| `zh.ts` | 中文文案（默认语言）                                         |
+| `en.ts` | 英文文案，结构与 `zh.ts` 一致                                |
+| `types.ts` | `LocaleMessages`；内容查找表类型与 data id 绑定（缺 key 报错） |
 
 语言偏好存储键：`portfolio-locale`（值为 `zh` / `en`）。
-
-企业项目描述建议使用通用业务名称，避免在公开站点展示敏感公司或产品名称。
 
 ## 样式体系（UnoCSS）
 
@@ -195,139 +176,94 @@ layout.tsx
 postcss.config.cjs → postcss-unocss.cjs → uno.config.ts
 ```
 
-`postcss-unocss.cjs` 用于解决 Next.js 通过 `require()` 加载 `@unocss/postcss` 时的 ESM/CJS 兼容问题。
-
 ### 三层样式
 
 | 层级       | 位置             | 用途                                            |
 | ---------- | ---------------- | ----------------------------------------------- |
 | 原子类     | 组件 `className` | Wind 兼容工具类 + 语义化类（`text-heading` 等） |
-| shortcuts  | `uno.config.ts`  | 复用组合类，见下表                              |
+| shortcuts  | `uno.config.ts`  | 复用组合类                                      |
 | preflights | `uno.config.ts`  | 双主题 CSS 变量、全局基础样式、动画 keyframes   |
 
-### 语义化 shortcuts
+### 主要 shortcuts
 
-| 类名                                 | 用途                             |
-| ------------------------------------ | -------------------------------- |
-| `text-heading` / `text-body`         | 标题 / 正文色                    |
-| `text-muted` / `text-faint`          | 次要 / 辅助文字色                |
-| `border-divider`                     | 分隔线 / 边框色                  |
-| `bg-active` / `bg-hover`             | 导航激活 / 悬停背景              |
-| `glass-card`                         | 玻璃拟态卡片                     |
-| `glass-card-interactive`             | 可交互卡片（hover 动效）         |
-| `btn-primary` / `btn-ghost`          | 主按钮 / 幽灵按钮                |
-| `section-shell` / `section-inner`    | 区块外层 / 内容容器              |
-| `section-title` / `section-subtitle` | 区块标题 / 副标题                |
-| `tech-tag`                           | 技术标签                         |
-| `stat-card`                          | Hero 数据卡片                    |
-| `theme-text`                         | 主题色文字                       |
-| `focus-ring`                         | 键盘焦点环（鼠标点击不显示边框） |
-| `skip-link`                          | 跳过导航链接                     |
-| `bg-grid-pattern` / `bg-grid`        | 网格背景                         |
-| `hero-overlay`                       | Hero 区域渐变遮罩                |
-| `line-clamp-3`                       | 三行文本截断（博客摘要等）       |
+| 类名                              | 用途                         |
+| --------------------------------- | ---------------------------- |
+| `text-heading` / `text-body`      | 标题 / 正文色                |
+| `text-muted` / `text-faint`       | 次要 / 辅助文字色            |
+| `border-divider`                  | 分隔线 / 边框色              |
+| `section-shell` / `section-inner` | 区块外层 / 内容容器          |
+| `section-shell-mute`              | 交替浅底章节                 |
+| `section-title` / `section-subtitle` / `section-eyebrow` | 区块标题体系 |
+| `tech-tag` / `tech-chip`          | 技术标签                     |
+| `text-link` / `text-link-muted`   | 文字链 CTA（非 pill 按钮）   |
+| `index-row`                       | 作品索引行                   |
+| `nav-link`                        | 导航链接                     |
+| `hero-glow` / `hero-mesh` / `page-noise` | Hero / 页面氛围层     |
+| `pointer-aura*`                    | 指针光晕层                   |
+| `focus-ring` / `skip-link`        | 焦点环 / 跳过导航            |
 
-新增组件级样式时，优先在 `uno.config.ts` 的 `shortcuts` 中扩展，避免在 `globals.css` 写 `@apply`。
+新增组件级样式时，优先在 `uno.config.ts` 的 `shortcuts` / `rules` 中扩展。
 
 ### 双主题
 
-通过 `<html data-theme="light|dark">` 切换，`ThemeProvider` 负责写入，`layout.tsx` 内联脚本防止首屏闪烁。
+通过 `<html data-theme="light|dark">` 切换；偏好键：`portfolio-theme`（`light` / `dark` / `auto`）。
 
-| 模式 | 行为                                      |
-| ---- | ----------------------------------------- |
-| 白天 | 固定浅色主题                              |
-| 夜晚 | 固定深色主题                              |
-| 自动 | 跟随系统 `prefers-color-scheme`，实时响应 |
+Cookie 同意：`portfolio-cookie-consent`（`accepted` / `rejected`）。
 
-偏好存储键：`portfolio-theme`（值为 `light` / `dark` / `auto`）。
+强调色为**氧化铜金**（非 Teal）：
 
-Cookie 同意状态：`portfolio-cookie-consent`（值为 `accepted` / `rejected`，任一值均不再弹出）。
-
-主色 Teal 在两种模式下均保留，背景 / 文字 / 玻璃卡片等通过 CSS 变量适配：
-
-| 变量（节选）         | 夜晚      | 白天      |
+| 变量（节选）         | 白天      | 夜晚      |
 | -------------------- | --------- | --------- |
-| `--color-background` | `#050508` | `#f8fafc` |
-| `--color-surface`    | `#0c0c14` | `#f1f5f9` |
-| `--theme-accent`     | `#14b8a6` | `#0d9488` |
+| `--color-background` | `#eef1f5` | `#0e0f12` |
+| `--color-surface`    | `#e4e9f0` | `#16181d` |
+| `--theme-accent`     | `#8f7355` | `#a68968` |
 
-修改主题色时需同步 `uno.config.ts` 的 preflights 与 `components/VantaBackground.tsx` 中的 `THEME_COLORS`。
+修改主题色时同步 `uno.config.ts` 的 preflights，以及 Hero / GlyphRain 等组件内的硬编码配色。
 
-## 背景特效
+## 视觉与 Canvas
 
-| 主题 | 效果            | 说明                                                |
-| ---- | --------------- | --------------------------------------------------- |
-| 夜晚 | BIRDS（飞鸟）   | 移动端与桌面端一致；移动端减少鸟数量以降低 GPU 压力 |
-| 白天 | NET（粒子网格） | 浅色背景                                            |
-| 回退 | NET             | BIRDS 初始化或 GPGPU 失败时自动切换                 |
+| 层              | 组件              | 说明                                                         |
+| --------------- | ----------------- | ------------------------------------------------------------ |
+| Hero 粒子造型   | `ParticleObject`  | 读取 `public/brand-particles.svg`；桌面端启用，移动端关闭    |
+| 全页字符雨      | `GlyphRain`       | `PageDroplets` 包装；桌面端启用                              |
+| 精选 hover      | `FlameWrap`       | 精选项目章节桌面端材质                                       |
+| 指针光晕        | `PointerAura`     | 跟随光标；粗指针 / 减少动效时关闭                            |
+| 纸感噪点        | `page-noise`      | 固定全屏极淡颗粒                                             |
 
-- **无障碍**：`prefers-reduced-motion` 时禁用 3D 背景
-- 切换主题或视口档位时自动重建效果，Vanta 均 `dynamic import` 按需加载
+- **无障碍**：`prefers-reduced-motion` 时关闭 Canvas 与光晕动效
+- GitHub Pages 下静态资源路径依赖 `basePath`：构建时由 `next.config.ts` 注入 `NEXT_PUBLIC_BASE_PATH`（客户端可用），避免 `/brand-particles.svg` 404
 
-更换效果：编辑 `components/VantaBackground.tsx`，可选效果见 [vantajs.com](https://www.vantajs.com/)。
-
-> Vanta.js 与新版 Three.js 存在兼容问题，项目锁定 `three@0.134.0`。升级前请先验证背景效果。
+仓库内仍保留未接入首页的 `VantaBackground*` 与部分 `canvasui` 实验组件，可按需复用，**当前线上页未使用 Vanta**。
 
 ## 交互组件
 
 ### 语言切换（`LocaleToggle`）
 
-- 导航栏提供中文 / English 切换
-- 选择后写入 `localStorage`（`portfolio-locale`），并更新 `<html lang>` 与页面标题
+- 写入 `localStorage`（`portfolio-locale`），并更新 `<html lang>` 与页面标题
 - `layout.tsx` 内联 `localeInitScript` 防止首屏语言闪烁
 
 ### 回到顶部（`BackToTop`）
 
-- 向下滚动超过 400px 后，右下角显示浮动按钮
-- 点击平滑滚回顶部；系统开启「减少动效」时改为瞬间跳转
+- 滚动超过阈值后显示；「减少动效」时改为瞬间跳转
 
 ### Cookie 提示（`CookieConsent`）
 
-- 首次访问时在页面底部显示横幅
-- 提供「全部接受」「全部拒绝」两个等权重按钮
-- 点击任一选项后写入 `localStorage`，后续访问不再显示
-- 开发调试时可在控制台执行 `localStorage.removeItem('portfolio-cookie-consent')` 重置
+- 「全部接受 / 全部拒绝」等权重；调试可执行 `localStorage.removeItem('portfolio-cookie-consent')`
 
 ## 代码规范与 Git 校验
 
 集成 **Prettier**、**ESLint**、**Husky**、**lint-staged**、**Commitlint**。
-
-### 格式化
-
-```bash
-npm run format        # 格式化全部文件
-npm run format:check  # 仅检查
-npm run lint:fix      # ESLint 自动修复
-```
-
-推荐安装 `.vscode/extensions.json` 中的扩展（ESLint、Prettier 等）。
-
-### Git 钩子
 
 | 钩子         | 行为                                            |
 | ------------ | ----------------------------------------------- |
 | `pre-commit` | 对暂存文件运行 ESLint + Prettier（lint-staged） |
 | `commit-msg` | Commitlint 校验提交信息格式（中文 subject）     |
 
-提交格式：`type: 中文说明`（Conventional Commits 前缀 + 中文描述，单行无正文）
-
-| 前缀       | 用途               |
-| ---------- | ------------------ |
-| `feat`     | 新功能             |
-| `fix`      | 修复               |
-| `docs`     | 文档               |
-| `style`    | 格式（不影响逻辑） |
-| `refactor` | 重构               |
-| `perf`     | 性能               |
-| `test`     | 测试               |
-| `build`    | 构建 / 依赖        |
-| `ci`       | CI                 |
-| `chore`    | 杂项               |
-| `revert`   | 回滚               |
+提交格式：`type: 中文说明`（Conventional Commits 前缀 + 中文描述）
 
 ```bash
 git commit -m "feat: 搭建 Next.js 个人作品集"
-git commit -m "fix: 修复 Vanta 背景层级"
+git commit -m "fix: 修复 GitHub Pages 下粒子 SVG 路径"
 git commit -m "docs: 更新 README"
 ```
 
@@ -336,46 +272,35 @@ git commit -m "docs: 更新 README"
 ### 本地生产预览
 
 ```bash
-# 标准 Next.js 构建
-npm run build && npm start
-
-# GitHub Pages 静态站预览（推荐）
-npm run preview
+npm run build && npm start   # 标准 Next.js
+npm run preview              # GitHub Pages 静态站预览（推荐）
 ```
 
 ### GitHub Pages（已配置 CI）
 
-仓库已配置 GitHub Actions 工作流（`.github/workflows/deploy.yml`），推送到 `main` 分支后自动构建并部署。CI 会尝试运行 `fetch:blogs` 更新博客数据（失败不阻断构建）。
+推送到 `main` 后由 `.github/workflows/deploy.yml` 自动构建部署。CI 会尝试 `fetch:blogs`（失败不阻断）。
 
-另有定时工作流（`.github/workflows/update-blogs.yml`）：每天 UTC 02:00（北京时间 10:00）自动抓取 CSDN 博客并提交到 `main`（有变更才提交），成功推送后会再触发 **Deploy to GitHub Pages** 部署站点；也可在 Actions 页手动触发 **Update CSDN Blogs**。
+定时工作流 `.github/workflows/update-blogs.yml`：每天 UTC 02:00（北京时间 10:00）抓取 CSDN；有变更则推送并触发 Pages 部署。
 
-**首次启用步骤：**
-
-1. 打开仓库 [Settings → Pages](https://github.com/Luzhaotian/portfolio/settings/pages)
-2. **Build and deployment → Source** 选择 **GitHub Actions**
-3. 推送代码到 `main`，或在 Actions 页手动运行 **Deploy to GitHub Pages** 工作流
-4. 等待工作流完成，Pages 地址即可访问
-
-**本地模拟 GitHub Pages 构建：**
+**首次启用：** Settings → Pages → Source 选 **GitHub Actions**，再推送或手动运行 Deploy 工作流。
 
 ```bash
 GITHUB_PAGES=true npm run build
-# 静态产物在 out/ 目录
+# 静态产物在 out/；basePath 为 /portfolio
 ```
-
-> GitHub Pages 使用静态导出（`output: 'export'`）并设置 `basePath: /portfolio`。本地 `npm run dev` 不受影响。
 
 ### 其他平台
 
-也可部署到 Vercel 等平台（无需 `GITHUB_PAGES` 环境变量，支持完整 Next.js 运行时）。
+也可部署到 Vercel 等平台（无需 `GITHUB_PAGES`，支持完整 Next.js 运行时）。
 
 ## 相关链接
 
 - 在线站点：[https://luzhaotian.github.io/portfolio/](https://luzhaotian.github.io/portfolio/)
 - 仓库：[https://github.com/Luzhaotian/portfolio](https://github.com/Luzhaotian/portfolio)
+- 发布 tag：[`v1.0.0`](https://github.com/Luzhaotian/portfolio/releases/tag/v1.0.0)
 - CSDN 博客：[https://blog.csdn.net/paopao_pop](https://blog.csdn.net/paopao_pop)
+- 设计文档：`docs/design/`
 - UnoCSS：[https://unocss.dev](https://unocss.dev)
-- Vanta.js：[https://github.com/tengbao/vanta](https://github.com/tengbao/vanta)
 - Next.js：[https://nextjs.org](https://nextjs.org)
 
 ## License
