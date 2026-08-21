@@ -34,8 +34,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # CSDN WAF 常拦截 GitHub Actions IP（HTTP 521）；脚本在 CI 下会保留现有 data/blogs.ts 并软退出
       - name: Fetch blog data from CSDN
         run: npm run fetch:blogs
+        continue-on-error: true
 
       - name: Commit and push if changed
         id: push

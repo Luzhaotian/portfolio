@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { writeFileSync } from "node:fs";
+import { existsSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -9,14 +9,21 @@ const CSDN_PROFILE = `https://blog.csdn.net/${CSDN_USERNAME}`;
 const CSDN_API = "https://blog.csdn.net/community/home-api/v1/get-business-list";
 const TOP_N = 6;
 const PAGE_SIZE = 100;
+const MAX_ATTEMPTS = 3;
+const RETRY_BASE_MS = 1500;
 
 const FETCH_HEADERS = {
   "User-Agent":
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
   Accept: "application/json, text/html, */*",
-  "Accept-Language": "zh-CN,zh;q=0.9",
+  "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
   Referer: CSDN_PROFILE,
+  Origin: "https://blog.csdn.net",
 };
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 function decodeHtml(text = "") {
   return text
@@ -92,6 +99,29 @@ function extractJsonObject(source, start) {
   return null;
 }
 
+function isRetryableError(error) {
+  const message = String(error?.message || error);
+  return /\b(408|425|429|500|502|503|504|521|522|523|524)\b/.test(message);
+}
+
+async function withRetries(label, fn) {
+  let lastError;
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    try {
+      return await fn();
+    } catch (error) {
+      lastError = error;
+      if (!isRetryableError(error) || attempt === MAX_ATTEMPTS) break;
+      const waitMs = RETRY_BASE_MS * attempt;
+      console.warn(
+        `${label} 失败（第 ${attempt}/${MAX_ATTEMPTS} 次）: ${error.message}；${waitMs}ms 后重试…`
+      );
+      await sleep(waitMs);
+    }
+  }
+  throw lastError;
+}
+
 async function fetchViaApi() {
   const url = new URL(CSDN_API);
   url.searchParams.set("page", "1");
@@ -148,12 +178,12 @@ async function fetchViaHtml() {
 
 async function fetchCsdnArticles() {
   try {
-    const articles = await fetchViaApi();
+    const articles = await withRetries("API", fetchViaApi);
     console.log("数据来源: CSDN home-api");
     return articles;
   } catch (apiError) {
     console.warn(`API 抓取失败，回退到页面解析: ${apiError.message}`);
-    const articles = await fetchViaHtml();
+    const articles = await withRetries("HTML", fetchViaHtml);
     console.log("数据来源: CSDN HTML __INITIAL_STATE__");
     return articles;
   }
@@ -179,10 +209,32 @@ export const blogPosts: BlogPost[] = ${JSON.stringify(articles, null, 2)};
 `;
 }
 
+function warnStaleInCi(message) {
+  // GitHub Actions annotation（Actions 日志里会高亮）
+  if (process.env.GITHUB_ACTIONS === "true") {
+    console.log(`::warning title=CSDN blog fetch failed::${message}`);
+  }
+  console.warn(message);
+}
+
 async function main() {
-  console.log(`正在从 ${CSDN_PROFILE} 获取点赞最多的 ${TOP_N} 篇博客…`);
-  const articles = await fetchCsdnArticles();
   const outPath = join(dirname(fileURLToPath(import.meta.url)), "../data/blogs.ts");
+  console.log(`正在从 ${CSDN_PROFILE} 获取点赞最多的 ${TOP_N} 篇博客…`);
+
+  let articles;
+  try {
+    articles = await fetchCsdnArticles();
+  } catch (error) {
+    const detail = error.message || String(error);
+    // CSDN WAF 常对 GitHub Actions 等机房 IP 返回 521；CI 保留已提交数据，避免红灯
+    if (process.env.CI === "true" && existsSync(outPath)) {
+      warnStaleInCi(
+        `抓取失败（${detail}），保留仓库内现有 data/blogs.ts。可在可访问 CSDN 的网络本地运行 npm run fetch:blogs 后提交。`
+      );
+      return;
+    }
+    throw error;
+  }
 
   writeFileSync(outPath, generateModule(articles), "utf8");
   console.log(`已写入 ${outPath}`);
