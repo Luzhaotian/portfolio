@@ -4,6 +4,7 @@ import { I18nProvider } from "@/components/I18nProvider";
 import SkipLink from "@/components/SkipLink";
 import { localeInitScript } from "@/lib/i18n";
 import { basePath } from "@/lib/site";
+import { styleInitScript } from "@/lib/style";
 import { themeInitScript } from "@/lib/theme";
 import "@unocss/reset/tailwind.css";
 import "./globals.css";
@@ -76,6 +77,7 @@ export default function RootLayout({
     <html lang="zh-CN" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <script dangerouslySetInnerHTML={{ __html: styleInitScript }} />
         <script dangerouslySetInnerHTML={{ __html: localeInitScript }} />
         <style
           dangerouslySetInnerHTML={{

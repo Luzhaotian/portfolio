@@ -1,61 +1,78 @@
+interface VantaBirdsOptions {
+  el: HTMLElement | string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  THREE: any;
+  mouseControls?: boolean;
+  touchControls?: boolean;
+  gyroControls?: boolean;
+  minHeight?: number;
+  minWidth?: number;
+  scale?: number;
+  scaleMobile?: number;
+  backgroundColor?: number;
+  color1?: number;
+  color2?: number;
+  colorMode?: string;
+  birdSize?: number;
+  wingSpan?: number;
+  speedLimit?: number;
+  separation?: number;
+  alignment?: number;
+  cohesion?: number;
+  quantity?: number;
+  forceAnimate?: boolean;
+}
+
+interface VantaBirdsEffect {
+  destroy: () => void;
+  resize?: () => void;
+}
+
 declare module "vanta/dist/vanta.birds.min" {
-  import type * as THREE from "three";
+  export default function BIRDS(options: VantaBirdsOptions): VantaBirdsEffect;
+}
 
-  interface VantaBirdsOptions {
-    el: HTMLElement | string;
-    THREE: typeof THREE;
-    mouseControls?: boolean;
-    touchControls?: boolean;
-    gyroControls?: boolean;
-    minHeight?: number;
-    minWidth?: number;
-    scale?: number;
-    scaleMobile?: number;
-    backgroundColor?: number;
-    color1?: number;
-    color2?: number;
-    colorMode?: string;
-    birdSize?: number;
-    wingSpan?: number;
-    speedLimit?: number;
-    separation?: number;
-    alignment?: number;
-    cohesion?: number;
-    quantity?: number;
-  }
-
-  interface VantaEffect {
-    destroy: () => void;
-    resize?: () => void;
-  }
-
-  export default function BIRDS(options: VantaBirdsOptions): VantaEffect;
+/** Classic package: force CPU birds path (desktop GPGPU often renders a blank canvas). */
+declare module "@/styles/classic/vendor/vanta.birds.cpu.min.js" {
+  export default function BIRDS(options: VantaBirdsOptions): VantaBirdsEffect;
 }
 
 declare module "vanta/dist/vanta.net.min" {
-  import type * as THREE from "three";
-
-  interface VantaNetOptions {
-    el: HTMLElement | string;
-    THREE: typeof THREE;
-    mouseControls?: boolean;
-    touchControls?: boolean;
-    gyroControls?: boolean;
-    minHeight?: number;
-    minWidth?: number;
-    scale?: number;
-    scaleMobile?: number;
-    color?: number;
-    backgroundColor?: number;
-    points?: number;
-    maxDistance?: number;
-    spacing?: number;
-  }
-
-  interface VantaEffect {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  export default function NET(options: Record<string, any>): {
     destroy: () => void;
     resize?: () => void;
-  }
+  };
+}
 
-  export default function NET(options: VantaNetOptions): VantaEffect;
+declare module "vanta/dist/vanta.cells.min" {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  export default function CELLS(options: Record<string, any>): {
+    destroy: () => void;
+    resize?: () => void;
+  };
+}
+
+declare module "vanta/dist/vanta.waves.min" {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  export default function WAVES(options: Record<string, any>): {
+    destroy: () => void;
+    resize?: () => void;
+  };
+}
+
+declare module "vanta/dist/vanta.clouds.min" {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  export default function CLOUDS(options: Record<string, any>): {
+    destroy: () => void;
+    resize?: () => void;
+  };
+}
+
+declare module "vanta/dist/vanta.trunk.min" {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  export default function TRUNK(options: Record<string, any>): {
+    destroy: () => void;
+    resize?: () => void;
+  };
 }

@@ -20,29 +20,20 @@
     "fetch:blogs": "node scripts/fetch-csdn-blogs.mjs && prettier --write data/blogs.ts",
     "prepare": "husky"
   },
-  "lint-staged": {
-    "{app,components,lib,data,types}/**/*.{js,jsx,ts,tsx,mjs,cjs}": [
-      "eslint --fix --max-warnings 0",
-      "prettier --write"
-    ],
-    "*.{js,ts,mjs}": [
-      "eslint --fix --max-warnings 0",
-      "prettier --write"
-    ],
-    "postcss*.cjs": "prettier --write",
-    "*.{json,md,css,yml,yaml}": "prettier --write"
-  },
   "dependencies": {
     "next": "^15.3.3",
+    "p5": "^1.11.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "three": "^0.170.0",
+    "three-vanta": "npm:three@^0.151.3",
     "vanta": "^0.5.24"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.5.3",
     "@commitlint/config-conventional": "^20.5.3",
     "@types/node": "^22.15.21",
+    "@types/p5": "^1.7.6",
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.5",
     "@types/three": "^0.170.0",

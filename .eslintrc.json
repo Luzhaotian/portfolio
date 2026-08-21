@@ -6,6 +6,7 @@
     "build/**",
     "node_modules/**",
     "next-env.d.ts",
-    "postcss-unocss.cjs"
+    "postcss-unocss.cjs",
+    "styles/**/vendor/**"
   ]
 }

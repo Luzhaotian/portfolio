@@ -57,6 +57,8 @@ export interface LocaleMessages {
     footerTech: string;
   };
   nav: NavItem[];
+  /** Classic (v1) 风格导航 */
+  navClassic: NavItem[];
   navAria: {
     main: string;
     footer: string;
@@ -132,6 +134,11 @@ export interface LocaleMessages {
     light: string;
     dark: string;
     auto: string;
+    ariaLabel: string;
+  };
+  style: {
+    atelier: string;
+    classic: string;
     ariaLabel: string;
   };
   locale: {

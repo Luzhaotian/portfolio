@@ -27,6 +27,14 @@ export const en: LocaleMessages = {
     { href: "#blog", label: "Notes" },
     { href: "#experience", label: "Fields" },
   ],
+  navClassic: [
+    { href: "#about", label: "About" },
+    { href: "#skills", label: "Skills" },
+    { href: "#enterprise", label: "Enterprise" },
+    { href: "#github", label: "Open Source" },
+    { href: "#blog", label: "Blog" },
+    { href: "#experience", label: "Domains" },
+  ],
   navAria: {
     main: "Main navigation",
     footer: "Footer navigation",
@@ -320,6 +328,11 @@ export const en: LocaleMessages = {
     dark: "Dark",
     auto: "System",
     ariaLabel: "Theme mode",
+  },
+  style: {
+    atelier: "Atelier",
+    classic: "Classic",
+    ariaLabel: "Page style",
   },
   locale: {
     zh: "中文",

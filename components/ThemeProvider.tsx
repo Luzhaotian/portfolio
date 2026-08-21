@@ -5,6 +5,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useState,
   type ReactNode,
@@ -13,6 +14,7 @@ import {
   applyTheme,
   getStoredThemeMode,
   resolveTheme,
+  THEME_MODES,
   type ResolvedTheme,
   type ThemeMode,
 } from "@/lib/theme";
@@ -26,14 +28,30 @@ interface ThemeContextValue {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-function useThemeState(): ThemeContextValue {
-  const [mode, setModeState] = useState<ThemeMode>("auto");
-  const [resolved, setResolved] = useState<ResolvedTheme>("dark");
+function readInitialTheme(): { mode: ThemeMode; resolved: ResolvedTheme } {
+  if (typeof document === "undefined") {
+    return { mode: "auto", resolved: "dark" };
+  }
+  const modeAttr = document.documentElement.dataset.themeMode;
+  const themeAttr = document.documentElement.dataset.theme;
+  const mode = THEME_MODES.includes(modeAttr as ThemeMode)
+    ? (modeAttr as ThemeMode)
+    : getStoredThemeMode();
+  const resolved =
+    themeAttr === "light" || themeAttr === "dark" ? themeAttr : resolveTheme(mode);
+  return { mode, resolved };
+}
 
-  useEffect(() => {
-    const stored = getStoredThemeMode();
-    setModeState(stored);
-    setResolved(resolveTheme(stored));
+function useThemeState(): ThemeContextValue {
+  const initial = readInitialTheme();
+  const [mode, setModeState] = useState<ThemeMode>(initial.mode);
+  const [resolved, setResolved] = useState<ResolvedTheme>(initial.resolved);
+
+  useLayoutEffect(() => {
+    const next = readInitialTheme();
+    setModeState(next.mode);
+    setResolved(next.resolved);
+    applyTheme(next.mode);
   }, []);
 
   useEffect(() => {

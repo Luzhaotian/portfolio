@@ -27,6 +27,14 @@ export const zh: LocaleMessages = {
     { href: "#blog", label: "博客" },
     { href: "#experience", label: "领域" },
   ],
+  navClassic: [
+    { href: "#about", label: "关于" },
+    { href: "#skills", label: "技能" },
+    { href: "#enterprise", label: "企业精选" },
+    { href: "#github", label: "开源项目" },
+    { href: "#blog", label: "博客" },
+    { href: "#experience", label: "经验领域" },
+  ],
   navAria: {
     main: "主导航",
     footer: "页脚导航",
@@ -300,6 +308,11 @@ export const zh: LocaleMessages = {
     dark: "深色",
     auto: "跟随系统",
     ariaLabel: "主题模式",
+  },
+  style: {
+    atelier: "静奢",
+    classic: "经典",
+    ariaLabel: "页面风格",
   },
   locale: {
     zh: "中文",

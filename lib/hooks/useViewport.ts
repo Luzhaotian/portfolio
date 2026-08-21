@@ -21,9 +21,14 @@ function readViewport(): ViewportState {
   };
 }
 
+function getInitialState(): ViewportState {
+  if (typeof window === "undefined") return DEFAULT_STATE;
+  return readViewport();
+}
+
 /** 读取当前视口档位，resize / matchMedia 变化时自动更新 */
 export function useViewport(): ViewportState {
-  const [state, setState] = useState<ViewportState>(DEFAULT_STATE);
+  const [state, setState] = useState<ViewportState>(getInitialState);
 
   useEffect(() => {
     let raf = 0;
@@ -41,7 +46,8 @@ export function useViewport(): ViewportState {
 
     queries.forEach((mql) => mql.addEventListener("change", update));
     window.addEventListener("resize", update, { passive: true });
-    update();
+    // 同步一次，避免与其他来源的 viewport 状态漂移
+    setState(readViewport());
 
     return () => {
       cancelAnimationFrame(raf);
