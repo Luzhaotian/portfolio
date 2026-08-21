@@ -314,6 +314,15 @@ export const zh: LocaleMessages = {
     classic: "经典",
     ariaLabel: "页面风格",
   },
+  skillShare: {
+    ariaLabel: "复制 Skill 提示词",
+    label: "用 AI 生成同款",
+    hint: "点击复制当前风格的 Skill 提示词，粘贴到 Cursor 等 AI 里，即可按本站风格生成你的作品集。",
+    tooltipTitle: "用 AI 生成同款站点",
+    tooltipDoneHint: "已复制到剪贴板，去 AI 对话里粘贴即可。",
+    copied: "已复制",
+    copyFailed: "复制失败",
+  },
   locale: {
     zh: "中文",
     en: "English",

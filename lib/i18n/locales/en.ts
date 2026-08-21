@@ -334,6 +334,15 @@ export const en: LocaleMessages = {
     classic: "Classic",
     ariaLabel: "Page style",
   },
+  skillShare: {
+    ariaLabel: "Copy skill prompt",
+    label: "Build with AI",
+    hint: "Click to copy this style’s skill prompt. Paste it into Cursor (or another AI) to scaffold a portfolio like this one.",
+    tooltipTitle: "Build the same site with AI",
+    tooltipDoneHint: "Copied — paste it into your AI chat.",
+    copied: "Copied",
+    copyFailed: "Copy failed",
+  },
   locale: {
     zh: "中文",
     en: "English",

@@ -31,8 +31,9 @@ const config = {
     "subject-max-length": [2, "always", 72],
     "chinese-subject": [2, "always"],
     "header-max-length": [2, "always", 80],
-    "body-empty": [2, "always"],
-    "footer-empty": [2, "always"],
+    // Cursor Agent 会自动附加 Co-authored-by，视为 footer/body，故不强制为空
+    "body-empty": [0],
+    "footer-empty": [0],
   },
   helpUrl:
     "https://www.conventionalcommits.org/zh-hans/v1.0.0/，格式示例：feat: 添加技能展示区块",

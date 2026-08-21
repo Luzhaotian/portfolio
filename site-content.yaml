@@ -1,0 +1,141 @@
+# =============================================================================
+# 个人站内容配置（可随时改，不必一次填完）
+# -----------------------------------------------------------------------------
+# 用途：
+#   - 预览风格：保持占位即可，直接跑项目
+#   - 正式使用：改这里的字段，再让 AI 按 Skill 同步到 data/ + lib/i18n/
+#
+# 说明：
+#   - zh / en 都写时双语齐全；只写 zh 时，en 可让 AI 翻译或暂时复用 zh
+#   - id 用驼峰英文（如 myProject），会映射到代码里的 key
+#   - 删掉某个数组项 = 下架该条目
+# =============================================================================
+
+meta:
+  # preview = 允许大量占位；ready = 建议关键信息已替换
+  mode: preview
+  defaultLocale: zh
+  # 站点默认风格（克隆后若只保留一套，会与 Skill 确认结果对齐）
+  preferredStyle: classic # atelier | classic
+
+site:
+  github: "https://github.com/your-name"
+  yearsOfExperience: 3
+  # 可选：博客源（经典/静奢博客区）；没有可留空数组
+  blogProfile: ""
+
+profile:
+  zh:
+    name: "你的名字"
+    title: "前端工程师"
+    tagline: "用清晰的工程化把产品做扎实"
+    highlights:
+      - { label: "经验", value: "3 年" }
+      - { label: "项目", value: "10+" }
+      - { label: "开源", value: "3" }
+      - { label: "栈", value: "React" }
+  en:
+    name: "Your Name"
+    title: "Frontend Engineer"
+    tagline: "Ship solid products with pragmatic engineering"
+    highlights:
+      - { label: "Experience", value: "3 yrs" }
+      - { label: "Projects", value: "10+" }
+      - { label: "OSS", value: "3" }
+      - { label: "Stack", value: "React" }
+
+hero:
+  zh:
+    role: "Frontend Engineer"
+    viewResume: "查看履历"
+    github: "GitHub"
+  en:
+    role: "Frontend Engineer"
+    viewResume: "View resume"
+    github: "GitHub"
+
+about:
+  zh:
+    title: "关于我"
+    subtitle: "一句话介绍你的方向"
+    headline: "把复杂业务做成"
+    headlineHighlight: "可维护"
+    headlineEnd: "的前端系统"
+    location: "中国"
+    summary:
+      - "占位：用 2～3 段话介绍经历与擅长领域。"
+      - "占位：可写主导过的业务类型、技术栈与方法论。"
+      - "占位：可写开源 / 写作 / AI 工具链等个人标签。"
+  en:
+    title: "About"
+    subtitle: "A short line about your focus"
+    headline: "Build frontend systems that stay"
+    headlineHighlight: "maintainable"
+    headlineEnd: ""
+    location: "China"
+    summary:
+      - "Placeholder: 2–3 short paragraphs about your background."
+      - "Placeholder: domains, stacks, and how you work."
+      - "Placeholder: open source, writing, tooling, etc."
+
+# 技术栈：category.id + skill ids；文案在 name / skills 映射里
+skills:
+  categories:
+    - id: coreFrameworks
+      zh: { name: "核心框架" }
+      en: { name: "Core Frameworks" }
+      skills:
+        - { id: react, zh: "React", en: "React" }
+        - { id: typescript, zh: "TypeScript", en: "TypeScript" }
+        - { id: nextjs, zh: "Next.js", en: "Next.js" }
+    - id: tooling
+      zh: { name: "工程化" }
+      en: { name: "Tooling" }
+      skills:
+        - { id: vite, zh: "Vite", en: "Vite" }
+        - { id: eslint, zh: "ESLint", en: "ESLint" }
+
+# 企业/作品项目（结构 + 文案）
+enterpriseProjects:
+  - id: sampleProduct
+    tech: ["React", "TypeScript"]
+    highlight: true
+    zh:
+      name: "示例企业项目"
+      description: "占位：一句话说明业务价值与你的职责。"
+    en:
+      name: "Sample Product"
+      description: "Placeholder: one sentence on impact and your role."
+
+# 开源项目（可有 link）
+githubProjects:
+  - id: sampleOss
+    tech: ["TypeScript"]
+    link: "https://github.com/your-name/sample"
+    highlight: true
+    zh:
+      name: "示例开源项目"
+      description: "占位：仓库做什么、解决什么问题。"
+    en:
+      name: "Sample OSS"
+      description: "Placeholder: what the repo does."
+
+# 经验领域
+experience:
+  - id: productEngineering
+    icon: "🛠️"
+    zh:
+      title: "产品工程"
+      description: "占位：你在该领域的经验摘要。"
+    en:
+      title: "Product Engineering"
+      description: "Placeholder: short summary of experience in this domain."
+
+# 博客（可先空着；预览时用 0～2 条占位即可）
+blogs: []
+#  - title: "示例文章"
+#    description: "占位摘要"
+#    url: "https://example.com/post"
+#    likes: 0
+#    views: 0
+#    date: "2026-01-01"

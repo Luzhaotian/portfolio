@@ -141,6 +141,15 @@ export interface LocaleMessages {
     classic: string;
     ariaLabel: string;
   };
+  skillShare: {
+    ariaLabel: string;
+    label: string;
+    hint: string;
+    tooltipTitle: string;
+    tooltipDoneHint: string;
+    copied: string;
+    copyFailed: string;
+  };
   locale: {
     zh: string;
     en: string;
