@@ -10,7 +10,7 @@ export interface BlogPost {
 /** CSDN 博客主页 */
 export const csdnProfile = "https://blog.csdn.net/paopao_pop";
 
-/** 数据更新时间：2026-08-21，运行 npm run fetch:blogs 可刷新 */
+/** 数据更新时间：2026-08-22，运行 npm run fetch:blogs 可刷新 */
 export const blogPosts: BlogPost[] = [
   {
     title:
@@ -54,7 +54,7 @@ export const blogPosts: BlogPost[] = [
       "本文介绍了如何配置Figma与Cursor的集成方案。主要内容包括：1)下载安装Figma软件；2)安装Bun运行时环境；3)克隆cursor-talk-to-figma-mcp插件项目并启动WebSocket服务；4)在Figma中导入插件manifest文件；5)配置Cursor的MCP连接；6)测试连接；7)添加",
     url: "https://blog.csdn.net/paopao_pop/article/details/159427862",
     likes: 14,
-    views: 594,
+    views: 595,
     date: "2026-03-24",
   },
   {
