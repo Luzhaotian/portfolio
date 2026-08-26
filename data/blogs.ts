@@ -10,7 +10,7 @@ export interface BlogPost {
 /** CSDN 博客主页 */
 export const csdnProfile = "https://blog.csdn.net/paopao_pop";
 
-/** 数据更新时间：2026-08-25，运行 npm run fetch:blogs 可刷新 */
+/** 数据更新时间：2026-08-26，运行 npm run fetch:blogs 可刷新 */
 export const blogPosts: BlogPost[] = [
   {
     title:
@@ -45,7 +45,7 @@ export const blogPosts: BlogPost[] = [
       "项目里引入了全局监听报错机制 onErrorCaptured 但是如果一直报错，会出现内存泄漏的问题（只会在开发环境上出现，不确定是这个钩子导致的，但是复现也不太容易，总结太菜，待解决。封装二次表单的 Select 组件的数据循环 Children 需要循环才能写入（这个不符合我的初始设计想法，但是，目前也没有好的解决",
     url: "https://blog.csdn.net/paopao_pop/article/details/137513698",
     likes: 17,
-    views: 631,
+    views: 632,
     date: "2024-04-08",
   },
   {
