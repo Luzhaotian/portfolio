@@ -212,6 +212,11 @@ export const zh: LocaleMessages = {
     title: "开源项目",
     subtitle: "GitHub 上的个人开源项目与技术探索",
     projects: {
+      cardOrbit: {
+        name: "card-orbit",
+        description:
+          "路径约束的 3D 卡片轨道轮播 npm 包，支持 React / Vue；手写 rAF 路径动画，无 Framer Motion / GSAP。",
+      },
       hireHelper: {
         name: "hire-helper",
         description: "智能招聘助手，基于 AI 的简历分析与岗位匹配工具。",

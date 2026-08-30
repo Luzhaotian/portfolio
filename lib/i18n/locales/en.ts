@@ -221,6 +221,11 @@ export const en: LocaleMessages = {
     title: "Open Source Projects",
     subtitle: "Personal open-source projects and technical explorations on GitHub",
     projects: {
+      cardOrbit: {
+        name: "card-orbit",
+        description:
+          "Path-constrained 3D card orbit carousel for React and Vue — rise, arc, exit. Hand-rolled rAF paths; no Framer Motion / GSAP.",
+      },
       hireHelper: {
         name: "hire-helper",
         description:

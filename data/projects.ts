@@ -89,6 +89,13 @@ export const enterpriseProjects = defineProjects([
 /** 开源项目（页面「开源项目」区块，渲染顺序 = 数组顺序；link 会渲染为外链卡片） */
 export const githubProjects = defineProjects([
   {
+    // 路径约束 3D 卡片轨道轮播（React / Vue npm 包）
+    id: "cardOrbit",
+    tech: ["React", "Vue", "TypeScript", "npm"],
+    link: "https://github.com/Luzhaotian/card-orbit",
+    highlight: true,
+  },
+  {
     // 智能招聘助手（AI 简历分析与岗位匹配）
     id: "hireHelper",
     tech: ["JavaScript", "AI Agent"],
