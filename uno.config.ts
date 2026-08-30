@@ -2,6 +2,11 @@ import { defineConfig, presetWind3 } from "unocss";
 import { atelierPreflight, atelierRules, atelierShortcuts } from "./styles/atelier/uno";
 import { classicPreflight, classicRules, classicShortcuts } from "./styles/classic/uno";
 import {
+  particlePreflight,
+  particleRules,
+  particleShortcuts,
+} from "./styles/particle/uno";
+import {
   sharedPreflight,
   sharedRules,
   sharedShortcuts,
@@ -39,14 +44,16 @@ export default defineConfig({
     ...sharedShortcuts,
     ...atelierShortcuts,
     ...classicShortcuts,
+    ...particleShortcuts,
   },
-  rules: [...sharedRules, ...atelierRules, ...classicRules],
+  rules: [...sharedRules, ...atelierRules, ...classicRules, ...particleRules],
   preflights: [
     {
       getCSS: () => `
         ${sharedPreflight}
         ${atelierPreflight}
         ${classicPreflight}
+        ${particlePreflight}
       `,
     },
   ],

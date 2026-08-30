@@ -1,5 +1,6 @@
 import { atelierStyle } from "@/styles/atelier/meta";
 import { classicStyle } from "@/styles/classic/meta";
+import { particleStyle } from "@/styles/particle/meta";
 import type { StyleDefinition, StyleMode } from "@/styles/types";
 
 /**
@@ -9,6 +10,7 @@ import type { StyleDefinition, StyleMode } from "@/styles/types";
 export const STYLE_REGISTRY = {
   atelier: atelierStyle,
   classic: classicStyle,
+  particle: particleStyle,
 } as const satisfies Record<StyleMode, StyleDefinition>;
 
 export type { StyleMode, StyleDefinition } from "@/styles/types";
@@ -20,6 +22,7 @@ export const DEFAULT_STYLE: StyleMode = "atelier";
 export const STYLE_PATHS: Record<StyleMode, string> = {
   atelier: atelierStyle.path,
   classic: classicStyle.path,
+  particle: particleStyle.path,
 };
 
 export function getStyleDefinition(mode: StyleMode): StyleDefinition {

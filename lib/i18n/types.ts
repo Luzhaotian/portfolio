@@ -139,6 +139,7 @@ export interface LocaleMessages {
   style: {
     atelier: string;
     classic: string;
+    particle: string;
     ariaLabel: string;
   };
   skillShare: {

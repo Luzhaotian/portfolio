@@ -5,6 +5,7 @@ module.exports = {
       content: [
         "./app/**/*.{html,js,ts,jsx,tsx}",
         "./components/**/*.{html,js,ts,jsx,tsx}",
+        "./styles/**/*.{html,js,ts,jsx,tsx}",
       ],
     },
   },

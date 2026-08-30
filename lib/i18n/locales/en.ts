@@ -337,6 +337,7 @@ export const en: LocaleMessages = {
   style: {
     atelier: "Atelier",
     classic: "Classic",
+    particle: "Particle",
     ariaLabel: "Page style",
   },
   skillShare: {

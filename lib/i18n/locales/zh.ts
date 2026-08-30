@@ -317,6 +317,7 @@ export const zh: LocaleMessages = {
   style: {
     atelier: "静奢",
     classic: "经典",
+    particle: "粒子",
     ariaLabel: "页面风格",
   },
   skillShare: {

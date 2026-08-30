@@ -19,6 +19,12 @@ const SKILL_BY_STYLE: Record<
     labelZh: "经典（classic）",
     labelEn: "Classic",
   },
+  particle: {
+    slash: "/portfolio-particle",
+    path: "styles/particle",
+    labelZh: "粒子（particle）",
+    labelEn: "Particle",
+  },
 };
 
 /** Prompt copied to clipboard for pasting into Cursor / other AI agents. */
