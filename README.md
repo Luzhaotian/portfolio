@@ -1,18 +1,18 @@
 # 卢照天 · 个人作品集
 
-卢照天（Luzhaotian）的个人作品集 — **Next.js 15** 单页应用，提供两套可切换视觉风格：**静奢（Atelier）** 与 **经典（Classic）**。
+卢照天（Luzhaotian）的个人作品集 — **Next.js 15** 单页应用，提供三套可切换视觉风格：**静奢（Atelier）**、**经典（Classic）** 与 **粒子（Particle）**。
 
 本地预览：[http://localhost:3000](http://localhost:3000)（需先 `npm run dev`）
 
 **在线地址：** [https://luzhaotian.github.io/portfolio/](https://luzhaotian.github.io/portfolio/)
 
-入口：`/` 会按上次选择跳转到 `/atelier` 或 `/classic`（新窗口切换风格，互不影响）。
+入口：`/` 会按上次选择跳转到 `/atelier`、`/classic` 或 `/particle`（新窗口切换风格，互不影响）。
 
 ---
 
 ## 功能特性
 
-- **双风格架构**：静奢 / 经典拆成独立包（`styles/atelier` · `styles/classic`），共享内容与壳层
+- **三风格架构**：静奢 / 经典 / 粒子拆成独立包（`styles/atelier` · `styles/classic` · `styles/particle`），共享内容与壳层
 - **左侧竖栏**：切换风格（新标签打开另一套）
 - **右侧 AI 按钮**：悬停说明用途；点击复制当前风格的 Skill 提示词，粘贴给 AI 即可按本站生成同款项目
 - **中英文 / 主题**：语言与白天·夜晚·自动主题，偏好写入 `localStorage`
@@ -23,14 +23,24 @@
 ### 静奢（Atelier）
 
 - 大留白、衬线标题、氧化铜金强调色
+- Hero 使用 [card-orbit](https://github.com/Luzhaotian/card-orbit) 卡片环绕
 - Canvas：ParticleObject / GlyphRain / FlameWrap / PointerAura（桌面端；减少动效时关闭）
 - 区块：Hero → 精选 → 关于 → 作品索引 → 技能 → 博客 → 经验领域
 
 ### 经典（Classic）
 
 - 毛玻璃卡片 + Vanta 全屏背景（白天 **Waves**，夜晚 **Birds**）
+- Hero 同样使用 card-orbit
 - 区块：Hero → 关于 → 技能 → 企业精选 / 开源 → 博客 → 经验领域
 - 部分章节交替「实体毛玻璃 / 透明」节奏
+
+### 粒子（Particle）
+
+- 左右分栏：桌面端左侧 WebGL 粒子云，右侧内容；窄屏改为上下叠放
+- 粒子从章节剪影采样，滚动切换时 GPU morph 过渡；减少动效 / 移动端回退为静态图
+- 桌面端章节吸附滚动（`prefers-reduced-motion` 时关闭）
+- 区块：Hero → 关于 → 作品 → 技能 → 博客 → 经验领域
+- 公共控件沿用静奢 chrome（左侧竖栏、主题 / 语言按钮）
 
 ---
 
@@ -40,8 +50,10 @@
 
 | Skill | 调用                 | 说明                   |
 | ----- | -------------------- | ---------------------- |
-| 静奢  | `/portfolio-atelier` | 保留 Atelier，去掉经典 |
-| 经典  | `/portfolio-classic` | 保留 Classic，去掉静奢 |
+| 静奢  | `/portfolio-atelier` | 保留 Atelier，去掉其余 |
+| 经典  | `/portfolio-classic` | 保留 Classic，去掉其余 |
+
+粒子风格已上线，专用 Skill（`/portfolio-particle`）尚未收录。右侧 AI 按钮仍会复制一份指向 `styles/particle` 的提示词，可按同样流程让 AI 只留这一套。
 
 ### 推荐流程
 
@@ -103,6 +115,7 @@ npm run dev
 
 - 静奢：<http://localhost:3000/atelier>
 - 经典：<http://localhost:3000/classic>
+- 粒子：<http://localhost:3000/particle>
 
 若 `.next` 缓存异常：`npm run dev:clean`。
 
@@ -132,24 +145,25 @@ npm run dev
 ```
 app/
   page.tsx                 # / → 按上次风格跳转
-  atelier/ · classic/      # 各风格路由（layout 含独立 favicon）
+  atelier/ · classic/ · particle/   # 各风格路由（layout 含独立 favicon）
   layout.tsx · globals.css
 styles/
   registry.ts · types.ts   # 风格注册表（扩展入口）
-  README.md                # 如何新增第三套风格
+  README.md                # 如何新增风格
   shared/                  # 公共：StyleRail、SkillShareRail、Providers、Uno 共享层
   atelier/                 # 静奢：components + uno.ts + meta
   classic/                 # 经典：components + Vanta + uno.ts + meta + vendor
+  particle/                # 粒子：components + engine + assets + uno.ts + meta
 components/                # 应用壳：I18n / Theme / Viewport / SkipLink
 data/                      # 结构数据（id / tech / 链接…）
 lib/
   i18n/                    # zh / en 文案与类型
-  style.ts · theme.ts · skillShare.ts · site.ts …
+  style.ts · theme.ts · skillShare.ts · site.ts · cardOrbit.ts …
 site-content.yaml          # 内容模板（预览占位 / 正式填写）
 .cursor/skills/            # portfolio-atelier · portfolio-classic
                            #   SKILL.md + references/{strip,apply,go-live}
-uno.config.ts              # 合并 shared + atelier + classic 的 Uno 配置
-public/                    # favicon-atelier / favicon-classic 等
+uno.config.ts              # 合并 shared + atelier + classic + particle 的 Uno 配置
+public/                    # favicon-* · particle/ 剪影 · card-orbit/ 演示图
 scripts/ · .github/workflows/
 ```
 
@@ -186,7 +200,7 @@ scripts/ · .github/workflows/
 
 语言键：`portfolio-locale`（`zh` / `en`）。  
 主题键：`portfolio-theme`（`light` / `dark` / `auto`）。  
-风格键：`portfolio-style`（`atelier` / `classic`）。
+风格键：`portfolio-style`（`atelier` / `classic` / `particle`）。
 
 ---
 
@@ -196,15 +210,17 @@ scripts/ · .github/workflows/
 uno.config.ts
   ├── styles/shared/uno      # 公共 shortcuts / preflight
   ├── styles/atelier/uno.ts  # 静奢 tokens + shortcuts
-  └── styles/classic/uno.ts  # 经典 tokens + shortcuts
+  ├── styles/classic/uno.ts  # 经典 tokens + shortcuts
+  └── styles/particle/uno.ts # 粒子 tokens + shortcuts
 ```
 
-通过 `<html data-style="atelier|classic" data-theme="light|dark">` 切换变量。
+通过 `<html data-style="atelier|classic|particle" data-theme="light|dark">` 切换变量。
 
-| 风格 | 白天强调           | 夜晚强调  | 背景气质                        |
-| ---- | ------------------ | --------- | ------------------------------- |
-| 静奢 | 氧化铜金 `#8f7355` | `#a68968` | 实体底 + Canvas 氛围            |
-| 经典 | Teal `#0f766e`     | `#14b8a6` | 透明底 + Vanta（Waves / Birds） |
+| 风格 | 白天强调           | 夜晚强调  | 背景气质                                      |
+| ---- | ------------------ | --------- | --------------------------------------------- |
+| 静奢 | 氧化铜金 `#8f7355` | `#a68968` | 实体底 + Canvas 氛围                          |
+| 经典 | Teal `#0f766e`     | `#14b8a6` | 透明底 + Vanta（Waves / Birds）               |
+| 粒子 | 青石 `#2d6a7a`     | `#5eb8c6` | 暖纸 / 深空底 + WebGL 粒子云（章节剪影 morph） |
 
 新增组件样式时，优先写到对应风格的 `uno.ts`，再在根 `uno.config.ts` 中 spread。
 
@@ -214,11 +230,11 @@ uno.config.ts
 
 | 组件                           | 位置     | 说明                                         |
 | ------------------------------ | -------- | -------------------------------------------- |
-| `StyleRail`                    | 左侧中部 | 竖排切换静奢 / 经典（`window.open`）         |
+| `StyleRail`                    | 左侧中部 | 竖排切换静奢 / 经典 / 粒子（`window.open`）  |
 | `SkillShareRail`               | 右侧中部 | AI 圆形按钮；悬停提示；点击复制 Skill 提示词 |
 | `LocaleToggle` / `ThemeToggle` | 导航栏   | 语言 / 主题                                  |
-| `BackToTop`                    | 右下角   | 滚动超过阈值后显示                           |
-| `CookieConsent`                | 底部     | 同意偏好 `portfolio-cookie-consent`          |
+| `BackToTop`                    | 右下角   | 滚动超过阈值后显示（静奢 / 经典）            |
+| `CookieConsent`                | 底部     | 同意偏好 `portfolio-cookie-consent`（静奢 / 经典） |
 
 ---
 

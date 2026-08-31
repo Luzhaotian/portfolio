@@ -7,7 +7,7 @@ styles/
   registry.ts          # catalog — register new styles here
   types.ts             # StyleDefinition contract
   shared/
-    chrome/            # StyleRail, ThemeToggle, LocaleToggle
+    chrome/            # StyleRail, ThemeToggle, LocaleToggle, SkillShareRail
     providers/         # AppProviders, StyleProvider
     uno/               # shared Uno shortcuts / preflight
   atelier/             # 静奢
@@ -22,6 +22,13 @@ styles/
     components/
     lib/               # classic-only (e.g. Vanta THREE)
     vendor/            # classic-only vendored scripts
+  particle/            # 粒子
+    meta.ts
+    uno.ts
+    index.ts
+    assets.ts          # section silhouette pool
+    components/        # Home, ParticleStage, snap scroll
+    engine/            # Three.js particle morph + camera
 ```
 
 ## Add a new style
