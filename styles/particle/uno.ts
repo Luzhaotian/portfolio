@@ -1,19 +1,18 @@
 /** Particle — Uno shortcuts, rules, and CSS variables. */
 export const particleShortcuts = {
-  "particle-shell": "relative flex h-[100dvh] min-h-0 w-full flex-col lg:flex-row",
-  "particle-stage":
-    "relative h-[36vh] w-full shrink-0 overflow-hidden border-b border-divider lg:h-auto lg:w-[46%] lg:border-b-0 lg:border-r",
+  "particle-shell": "relative h-[100dvh] min-h-0 w-full overflow-hidden",
+  "particle-stage": "pointer-events-none absolute inset-0 z-0 overflow-hidden",
   "particle-column":
-    "relative min-h-0 min-w-0 flex-1 overflow-y-auto overscroll-y-contain",
+    "relative z-10 h-full min-h-0 min-w-0 overflow-y-auto overscroll-y-contain bg-[var(--particle-scrim)]",
   // Desktop snap is JS-driven (eased scrollTop); avoid CSS snap fighting the animator.
   "particle-snap-column": "particle-column",
   "particle-section":
-    "relative flex min-h-[64vh] flex-col justify-center px-5 py-10 sm:px-8 lg:min-h-[100dvh] lg:px-10 lg:py-16",
+    "relative mx-auto flex min-h-[64vh] w-full max-w-3xl flex-col justify-center px-5 py-10 sm:px-8 lg:min-h-[100dvh] lg:max-w-4xl lg:px-12 lg:py-16",
   "particle-eyebrow":
     "mb-3 font-mono text-[11px] uppercase tracking-[0.28em] text-faint",
   "particle-title":
     "font-serif text-[clamp(1.65rem,3.2vw,2.6rem)] font-medium tracking-tight text-heading leading-[1.12]",
-  "particle-body": "mt-4 max-w-xl text-[15px] leading-relaxed text-muted sm:text-base",
+  "particle-body": "mt-4 max-w-2xl text-[15px] leading-relaxed text-muted sm:text-base",
   "particle-chip":
     "font-mono text-[11px] tracking-wide text-muted border border-divider px-2.5 py-1",
   "particle-link":
@@ -60,6 +59,7 @@ export const particlePreflight = `
     --focus-ring-color: rgba(45, 106, 122, 0.55);
     --particle-glow: rgba(45, 106, 122, 0.16);
     --particle-canvas-bg: #ebe8e2;
+    --particle-scrim: rgba(235, 232, 226, 0.78);
   }
 
   /* Particle — dark */
@@ -88,6 +88,7 @@ export const particlePreflight = `
     --focus-ring-color: rgba(94, 184, 198, 0.55);
     --particle-glow: rgba(94, 184, 198, 0.14);
     --particle-canvas-bg: #0c0e12;
+    --particle-scrim: rgba(12, 14, 18, 0.72);
   }
 
   html[data-style="particle"] body {

@@ -36,8 +36,8 @@
 
 ### 粒子（Particle）
 
-- 左右分栏：桌面端左侧 WebGL 粒子云，右侧内容；窄屏改为上下叠放
-- 粒子从章节剪影采样，滚动切换时 GPU morph 过渡；减少动效 / 移动端回退为静态图
+- 全屏 WebGL 粒子云作为背景层，内容全宽叠在上层（轻透 scrim 保证可读）
+- 粒子从章节剪影采样，滚动切换时 GPU morph 过渡；减少动效 / 移动端回退为静态剪影水印
 - 桌面端章节吸附滚动（`prefers-reduced-motion` 时关闭）
 - 区块：Hero → 关于 → 作品 → 技能 → 博客 → 经验领域
 - 公共控件沿用静奢 chrome（左侧竖栏、主题 / 语言按钮）
@@ -48,12 +48,11 @@
 
 仓库内置 Cursor Agent Skills，他人可拉代码后**只保留一套风格**并换成自己的内容，还可按需上线。
 
-| Skill | 调用                 | 说明                   |
-| ----- | -------------------- | ---------------------- |
-| 静奢  | `/portfolio-atelier` | 保留 Atelier，去掉其余 |
-| 经典  | `/portfolio-classic` | 保留 Classic，去掉其余 |
-
-粒子风格已上线，专用 Skill（`/portfolio-particle`）尚未收录。右侧 AI 按钮仍会复制一份指向 `styles/particle` 的提示词，可按同样流程让 AI 只留这一套。
+| Skill | 调用                  | 说明                    |
+| ----- | --------------------- | ----------------------- |
+| 静奢  | `/portfolio-atelier`  | 保留 Atelier，去掉其余  |
+| 经典  | `/portfolio-classic`  | 保留 Classic，去掉其余  |
+| 粒子  | `/portfolio-particle` | 保留 Particle，去掉其余 |
 
 ### 推荐流程
 
@@ -65,7 +64,7 @@
 6. **可选上线**（非必须）：需要时再走 GitHub / 部署；只要本地预览可跳过
 
 站内点**右侧 AI 按钮**可复制当前风格提示词（已含上述可选上线一步）。  
-在 Cursor：对话输入 `/portfolio-atelier` / `/portfolio-classic`，或 **Customize → Skills**；也可把本仓库当 Remote Skill 源导入。
+在 Cursor：对话输入 `/portfolio-atelier` / `/portfolio-classic` / `/portfolio-particle`，或 **Customize → Skills**；也可把本仓库当 Remote Skill 源导入。
 
 ### Skill 文件
 
@@ -80,6 +79,9 @@
   portfolio-classic/
     SKILL.md
     references/…          # 同上（只留经典）
+  portfolio-particle/
+    SKILL.md
+    references/…          # 同上（只留粒子）
 ```
 
 ### 可选：注册 GitHub · 提交 · 上线
@@ -103,6 +105,7 @@ GitHub Pages 首次启用：仓库 **Settings → Pages → Source** 选 **GitHu
 
 - [`.cursor/skills/portfolio-atelier/references/go-live.md`](./.cursor/skills/portfolio-atelier/references/go-live.md)
 - [`.cursor/skills/portfolio-classic/references/go-live.md`](./.cursor/skills/portfolio-classic/references/go-live.md)
+- [`.cursor/skills/portfolio-particle/references/go-live.md`](./.cursor/skills/portfolio-particle/references/go-live.md)
 
 ---
 
@@ -160,7 +163,7 @@ lib/
   i18n/                    # zh / en 文案与类型
   style.ts · theme.ts · skillShare.ts · site.ts · cardOrbit.ts …
 site-content.yaml          # 内容模板（预览占位 / 正式填写）
-.cursor/skills/            # portfolio-atelier · portfolio-classic
+.cursor/skills/            # portfolio-atelier · portfolio-classic · portfolio-particle
                            #   SKILL.md + references/{strip,apply,go-live}
 uno.config.ts              # 合并 shared + atelier + classic + particle 的 Uno 配置
 public/                    # favicon-* · particle/ 剪影 · card-orbit/ 演示图
@@ -220,7 +223,7 @@ uno.config.ts
 | ---- | ------------------ | --------- | --------------------------------------------- |
 | 静奢 | 氧化铜金 `#8f7355` | `#a68968` | 实体底 + Canvas 氛围                          |
 | 经典 | Teal `#0f766e`     | `#14b8a6` | 透明底 + Vanta（Waves / Birds）               |
-| 粒子 | 青石 `#2d6a7a`     | `#5eb8c6` | 暖纸 / 深空底 + WebGL 粒子云（章节剪影 morph） |
+| 粒子 | 青石 `#2d6a7a`     | `#5eb8c6` | 暖纸 / 深空底 + 全屏 WebGL 粒子云背景（章节剪影 morph） |
 
 新增组件样式时，优先写到对应风格的 `uno.ts`，再在根 `uno.config.ts` 中 spread。
 
@@ -233,8 +236,8 @@ uno.config.ts
 | `StyleRail`                    | 左侧中部 | 竖排切换静奢 / 经典 / 粒子（`window.open`）  |
 | `SkillShareRail`               | 右侧中部 | AI 圆形按钮；悬停提示；点击复制 Skill 提示词 |
 | `LocaleToggle` / `ThemeToggle` | 导航栏   | 语言 / 主题                                  |
-| `BackToTop`                    | 右下角   | 滚动超过阈值后显示（静奢 / 经典）            |
-| `CookieConsent`                | 底部     | 同意偏好 `portfolio-cookie-consent`（静奢 / 经典） |
+| `BackToTop`                    | 右下角   | 滚动超过阈值后显示                           |
+| `CookieConsent`                | 底部     | 同意偏好 `portfolio-cookie-consent`          |
 
 ---
 

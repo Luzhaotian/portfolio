@@ -99,7 +99,7 @@ export default function ParticleStage({
 
   return (
     <div
-      className="particle-stage relative bg-background"
+      className="particle-stage bg-background"
       data-lock={lockScroll ? "true" : "false"}
       aria-hidden="true"
     >
@@ -109,7 +109,7 @@ export default function ParticleStage({
         <img
           src={fallbackUrl}
           alt=""
-          className="absolute inset-0 m-auto max-h-[70%] max-w-[70%] object-contain opacity-90"
+          className="absolute inset-0 m-auto max-h-[55%] max-w-[55%] object-contain opacity-55"
         />
       ) : (
         <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />

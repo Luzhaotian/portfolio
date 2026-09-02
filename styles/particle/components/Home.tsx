@@ -9,6 +9,8 @@ import AboutSection from "@/styles/particle/components/AboutSection";
 import BlogSection from "@/styles/particle/components/BlogSection";
 import ExperienceSection from "@/styles/particle/components/ExperienceSection";
 import FooterSection from "@/styles/particle/components/FooterSection";
+import BackToTop from "@/styles/particle/components/BackToTop";
+import CookieConsent from "@/styles/particle/components/CookieConsent";
 import HeroSection from "@/styles/particle/components/HeroSection";
 import NavBar from "@/styles/particle/components/NavBar";
 import ParticleStage, {
@@ -78,6 +80,7 @@ export default function ParticleHome() {
     <>
       <ViewportSync />
       <div className="particle-shell">
+        {/* Full-viewport particle field; content scrolls above on a soft scrim. */}
         <ParticleStage
           assetUrl={assetUrl}
           enabled={stageEnabled}
@@ -101,6 +104,8 @@ export default function ParticleHome() {
           </main>
           <FooterSection />
         </div>
+        <BackToTop scrollRootRef={columnRef} />
+        <CookieConsent />
       </div>
     </>
   );

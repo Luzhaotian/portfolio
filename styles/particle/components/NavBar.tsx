@@ -29,7 +29,7 @@ export default function NavBar({ activeId, onNavigate, locked }: NavBarProps) {
   return (
     <header className="sticky top-0 z-40 border-b border-divider bg-[var(--nav-bg)] backdrop-blur-md">
       <nav
-        className="flex items-center justify-between gap-3 px-5 py-3 sm:px-8 lg:px-10"
+        className="flex items-center justify-between gap-3 px-5 py-3 sm:px-8 lg:px-12"
         aria-label={t.navAria.main}
       >
         <a
@@ -59,9 +59,9 @@ export default function NavBar({ activeId, onNavigate, locked }: NavBarProps) {
           ))}
         </div>
 
-        <div className="flex shrink-0 items-center gap-1">
-          <LocaleToggle />
-          <ThemeToggle />
+        <div className="flex shrink-0 items-center gap-2">
+          <LocaleToggle compact />
+          <ThemeToggle compact />
         </div>
       </nav>
     </header>

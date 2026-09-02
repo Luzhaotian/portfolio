@@ -19,9 +19,9 @@ export default function LocaleToggle({ compact = false, onSelect }: LocaleToggle
     onSelect?.();
   };
 
-  const options: { value: Locale; label: string }[] = [
-    { value: "zh", label: t.locale.zh },
-    { value: "en", label: t.locale.en },
+  const options: { value: Locale; label: string; short: string }[] = [
+    { value: "zh", label: t.locale.zh, short: "中" },
+    { value: "en", label: t.locale.en, short: "EN" },
   ];
 
   if (compact) {
@@ -30,12 +30,12 @@ export default function LocaleToggle({ compact = false, onSelect }: LocaleToggle
         className={
           isClassicChrome
             ? "inline-flex rounded-full border border-[var(--glass-border)] bg-[var(--glass-bg)] p-0.5 backdrop-blur-xl backdrop-saturate-150"
-            : "inline-flex border border-divider p-0.5"
+            : "inline-flex items-center border border-divider bg-[var(--color-surface)]/40 p-0.5"
         }
         role="group"
         aria-label="Language"
       >
-        {options.map(({ value, label }) => (
+        {options.map(({ value, label, short }) => (
           <button
             key={value}
             type="button"
@@ -46,17 +46,17 @@ export default function LocaleToggle({ compact = false, onSelect }: LocaleToggle
                       ? "bg-active text-theme-light"
                       : "text-muted hover:text-body"
                   }`
-                : `focus-ring px-2 py-1 text-[11px] transition-colors duration-250 ${
+                : `focus-ring min-w-[1.75rem] px-2 py-1 font-mono text-[10px] tracking-wide transition-colors duration-200 ${
                     locale === value
-                      ? "bg-active text-theme"
-                      : "text-muted hover:text-heading"
+                      ? "bg-[var(--nav-active)] text-theme"
+                      : "text-faint hover:text-heading"
                   }`
             }
             aria-pressed={locale === value}
             aria-label={label}
             onClick={() => handleSelect(value)}
           >
-            {value === "zh" ? "中" : "EN"}
+            {short}
           </button>
         ))}
       </div>
