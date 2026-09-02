@@ -10,7 +10,7 @@ export interface BlogPost {
 /** CSDN 博客主页 */
 export const csdnProfile = "https://blog.csdn.net/paopao_pop";
 
-/** 数据更新时间：2026-09-01，运行 npm run fetch:blogs 可刷新 */
+/** 数据更新时间：2026-09-02，运行 npm run fetch:blogs 可刷新 */
 export const blogPosts: BlogPost[] = [
   {
     title:
