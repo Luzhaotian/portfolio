@@ -10,7 +10,7 @@ export interface BlogPost {
 /** CSDN 博客主页 */
 export const csdnProfile = "https://blog.csdn.net/paopao_pop";
 
-/** 数据更新时间：2026-09-03，运行 npm run fetch:blogs 可刷新 */
+/** 数据更新时间：2026-09-04，运行 npm run fetch:blogs 可刷新 */
 export const blogPosts: BlogPost[] = [
   {
     title:
@@ -54,7 +54,7 @@ export const blogPosts: BlogPost[] = [
       "本文介绍了如何配置Figma与Cursor的集成方案。主要内容包括：1)下载安装Figma软件；2)安装Bun运行时环境；3)克隆cursor-talk-to-figma-mcp插件项目并启动WebSocket服务；4)在Figma中导入插件manifest文件；5)配置Cursor的MCP连接；6)测试连接；7)添加",
     url: "https://blog.csdn.net/paopao_pop/article/details/159427862",
     likes: 14,
-    views: 595,
+    views: 598,
     date: "2026-03-24",
   },
   {
@@ -63,7 +63,7 @@ export const blogPosts: BlogPost[] = [
       "因为在 yml 文件中是监控 push 事件，所以会自定发布。新建文件夹 .github 然后再建一个文件夹 workflows。因为静态资源是可以部署到 GitHub 上，自己顺便学习部署网站。在 Actions 里可以查看进度，成功以后就会生成一个地址。因为我使用的是 Vite 工具，官方有提供相应 Demo。打开",
     url: "https://blog.csdn.net/paopao_pop/article/details/139117816",
     likes: 11,
-    views: 860,
+    views: 861,
     date: "2024-05-22",
   },
 ];
