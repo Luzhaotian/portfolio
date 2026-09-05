@@ -16,6 +16,11 @@
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx,.mjs,.cjs --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:install": "playwright install chromium",
     "clean": "rm -rf .next",
     "fetch:blogs": "node scripts/fetch-csdn-blogs.mjs && prettier --write data/blogs.ts",
     "prepare": "husky"
@@ -33,6 +38,10 @@
   "devDependencies": {
     "@commitlint/cli": "^20.5.3",
     "@commitlint/config-conventional": "^20.5.3",
+    "@playwright/test": "^1.63.0",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.7",
     "@types/node": "^22.15.21",
     "@types/p5": "^1.7.6",
     "@types/react": "^19.1.6",
@@ -41,14 +50,17 @@
     "@unocss/postcss": "^66.7.2",
     "@unocss/preset-wind3": "^66.7.2",
     "@unocss/reset": "^66.7.2",
+    "@vitejs/plugin-react": "^6.1.1",
     "eslint": "^8.57.1",
     "eslint-config-next": "^15.5.19",
     "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.7",
+    "jsdom": "^30.0.1",
     "lint-staged": "^16.4.0",
     "postcss": "^8.5.4",
     "prettier": "^3.8.4",
     "typescript": "^5.8.3",
-    "unocss": "^66.7.2"
+    "unocss": "^66.7.2",
+    "vitest": "^5.0.0"
   }
 }

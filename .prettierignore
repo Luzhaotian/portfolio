@@ -4,6 +4,8 @@ out
 build
 dist
 coverage
+test-results
+playwright-report
 package-lock.json
 pnpm-lock.yaml
 *.min.js
