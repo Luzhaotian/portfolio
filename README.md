@@ -129,17 +129,22 @@ npm run dev
 
 ### 常用命令
 
-| 命令                              | 说明                           |
-| --------------------------------- | ------------------------------ |
-| `npm run dev`                     | 开发服务器                     |
-| `npm run dev:clean`               | 清 `.next` 后启动              |
-| `npm run build`                   | 生产构建                       |
-| `npm run preview`                 | 模拟 GitHub Pages 静态预览     |
-| `npm start`                       | Next.js 生产服务（非静态导出） |
-| `npm run fetch:blogs`             | 抓取 CSDN 博客数据             |
-| `npm run lint` / `lint:fix`       | ESLint                         |
-| `npm run format` / `format:check` | Prettier                       |
-| `npm run clean`                   | 删除 `.next`                   |
+| 命令                              | 说明                              |
+| --------------------------------- | --------------------------------- |
+| `npm run dev`                     | 开发服务器                        |
+| `npm run dev:clean`               | 清 `.next` 后启动                 |
+| `npm run build`                   | 生产构建                          |
+| `npm run preview`                 | 模拟 GitHub Pages 静态预览        |
+| `npm start`                       | Next.js 生产服务（非静态导出）    |
+| `npm run fetch:blogs`             | 抓取 CSDN 博客数据                |
+| `npm run lint` / `lint:fix`       | ESLint                            |
+| `npm run format` / `format:check` | Prettier                          |
+| `npm run typecheck`               | TypeScript 类型检查               |
+| `npm test`                        | 单元测试（Vitest）                |
+| `npm run test:coverage`           | 单元测试 + 覆盖率报告             |
+| `npm run test:e2e`                | E2E（Playwright；首次需 install） |
+| `npm run test:e2e:install`        | 安装 Playwright Chromium          |
+| `npm run clean`                   | 删除 `.next`                      |
 
 ---
 
@@ -219,10 +224,10 @@ uno.config.ts
 
 通过 `<html data-style="atelier|classic|particle" data-theme="light|dark">` 切换变量。
 
-| 风格 | 白天强调           | 夜晚强调  | 背景气质                                      |
-| ---- | ------------------ | --------- | --------------------------------------------- |
-| 静奢 | 氧化铜金 `#8f7355` | `#a68968` | 实体底 + Canvas 氛围                          |
-| 经典 | Teal `#0f766e`     | `#14b8a6` | 透明底 + Vanta（Waves / Birds）               |
+| 风格 | 白天强调           | 夜晚强调  | 背景气质                                                |
+| ---- | ------------------ | --------- | ------------------------------------------------------- |
+| 静奢 | 氧化铜金 `#8f7355` | `#a68968` | 实体底 + Canvas 氛围                                    |
+| 经典 | Teal `#0f766e`     | `#14b8a6` | 透明底 + Vanta（Waves / Birds）                         |
 | 粒子 | 青石 `#2d6a7a`     | `#5eb8c6` | 暖纸 / 深空底 + 全屏 WebGL 粒子云背景（章节剪影 morph） |
 
 新增组件样式时，优先写到对应风格的 `uno.ts`，再在根 `uno.config.ts` 中 spread。
@@ -262,6 +267,7 @@ npm run preview              # 模拟 GitHub Pages 静态站（推荐）
 ```
 
 推送 `main` → `.github/workflows/deploy.yml` 自动部署 Pages。  
+PR / 推送 `main` → `.github/workflows/ci.yml` 跑 lint · typecheck · 单元测试 · E2E。  
 定时抓博客：`.github/workflows/update-blogs.yml`（UTC 02:00 / 北京时间 10:00）。
 
 ```bash
