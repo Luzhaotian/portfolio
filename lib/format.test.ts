@@ -10,5 +10,6 @@ describe("formatCount", () => {
   it("formats thousands with one decimal", () => {
     expect(formatCount(1000)).toBe("1.0k");
     expect(formatCount(1500)).toBe("1.5k");
+    expect(formatCount(12500)).toBe("12.5k");
   });
 });
