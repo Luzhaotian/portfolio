@@ -1,7 +1,7 @@
 "use client";
 
-import { CardOrbit, CardOrbitMobile } from "card-orbit";
-import "card-orbit/styles.css";
+import { CardOrbit, CardOrbitMobile } from "@fxshelf/card-orbit";
+import "@fxshelf/card-orbit/styles.css";
 import { useI18n } from "@/components/I18nProvider";
 import { profile } from "@/data/profile";
 import { ORBIT_IMAGES } from "@/lib/cardOrbit";

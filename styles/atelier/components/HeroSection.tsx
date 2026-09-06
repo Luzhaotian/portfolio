@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo, useSyncExternalStore } from "react";
-import { CardOrbit, CardOrbitMobile } from "card-orbit";
-import "card-orbit/styles.css";
+import { CardOrbit, CardOrbitMobile } from "@fxshelf/card-orbit";
+import "@fxshelf/card-orbit/styles.css";
 import ParticleObject from "@/styles/atelier/components/canvasui/ParticleObject";
 import { useI18n } from "@/components/I18nProvider";
 import { useTheme } from "@/components/ThemeProvider";

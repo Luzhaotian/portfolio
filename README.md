@@ -17,20 +17,21 @@
 - **右侧 AI 按钮**：悬停说明用途；点击复制当前风格的 Skill 提示词，粘贴给 AI 即可按本站生成同款项目
 - **中英文 / 主题**：语言与白天·夜晚·自动主题，偏好写入 `localStorage`
 - **内容数据化**：`site-content.yaml`（模板入口）→ `data/`（结构）+ `lib/i18n/`（双语文案），id 类型绑定防漏写
-- **博客**：CSDN 点赞文（`npm run fetch:blogs`）；GitHub Actions 可每日更新
+- **博客**：CSDN 点赞文（`npm run fetch:blogs`）；GitHub Actions 可定时更新
+- **质量门禁**：Vitest 单元测试 · Playwright E2E · CI（lint / typecheck / test）
 - Cookie 提示、回到顶部、SEO（Metadata / OpenGraph / 跳过导航）
 
 ### 静奢（Atelier）
 
 - 大留白、衬线标题、氧化铜金强调色
-- Hero 使用 [card-orbit](https://github.com/Luzhaotian/card-orbit) 卡片环绕
+- Hero 使用 [@fxshelf/card-orbit](https://github.com/Luzhaotian/fxshelf/tree/main/packages/card-orbit) 卡片环绕
 - Canvas：ParticleObject / GlyphRain / FlameWrap / PointerAura（桌面端；减少动效时关闭）
 - 区块：Hero → 精选 → 关于 → 作品索引 → 技能 → 博客 → 经验领域
 
 ### 经典（Classic）
 
 - 毛玻璃卡片 + Vanta 全屏背景（白天 **Waves**，夜晚 **Birds**）
-- Hero 同样使用 card-orbit
+- Hero 同样使用 [@fxshelf/card-orbit](https://github.com/Luzhaotian/fxshelf/tree/main/packages/card-orbit)
 - 区块：Hero → 关于 → 技能 → 企业精选 / 开源 → 博客 → 经验领域
 - 部分章节交替「实体毛玻璃 / 透明」节奏
 
@@ -124,27 +125,29 @@ npm run dev
 
 ### 环境要求
 
-- Node.js 20+
+- Node.js 22.12+
 - npm 9+
 
 ### 常用命令
 
-| 命令                              | 说明                              |
-| --------------------------------- | --------------------------------- |
-| `npm run dev`                     | 开发服务器                        |
-| `npm run dev:clean`               | 清 `.next` 后启动                 |
-| `npm run build`                   | 生产构建                          |
-| `npm run preview`                 | 模拟 GitHub Pages 静态预览        |
-| `npm start`                       | Next.js 生产服务（非静态导出）    |
-| `npm run fetch:blogs`             | 抓取 CSDN 博客数据                |
-| `npm run lint` / `lint:fix`       | ESLint                            |
-| `npm run format` / `format:check` | Prettier                          |
-| `npm run typecheck`               | TypeScript 类型检查               |
-| `npm test`                        | 单元测试（Vitest）                |
-| `npm run test:coverage`           | 单元测试 + 覆盖率报告             |
-| `npm run test:e2e`                | E2E（Playwright；首次需 install） |
-| `npm run test:e2e:install`        | 安装 Playwright Chromium          |
-| `npm run clean`                   | 删除 `.next`                      |
+| 命令                               | 说明                                      |
+| ---------------------------------- | ----------------------------------------- |
+| `npm run dev`                      | 开发服务器                                |
+| `npm run dev:clean`                | 清 `.next` 后启动                         |
+| `npm run build`                    | 生产构建                                  |
+| `npm run preview`                  | 模拟 GitHub Pages 静态预览                |
+| `npm start`                        | Next.js 生产服务（非静态导出）            |
+| `npm run fetch:blogs`              | 抓取 CSDN 博客数据                        |
+| `npm run lint` / `lint:fix`        | ESLint                                    |
+| `npm run format` / `format:check`  | Prettier                                  |
+| `npm run typecheck`                | TypeScript 类型检查（`tsc --noEmit`）     |
+| `npm test` / `test:watch`          | 单元测试（Vitest）                        |
+| `npm run test:coverage`            | 单元测试 + 覆盖率（`coverage/`）          |
+| `npm run test:e2e:install`         | 首次安装 Playwright Chromium（CI / 本机） |
+| `npm run test:e2e` / `test:e2e:ui` | E2E；会自动起 `npm run dev`               |
+| `npm run clean`                    | 删除 `.next`                              |
+
+首次跑 E2E：`npm run test:e2e:install && npm run test:e2e`。
 
 ---
 
@@ -164,15 +167,16 @@ styles/
   particle/                # 粒子：components + engine + assets + uno.ts + meta
 components/                # 应用壳：I18n / Theme / Viewport / SkipLink
 data/                      # 结构数据（id / tech / 链接…）
-lib/
-  i18n/                    # zh / en 文案与类型
-  style.ts · theme.ts · skillShare.ts · site.ts · cardOrbit.ts …
+lib/                       # style · theme · skillShare · site · i18n …
+e2e/                       # Playwright E2E
+test/                      # 单测渲染辅助（renderWithProviders）
+vitest.config.ts · playwright.config.ts · vitest.setup.ts
 site-content.yaml          # 内容模板（预览占位 / 正式填写）
 .cursor/skills/            # portfolio-atelier · portfolio-classic · portfolio-particle
-                           #   SKILL.md + references/{strip,apply,go-live}
 uno.config.ts              # 合并 shared + atelier + classic + particle 的 Uno 配置
 public/                    # favicon-* · particle/ 剪影 · card-orbit/ 演示图
-scripts/ · .github/workflows/
+scripts/
+.github/workflows/         # ci.yml · deploy.yml · update-blogs.yml
 ```
 
 扩展风格步骤见 [`styles/README.md`](./styles/README.md)。
@@ -250,10 +254,24 @@ uno.config.ts
 
 Prettier · ESLint · Husky · lint-staged（`.lintstagedrc.mjs`，跳过 `vendor/` 与 `*.min.js`）· Commitlint。
 
+提交说明需含中文，且 header ≤ 80、subject ≤ 72：
+
 ```bash
 git commit -m "feat: 拆分静奢与经典风格包"
 git commit -m "docs: 更新 README"
+git commit -m "ci: 增加质量门禁与组件单测"
 ```
+
+---
+
+## 测试
+
+| 层级     | 工具                     | 范围简述                                                |
+| -------- | ------------------------ | ------------------------------------------------------- |
+| 单元测试 | Vitest + Testing Library | `lib/*`、chrome 控件、CookieConsent、SkipLink 等        |
+| E2E      | Playwright               | 首页跳转、三套风格加载、主题/语言、风格轨、导航、Cookie |
+
+覆盖率报告：`npm run test:coverage` → `coverage/`（已 gitignore）。
 
 ---
 
@@ -266,9 +284,11 @@ npm run build && npm start   # 标准 Next.js
 npm run preview              # 模拟 GitHub Pages 静态站（推荐）
 ```
 
-推送 `main` → `.github/workflows/deploy.yml` 自动部署 Pages。  
-PR / 推送 `main` → `.github/workflows/ci.yml` 跑 lint · typecheck · 单元测试 · E2E。  
-定时抓博客：`.github/workflows/update-blogs.yml`（UTC 02:00 / 北京时间 10:00）。
+| Workflow                             | 触发                    | 作用                                         |
+| ------------------------------------ | ----------------------- | -------------------------------------------- |
+| `.github/workflows/ci.yml`           | PR / 推送 `main`        | lint · typecheck · 单元测试 · E2E（Node 22） |
+| `.github/workflows/deploy.yml`       | 推送 `main` / 手动      | `GITHUB_PAGES=true` 构建并部署 GitHub Pages  |
+| `.github/workflows/update-blogs.yml` | 每周一 UTC 02:00 / 手动 | 抓取 CSDN 博客数据并提交                     |
 
 ```bash
 GITHUB_PAGES=true npm run build   # 产物在 out/；basePath 一般为 /portfolio
@@ -291,10 +311,11 @@ GITHUB_PAGES=true npm run build   # 产物在 out/；basePath 一般为 /portfol
 - 在线站点：[https://luzhaotian.github.io/portfolio/](https://luzhaotian.github.io/portfolio/)
 - 仓库：[https://github.com/Luzhaotian/portfolio](https://github.com/Luzhaotian/portfolio)
 - CSDN：[https://blog.csdn.net/paopao_pop](https://blog.csdn.net/paopao_pop)
+- Hero 卡片环绕：[@fxshelf/card-orbit](https://github.com/Luzhaotian/fxshelf/tree/main/packages/card-orbit)
 - 风格扩展说明：[`styles/README.md`](./styles/README.md)
 - 内容模板：[`site-content.yaml`](./site-content.yaml)
 - 上线指引（Skill）：[`go-live.md`（经典）](./.cursor/skills/portfolio-classic/references/go-live.md)
-- UnoCSS · Next.js
+- 技术栈：Next.js 15 · React 19 · UnoCSS · Vitest · Playwright
 
 ## License
 

@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "engines": {
-    "node": ">=20",
+    "node": ">=22.12",
     "npm": ">=9"
   },
   "scripts": {
@@ -28,8 +28,8 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "card-orbit": "^0.1.2",
-    "next": "^15.3.3",
+    "@fxshelf/card-orbit": "^0.1.5",
+    "next": "^15.5.25",
     "p5": "^1.11.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -55,15 +55,22 @@
     "@vitejs/plugin-react": "^6.1.1",
     "@vitest/coverage-v8": "^5.0.0",
     "eslint": "^8.57.1",
-    "eslint-config-next": "^15.5.19",
+    "eslint-config-next": "^15.5.25",
     "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.7",
     "jsdom": "^30.0.1",
     "lint-staged": "^16.4.0",
-    "postcss": "^8.5.4",
+    "postcss": "^8.5.28",
     "prettier": "^3.8.4",
     "typescript": "^5.8.3",
     "unocss": "^66.7.2",
     "vitest": "^5.0.0"
+  },
+  "overrides": {
+    "postcss": "$postcss"
+  },
+  "allowScripts": {
+    "fsevents@2.3.3": true,
+    "unrs-resolver@1.12.2": true
   }
 }

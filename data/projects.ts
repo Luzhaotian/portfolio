@@ -92,7 +92,7 @@ export const githubProjects = defineProjects([
     // 路径约束 3D 卡片轨道轮播（React / Vue npm 包）
     id: "cardOrbit",
     tech: ["React", "Vue", "TypeScript", "npm"],
-    link: "https://github.com/Luzhaotian/card-orbit",
+    link: "https://github.com/Luzhaotian/fxshelf/tree/main/packages/card-orbit",
     highlight: true,
   },
   {

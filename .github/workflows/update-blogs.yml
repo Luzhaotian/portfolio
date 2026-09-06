@@ -2,8 +2,8 @@ name: Update CSDN Blogs
 
 on:
   schedule:
-    # 每天 UTC 02:00（北京时间 10:00）
-    - cron: "0 2 * * *"
+    # 每周一 UTC 02:00（北京时间 10:00），降低 CSDN WAF 拦截风险
+    - cron: "0 2 * * 1"
   workflow_dispatch:
 
 permissions:
@@ -28,7 +28,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
