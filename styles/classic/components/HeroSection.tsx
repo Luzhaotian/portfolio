@@ -1,17 +1,17 @@
 "use client";
 
-import { CardOrbit, CardOrbitMobile } from "@fxshelf/card-orbit";
-import "@fxshelf/card-orbit/styles.css";
+// import { CardOrbit, CardOrbitMobile } from "@fxshelf/card-orbit";
+// import "@fxshelf/card-orbit/styles.css";
 import { useI18n } from "@/components/I18nProvider";
 import { profile } from "@/data/profile";
-import { ORBIT_IMAGES } from "@/lib/cardOrbit";
+// import { ORBIT_IMAGES } from "@/lib/cardOrbit";
 
 export default function HeroSection() {
   const { t } = useI18n();
 
   return (
     <section className="relative flex min-h-[80vh] items-center overflow-hidden px-4 pb-12 pt-24 sm:min-h-[88vh] sm:px-6 sm:pb-16 sm:pt-28 md:min-h-[92vh] lg:min-h-[100dvh] lg:items-stretch lg:pb-10 lg:pt-24">
-      <div className="relative z-10 mx-auto grid w-full max-w-6xl gap-8 sm:gap-10 lg:h-full lg:min-h-0 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-center lg:gap-10 xl:max-w-7xl">
+      <div className="relative z-10 mx-auto w-full max-w-6xl lg:h-full lg:min-h-0 lg:flex lg:items-center xl:max-w-7xl">
         <div className="min-w-0 lg:py-4">
           <p
             className="animate-fade-in mb-5 font-mono text-xs tracking-[0.25em] text-theme-light uppercase"
@@ -46,12 +46,12 @@ export default function HeroSection() {
             </a>
           </div>
 
-          <div className="animate-slide-up animate-delay-400 lg:hidden">
+          {/* <div className="animate-slide-up animate-delay-400 lg:hidden">
             <CardOrbitMobile images={ORBIT_IMAGES} />
-          </div>
+          </div> */}
         </div>
 
-        <div className="relative hidden min-h-0 w-full items-center justify-center lg:flex lg:self-stretch">
+        {/* <div className="relative hidden min-h-0 w-full items-center justify-center lg:flex lg:self-stretch">
           <CardOrbit
             images={ORBIT_IMAGES}
             style={{
@@ -61,7 +61,7 @@ export default function HeroSection() {
             }}
             ariaLabel="card-orbit preview"
           />
-        </div>
+        </div> */}
       </div>
 
       <div

@@ -125,8 +125,8 @@ npm run dev
 
 ### 环境要求
 
-- Node.js 22.12+
-- npm 9+
+- Node.js `22.23.2`（见 `.nvmrc`；nvm 进入目录会自动切换）
+- npm 9+（见 `.npmrc`，registry 为 `https://registry.npmjs.org/`）
 
 ### 常用命令
 
