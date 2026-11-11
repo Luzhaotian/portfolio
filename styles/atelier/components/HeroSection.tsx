@@ -1,13 +1,13 @@
 "use client";
 
 import { useMemo, useSyncExternalStore } from "react";
-import { CardOrbit, CardOrbitMobile } from "@fxshelf/card-orbit";
-import "@fxshelf/card-orbit/styles.css";
+// import { CardOrbit, CardOrbitMobile } from "@fxshelf/card-orbit";
+// import "@fxshelf/card-orbit/styles.css";
 import ParticleObject from "@/styles/atelier/components/canvasui/ParticleObject";
 import { useI18n } from "@/components/I18nProvider";
 import { useTheme } from "@/components/ThemeProvider";
 import { useViewport } from "@/lib/hooks/useViewport";
-import { ORBIT_IMAGES } from "@/lib/cardOrbit";
+// import { ORBIT_IMAGES } from "@/lib/cardOrbit";
 import { basePath } from "@/lib/site";
 import { profile } from "@/data/profile";
 
@@ -50,7 +50,7 @@ export default function HeroSection() {
         aria-hidden="true"
       />
 
-      <div className="relative z-10 mx-auto grid w-full max-w-[1080px] gap-8 lg:max-w-[1200px] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-start lg:gap-12">
+      <div className="relative z-10 mx-auto w-full max-w-[1080px] lg:max-w-[1200px]">
         <div className="min-w-0">
           <div className="animate-fade-in mb-6 sm:mb-8">
             <p
@@ -125,12 +125,12 @@ export default function HeroSection() {
             </div>
           ) : null}
 
-          <div className="animate-rise animate-delay-400 lg:hidden">
+          {/* <div className="animate-rise animate-delay-400 lg:hidden">
             <CardOrbitMobile images={ORBIT_IMAGES} />
-          </div>
+          </div> */}
         </div>
 
-        <div className="relative hidden min-h-0 w-full items-center justify-center lg:flex lg:pt-6">
+        {/* <div className="relative hidden min-h-0 w-full items-center justify-center lg:flex lg:pt-6">
           <CardOrbit
             images={ORBIT_IMAGES}
             style={{
@@ -140,7 +140,7 @@ export default function HeroSection() {
             }}
             ariaLabel="card-orbit preview"
           />
-        </div>
+        </div> */}
       </div>
     </section>
   );

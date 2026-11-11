@@ -65,6 +65,8 @@ export interface FlameWrapInstance {
   setOptions: (options: FlameWrapOptions) => void;
   /** Re-read canvas size. Call when the element is resized. */
   resize: () => void;
+  /** Whether html-in-canvas has delivered at least one content frame. */
+  hasPaintedContent: () => boolean;
   /** Stop the loop and release all GPU resources. */
   destroy: () => void;
 }
@@ -424,7 +426,8 @@ export function supportsHtmlInCanvas(): boolean {
 
 export function createFlameWrap(
   elements: FlameWrapElements,
-  options: FlameWrapOptions = {}
+  options: FlameWrapOptions = {},
+  useHtmlInCanvas = supportsHtmlInCanvas()
 ): FlameWrapInstance | null {
   const config = { ...DEFAULTS, ...options };
   const { source, content, output } = elements;
@@ -441,12 +444,14 @@ export function createFlameWrap(
   const sourceCtx = source.getContext("2d") as ElementImageContext | null;
   const paintable = source as PaintableCanvas;
   const htmlInCanvas = Boolean(
+    useHtmlInCanvas &&
     sourceCtx &&
     typeof sourceCtx.drawElementImage === "function" &&
     typeof paintable.requestPaint === "function"
   );
 
   let contentDirty = false;
+  let contentPainted = false;
   let wake = () => {};
 
   if (htmlInCanvas) {
@@ -455,6 +460,7 @@ export function createFlameWrap(
         sourceCtx!.reset();
         sourceCtx!.drawElementImage!(content, 0, 0);
         contentDirty = true;
+        contentPainted = true;
         wake();
       } catch {}
     };
@@ -676,6 +682,9 @@ export function createFlameWrap(
       syncCanvasSize();
       start();
     },
+    hasPaintedContent() {
+      return !htmlInCanvas || contentPainted;
+    },
     destroy() {
       destroyed = true;
       cancelAnimationFrame(raf);
@@ -723,13 +732,25 @@ export function FlameWrap({ children, className, style, ...options }: FlameWrapP
     const content = contentRef.current;
     const output = outputRef.current;
     if (!source || !content || !output) return;
-    instanceRef.current = createFlameWrap({ source, content, output }, initialOptions);
+    instanceRef.current = createFlameWrap(
+      { source, content, output },
+      initialOptions,
+      native
+    );
     if (native && !instanceRef.current) setFailed(true);
     return () => {
       instanceRef.current?.destroy();
       instanceRef.current = null;
     };
   }, [initialOptions, native]);
+
+  useEffect(() => {
+    if (!native) return;
+    const timer = window.setTimeout(() => {
+      if (!instanceRef.current?.hasPaintedContent()) setFailed(true);
+    }, 900);
+    return () => window.clearTimeout(timer);
+  }, [native]);
 
   useEffect(() => {
     instanceRef.current?.setOptions(options);
