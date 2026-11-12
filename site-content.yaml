@@ -16,7 +16,7 @@ meta:
   mode: preview
   defaultLocale: zh
   # 站点默认风格（克隆后若只保留一套，会与 Skill 确认结果对齐）
-  preferredStyle: classic # atelier | classic
+  preferredStyle: classic # atelier | classic | particle | blueprint
 
 site:
   github: "https://github.com/your-name"

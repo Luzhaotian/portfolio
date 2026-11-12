@@ -10,16 +10,23 @@ import type { StyleMode } from "@/styles/registry";
 export default function AppProviders({
   style,
   children,
+  hideChrome = false,
 }: {
   style: StyleMode;
   children: ReactNode;
+  /** When true, skip StyleRail / SkillShareRail (e.g. blueprint build phase owns chrome). */
+  hideChrome?: boolean;
 }) {
   return (
     <ThemeProvider>
       <StyleProvider style={style}>
         {children}
-        <StyleRail />
-        <SkillShareRail />
+        {!hideChrome ? (
+          <>
+            <StyleRail />
+            <SkillShareRail />
+          </>
+        ) : null}
       </StyleProvider>
     </ThemeProvider>
   );

@@ -18,9 +18,8 @@ This skill scaffolds a **single-style** site kept as **particle / 粒子**.
 
 Use the AskQuestion tool when available; otherwise ask clearly in chat.
 
-1. **Style confirm** — Default is Particle. Ask: keep **粒子 (particle)** or switch to **静奢 (atelier)** / **经典 (classic)**?
-   - If user chooses atelier → stop and follow `/portfolio-atelier` instead.
-   - If user chooses classic → stop and follow `/portfolio-classic` instead.
+1. **Style confirm** — Default is Particle. Ask: keep **粒子 (particle)** or switch to **静奢 (atelier)** / **经典 (classic)** / **蓝图 (blueprint)**?
+   - If user chooses another style → stop and follow that style’s skill instead.
 2. **Content mode**
    - **Fill now**: collect profile / about / skills / projects (can be partial)
    - **Preview only**: skip personal facts; use root `site-content.yaml` placeholders

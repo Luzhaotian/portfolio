@@ -10,8 +10,8 @@ import {
 
 describe("style registry", () => {
   it("lists all registered styles", () => {
-    expect(STYLE_IDS).toEqual(["atelier", "classic", "particle"]);
-    expect(DEFAULT_STYLE).toBe("atelier");
+    expect(STYLE_IDS).toEqual(["blueprint", "atelier", "classic", "particle"]);
+    expect(DEFAULT_STYLE).toBe("blueprint");
   });
 
   it("keeps paths aligned with definitions", () => {
@@ -27,6 +27,7 @@ describe("isStyleMode", () => {
     expect(isStyleMode("atelier")).toBe(true);
     expect(isStyleMode("classic")).toBe(true);
     expect(isStyleMode("particle")).toBe(true);
+    expect(isStyleMode("blueprint")).toBe(true);
   });
 
   it("rejects non-string and unknown values", () => {

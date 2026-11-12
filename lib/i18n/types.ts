@@ -140,6 +140,7 @@ export interface LocaleMessages {
     atelier: string;
     classic: string;
     particle: string;
+    blueprint: string;
     ariaLabel: string;
   };
   skillShare: {
@@ -150,6 +151,12 @@ export interface LocaleMessages {
     tooltipDoneHint: string;
     copied: string;
     copyFailed: string;
+  };
+  blueprint: {
+    replayBuild: string;
+    startHint: string;
+    builtBy: string;
+    signTitle: string;
   };
   locale: {
     zh: string;

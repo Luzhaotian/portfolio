@@ -29,6 +29,13 @@ styles/
     assets.ts          # section silhouette pool
     components/        # Home, ParticleStage, snap scroll
     engine/            # Three.js particle morph + camera
+  blueprint/           # 蓝图
+    meta.ts
+    uno.ts
+    index.ts
+    SOURCE.md          # swarm provenance
+    components/        # BuildPhase + settled portfolio
+    swarm/             # vendored swarm-page-builder module
 ```
 
 ## Add a new style

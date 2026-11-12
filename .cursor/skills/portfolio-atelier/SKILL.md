@@ -18,8 +18,8 @@ This skill scaffolds a **single-style** site kept as **atelier / 静奢**.
 
 Use the AskQuestion tool when available; otherwise ask clearly in chat.
 
-1. **Style confirm** — Default is Atelier. Ask: keep **静奢 (atelier)** or switch to **经典 (classic)**?
-   - If user chooses classic → stop and follow `/portfolio-classic` instead.
+1. **Style confirm** — Default is Atelier. Ask: keep **静奢 (atelier)** or switch to **经典 (classic)** / **粒子 (particle)** / **蓝图 (blueprint)**?
+   - If user chooses another style → stop and follow that style’s skill instead.
 2. **Content mode**
    - **Fill now**: collect profile / about / skills / projects (can be partial)
    - **Preview only**: skip personal facts; use root `site-content.yaml` placeholders

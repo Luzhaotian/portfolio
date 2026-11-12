@@ -2,7 +2,7 @@
  * Contract for a portfolio visual style package under `styles/<id>/`.
  * Keep packages independent; only register shared contracts here.
  */
-export type StyleMode = "atelier" | "classic" | "particle";
+export type StyleMode = "atelier" | "classic" | "particle" | "blueprint";
 
 /** Visual language for shared chrome (toggles, style rail). */
 export type ChromeVariant = "atelier" | "classic";
@@ -16,7 +16,7 @@ export interface StyleDefinition {
   /** Document title */
   title: string;
   /** i18n key under `t.style` */
-  labelKey: "atelier" | "classic" | "particle";
+  labelKey: "atelier" | "classic" | "particle" | "blueprint";
   /** Shared chrome look (StyleRail / ThemeToggle / LocaleToggle) */
   chrome: ChromeVariant;
 }

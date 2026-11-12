@@ -1,18 +1,18 @@
 # 卢照天 · 个人作品集
 
-卢照天（Luzhaotian）的个人作品集 — **Next.js 15** 单页应用，提供三套可切换视觉风格：**静奢（Atelier）**、**经典（Classic）** 与 **粒子（Particle）**。
+卢照天（Luzhaotian）的个人作品集 — **Next.js 15** 单页应用，提供四套可切换视觉风格：**静奢（Atelier）**、**经典（Classic）**、**粒子（Particle）** 与 **蓝图（Blueprint）**。
 
 本地预览：[http://localhost:3000](http://localhost:3000)（需先 `npm run dev`）
 
 **在线地址：** [https://luzhaotian.github.io/portfolio/](https://luzhaotian.github.io/portfolio/)
 
-入口：`/` 会按上次选择跳转到 `/atelier`、`/classic` 或 `/particle`（新窗口切换风格，互不影响）。
+入口：`/` 会按上次选择跳转到 `/atelier`、`/classic`、`/particle` 或 `/blueprint`（新窗口切换风格，互不影响）。
 
 ---
 
 ## 功能特性
 
-- **三风格架构**：静奢 / 经典 / 粒子拆成独立包（`styles/atelier` · `styles/classic` · `styles/particle`），共享内容与壳层
+- **多风格架构**：静奢 / 经典 / 粒子 / 蓝图拆成独立包（`styles/atelier` · `styles/classic` · `styles/particle` · `styles/blueprint`），共享内容与壳层
 - **左侧竖栏**：切换风格（新标签打开另一套）
 - **右侧 AI 按钮**：悬停说明用途；点击复制当前风格的 Skill 提示词，粘贴给 AI 即可按本站生成同款项目
 - **中英文 / 主题**：语言与白天·夜晚·自动主题，偏好写入 `localStorage`
@@ -43,17 +43,25 @@
 - 区块：Hero → 关于 → 作品 → 技能 → 博客 → 经验领域
 - 公共控件沿用静奢 chrome（左侧竖栏、主题 / 语言按钮）
 
+### 蓝图（Blueprint）
+
+- 桌面端开场：swarm 光标群共建品牌 / Hero（可跳过）；落成后进入常驻作品集
+- 减少动效 / 移动端直接落成态；落成后恢复左右 chrome
+- 区块：Hero → 关于 → 作品 → 技能 → 博客 → 经验领域
+- 共建引擎源码在 `styles/blueprint/swarm/`（见 `SOURCE.md`）
+
 ---
 
 ## 用 AI Skill 复用本站风格
 
 仓库内置 Cursor Agent Skills，他人可拉代码后**只保留一套风格**并换成自己的内容，还可按需上线。
 
-| Skill | 调用                  | 说明                    |
-| ----- | --------------------- | ----------------------- |
-| 静奢  | `/portfolio-atelier`  | 保留 Atelier，去掉其余  |
-| 经典  | `/portfolio-classic`  | 保留 Classic，去掉其余  |
-| 粒子  | `/portfolio-particle` | 保留 Particle，去掉其余 |
+| Skill | 调用                   | 说明                     |
+| ----- | ---------------------- | ------------------------ |
+| 静奢  | `/portfolio-atelier`   | 保留 Atelier，去掉其余   |
+| 经典  | `/portfolio-classic`   | 保留 Classic，去掉其余   |
+| 粒子  | `/portfolio-particle`  | 保留 Particle，去掉其余  |
+| 蓝图  | `/portfolio-blueprint` | 保留 Blueprint，去掉其余 |
 
 ### 推荐流程
 
@@ -65,7 +73,7 @@
 6. **可选上线**（非必须）：需要时再走 GitHub / 部署；只要本地预览可跳过
 
 站内点**右侧 AI 按钮**可复制当前风格提示词（已含上述可选上线一步）。  
-在 Cursor：对话输入 `/portfolio-atelier` / `/portfolio-classic` / `/portfolio-particle`，或 **Customize → Skills**；也可把本仓库当 Remote Skill 源导入。
+在 Cursor：对话输入 `/portfolio-atelier` / `/portfolio-classic` / `/portfolio-particle` / `/portfolio-blueprint`，或 **Customize → Skills**；也可把本仓库当 Remote Skill 源导入。
 
 ### Skill 文件
 
@@ -83,6 +91,9 @@
   portfolio-particle/
     SKILL.md
     references/…          # 同上（只留粒子）
+  portfolio-blueprint/
+    SKILL.md
+    references/…          # 同上（只留蓝图）
 ```
 
 ### 可选：注册 GitHub · 提交 · 上线
@@ -107,6 +118,7 @@ GitHub Pages 首次启用：仓库 **Settings → Pages → Source** 选 **GitHu
 - [`.cursor/skills/portfolio-atelier/references/go-live.md`](./.cursor/skills/portfolio-atelier/references/go-live.md)
 - [`.cursor/skills/portfolio-classic/references/go-live.md`](./.cursor/skills/portfolio-classic/references/go-live.md)
 - [`.cursor/skills/portfolio-particle/references/go-live.md`](./.cursor/skills/portfolio-particle/references/go-live.md)
+- [`.cursor/skills/portfolio-blueprint/references/go-live.md`](./.cursor/skills/portfolio-blueprint/references/go-live.md)
 
 ---
 
@@ -165,6 +177,7 @@ styles/
   atelier/                 # 静奢：components + uno.ts + meta
   classic/                 # 经典：components + Vanta + uno.ts + meta + vendor
   particle/                # 粒子：components + engine + assets + uno.ts + meta
+  blueprint/               # 蓝图：BuildPhase + settled + swarm 模块 + uno.ts + meta
 components/                # 应用壳：I18n / Theme / Viewport / SkipLink
 data/                      # 结构数据（id / tech / 链接…）
 lib/                       # style · theme · skillShare · site · i18n …
@@ -172,8 +185,8 @@ e2e/                       # Playwright E2E
 test/                      # 单测渲染辅助（renderWithProviders）
 vitest.config.ts · playwright.config.ts · vitest.setup.ts
 site-content.yaml          # 内容模板（预览占位 / 正式填写）
-.cursor/skills/            # portfolio-atelier · portfolio-classic · portfolio-particle
-uno.config.ts              # 合并 shared + atelier + classic + particle 的 Uno 配置
+.cursor/skills/            # portfolio-atelier · classic · particle · blueprint
+uno.config.ts              # 合并 shared + 各风格 uno 的配置
 public/                    # favicon-* · particle/ 剪影 · card-orbit/ 演示图
 scripts/
 .github/workflows/         # ci.yml · deploy.yml · update-blogs.yml
@@ -266,10 +279,10 @@ git commit -m "ci: 增加质量门禁与组件单测"
 
 ## 测试
 
-| 层级     | 工具                     | 范围简述                                                |
-| -------- | ------------------------ | ------------------------------------------------------- |
-| 单元测试 | Vitest + Testing Library | `lib/*`、chrome 控件、CookieConsent、SkipLink 等        |
-| E2E      | Playwright               | 首页跳转、三套风格加载、主题/语言、风格轨、导航、Cookie |
+| 层级     | 工具                     | 范围简述                                              |
+| -------- | ------------------------ | ----------------------------------------------------- |
+| 单元测试 | Vitest + Testing Library | `lib/*`、chrome 控件、CookieConsent、SkipLink 等      |
+| E2E      | Playwright               | 首页跳转、多风格加载、主题/语言、风格轨、导航、Cookie |
 
 覆盖率报告：`npm run test:coverage` → `coverage/`（已 gitignore）。
 

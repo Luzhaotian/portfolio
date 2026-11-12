@@ -14,6 +14,7 @@ describe("getStyleHref", () => {
     expect(getStyleHref("atelier")).toBe(STYLE_PATHS.atelier);
     expect(getStyleHref("classic")).toBe(STYLE_PATHS.classic);
     expect(getStyleHref("particle")).toBe(STYLE_PATHS.particle);
+    expect(getStyleHref("blueprint")).toBe(STYLE_PATHS.blueprint);
   });
 });
 
@@ -22,6 +23,7 @@ describe("styleFromPathname", () => {
     expect(styleFromPathname("/atelier")).toBe("atelier");
     expect(styleFromPathname("/classic")).toBe("classic");
     expect(styleFromPathname("/particle")).toBe("particle");
+    expect(styleFromPathname("/blueprint")).toBe("blueprint");
   });
 
   it("strips a trailing slash on style routes", () => {

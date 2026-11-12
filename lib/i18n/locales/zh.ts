@@ -318,6 +318,7 @@ export const zh: LocaleMessages = {
     atelier: "静奢",
     classic: "经典",
     particle: "粒子",
+    blueprint: "蓝图",
     ariaLabel: "页面风格",
   },
   skillShare: {
@@ -328,6 +329,12 @@ export const zh: LocaleMessages = {
     tooltipDoneHint: "已复制到剪贴板，去 AI 对话里粘贴即可。",
     copied: "已复制",
     copyFailed: "复制失败",
+  },
+  blueprint: {
+    replayBuild: "重播共建",
+    startHint: "点击或下滑，光标会逐屏把这一页画出来",
+    builtBy: "这一页由 {n} 个光标签了名",
+    signTitle: "共建完稿",
   },
   locale: {
     zh: "中文",

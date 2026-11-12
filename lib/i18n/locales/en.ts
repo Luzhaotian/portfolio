@@ -338,6 +338,7 @@ export const en: LocaleMessages = {
     atelier: "Atelier",
     classic: "Classic",
     particle: "Particle",
+    blueprint: "Blueprint",
     ariaLabel: "Page style",
   },
   skillShare: {
@@ -348,6 +349,12 @@ export const en: LocaleMessages = {
     tooltipDoneHint: "Copied — paste it into your AI chat.",
     copied: "Copied",
     copyFailed: "Copy failed",
+  },
+  blueprint: {
+    replayBuild: "Replay build",
+    startHint: "Click or scroll — cursors keep drawing each section",
+    builtBy: "Signed by {n} cursors",
+    signTitle: "Built together",
   },
   locale: {
     zh: "中文",

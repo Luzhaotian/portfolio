@@ -7,11 +7,11 @@
     "npm": ">=9"
   },
   "scripts": {
-    "dev": "next dev",
-    "dev:clean": "npm run clean && next dev",
+    "dev": "node --env-file=.env ./node_modules/next/dist/bin/next dev",
+    "dev:clean": "npm run clean && node --env-file=.env ./node_modules/next/dist/bin/next dev",
     "build": "next build",
     "preview": "GITHUB_PAGES=true npm run build && npx --yes serve out -p 3000",
-    "start": "next start",
+    "start": "node --env-file=.env ./node_modules/next/dist/bin/next start",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx,.mjs,.cjs --max-warnings 0",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx,.mjs,.cjs --fix",
     "format": "prettier --write .",

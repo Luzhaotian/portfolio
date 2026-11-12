@@ -25,6 +25,12 @@ const SKILL_BY_STYLE: Record<
     labelZh: "粒子（particle）",
     labelEn: "Particle",
   },
+  blueprint: {
+    slash: "/portfolio-blueprint",
+    path: ".cursor/skills/portfolio-blueprint/SKILL.md",
+    labelZh: "蓝图（blueprint）",
+    labelEn: "Blueprint",
+  },
 };
 
 /** Prompt copied to clipboard for pasting into Cursor / other AI agents. */

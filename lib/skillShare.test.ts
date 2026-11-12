@@ -1,9 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import {
-  PORTFOLIO_REPO_URL,
-  buildSkillSharePrompt,
-  copyText,
-} from "./skillShare";
+import { PORTFOLIO_REPO_URL, buildSkillSharePrompt, copyText } from "./skillShare";
 
 describe("buildSkillSharePrompt", () => {
   it("builds a Chinese prompt for atelier", () => {
@@ -26,6 +22,13 @@ describe("buildSkillSharePrompt", () => {
     const prompt = buildSkillSharePrompt("particle", "en");
     expect(prompt).toContain("styles/particle");
     expect(prompt).toContain("/portfolio-particle");
+  });
+
+  it("builds a Chinese prompt for blueprint", () => {
+    const prompt = buildSkillSharePrompt("blueprint", "zh");
+    expect(prompt).toContain("蓝图（blueprint）");
+    expect(prompt).toContain("/portfolio-blueprint");
+    expect(prompt).toContain(".cursor/skills/portfolio-blueprint/SKILL.md");
   });
 });
 
