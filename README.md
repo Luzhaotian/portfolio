@@ -1,19 +1,19 @@
 # 卢照天 · 个人作品集
 
-卢照天（Luzhaotian）的个人作品集 — **Next.js 15** 单页应用，提供四套可切换视觉风格：**静奢（Atelier）**、**经典（Classic）**、**粒子（Particle）** 与 **蓝图（Blueprint）**。
+卢照天（Luzhaotian）的个人作品集 — **Next.js 15** 单页应用，提供四套可切换视觉风格，默认 **蓝图（Blueprint）**，另有 **静奢（Atelier）**、**经典（Classic）**、**粒子（Particle）**。
 
-本地预览：[http://localhost:3000](http://localhost:3000)（需先 `npm run dev`）
+本地预览：[http://localhost:5555](http://localhost:5555)（需先 `npm run dev`；端口见 `.env` 的 `PORT`）
 
 **在线地址：** [https://luzhaotian.github.io/portfolio/](https://luzhaotian.github.io/portfolio/)
 
-入口：`/` 会按上次选择跳转到 `/atelier`、`/classic`、`/particle` 或 `/blueprint`（新窗口切换风格，互不影响）。
+入口：`/` 默认进入 **蓝图** `/blueprint`；若本地记住过上次风格，则跳转到对应路径（新窗口切换风格，互不影响）。左侧竖栏顺序：蓝图 → 静奢 → 经典 → 粒子。
 
 ---
 
 ## 功能特性
 
-- **多风格架构**：静奢 / 经典 / 粒子 / 蓝图拆成独立包（`styles/atelier` · `styles/classic` · `styles/particle` · `styles/blueprint`），共享内容与壳层
-- **左侧竖栏**：切换风格（新标签打开另一套）
+- **多风格架构**：蓝图 / 静奢 / 经典 / 粒子拆成独立包（`styles/blueprint` · `styles/atelier` · `styles/classic` · `styles/particle`），共享内容与壳层；默认风格为蓝图
+- **左侧竖栏**：切换风格（蓝图居首；新标签打开另一套）
 - **右侧 AI 按钮**：悬停说明用途；点击复制当前风格的 Skill 提示词，粘贴给 AI 即可按本站生成同款项目
 - **中英文 / 主题**：语言与白天·夜晚·自动主题，偏好写入 `localStorage`
 - **内容数据化**：`site-content.yaml`（模板入口）→ `data/`（结构）+ `lib/i18n/`（双语文案），id 类型绑定防漏写
@@ -43,10 +43,12 @@
 - 区块：Hero → 关于 → 作品 → 技能 → 博客 → 经验领域
 - 公共控件沿用静奢 chrome（左侧竖栏、主题 / 语言按钮）
 
-### 蓝图（Blueprint）
+### 蓝图（Blueprint）· 默认
 
-- 桌面端开场：swarm 光标群共建品牌 / Hero（可跳过）；落成后进入常驻作品集
-- 减少动效 / 移动端直接落成态；落成后恢复左右 chrome
+- 开场：九叠篆「卢」印记 + swarm 光标群；点击或下滑持续逐屏把整页画出来（无跳过）
+- 绘制中保留语言 / 主题切换；平板及以上走绘制，手机端直接落成态
+- 收尾：灰色「卢」盖章完稿 + 光标计数旁白 → 大字姓名与编号索引页脚
+- 落成后进入常驻作品集，并恢复左右 chrome
 - 区块：Hero → 关于 → 作品 → 技能 → 博客 → 经验领域
 - 共建引擎源码在 `styles/blueprint/swarm/`（见 `SOURCE.md`）
 
@@ -58,10 +60,10 @@
 
 | Skill | 调用                   | 说明                     |
 | ----- | ---------------------- | ------------------------ |
+| 蓝图  | `/portfolio-blueprint` | 保留 Blueprint，去掉其余 |
 | 静奢  | `/portfolio-atelier`   | 保留 Atelier，去掉其余   |
 | 经典  | `/portfolio-classic`   | 保留 Classic，去掉其余   |
 | 粒子  | `/portfolio-particle`  | 保留 Particle，去掉其余  |
-| 蓝图  | `/portfolio-blueprint` | 保留 Blueprint，去掉其余 |
 
 ### 推荐流程
 
@@ -73,12 +75,15 @@
 6. **可选上线**（非必须）：需要时再走 GitHub / 部署；只要本地预览可跳过
 
 站内点**右侧 AI 按钮**可复制当前风格提示词（已含上述可选上线一步）。  
-在 Cursor：对话输入 `/portfolio-atelier` / `/portfolio-classic` / `/portfolio-particle` / `/portfolio-blueprint`，或 **Customize → Skills**；也可把本仓库当 Remote Skill 源导入。
+在 Cursor：对话输入 `/portfolio-blueprint` / `/portfolio-atelier` / `/portfolio-classic` / `/portfolio-particle`，或 **Customize → Skills**；也可把本仓库当 Remote Skill 源导入。
 
 ### Skill 文件
 
 ```
 .cursor/skills/
+  portfolio-blueprint/
+    SKILL.md
+    references/…          # 只留蓝图 + 同步内容 / 可选上线
   portfolio-atelier/
     SKILL.md
     references/
@@ -91,9 +96,6 @@
   portfolio-particle/
     SKILL.md
     references/…          # 同上（只留粒子）
-  portfolio-blueprint/
-    SKILL.md
-    references/…          # 同上（只留蓝图）
 ```
 
 ### 可选：注册 GitHub · 提交 · 上线
@@ -115,10 +117,10 @@ GitHub Pages 首次启用：仓库 **Settings → Pages → Source** 选 **GitHu
 
 更细的命令与排错见：
 
+- [`.cursor/skills/portfolio-blueprint/references/go-live.md`](./.cursor/skills/portfolio-blueprint/references/go-live.md)
 - [`.cursor/skills/portfolio-atelier/references/go-live.md`](./.cursor/skills/portfolio-atelier/references/go-live.md)
 - [`.cursor/skills/portfolio-classic/references/go-live.md`](./.cursor/skills/portfolio-classic/references/go-live.md)
 - [`.cursor/skills/portfolio-particle/references/go-live.md`](./.cursor/skills/portfolio-particle/references/go-live.md)
-- [`.cursor/skills/portfolio-blueprint/references/go-live.md`](./.cursor/skills/portfolio-blueprint/references/go-live.md)
 
 ---
 
@@ -129,11 +131,12 @@ npm install
 npm run dev
 ```
 
-- 静奢：<http://localhost:3000/atelier>
-- 经典：<http://localhost:3000/classic>
-- 粒子：<http://localhost:3000/particle>
+- 蓝图（默认）：<http://localhost:5555/blueprint>
+- 静奢：<http://localhost:5555/atelier>
+- 经典：<http://localhost:5555/classic>
+- 粒子：<http://localhost:5555/particle>
 
-若 `.next` 缓存异常：`npm run dev:clean`。
+端口由 `.env` 的 `PORT` 控制（`npm run dev` 通过 `--env-file=.env` 注入）。若 `.next` 缓存异常：`npm run dev:clean`。
 
 ### 环境要求
 
@@ -167,17 +170,17 @@ npm run dev
 
 ```
 app/
-  page.tsx                 # / → 按上次风格跳转
-  atelier/ · classic/ · particle/   # 各风格路由（layout 含独立 favicon）
+  page.tsx                 # / → 默认蓝图，或按上次风格跳转
+  blueprint/ · atelier/ · classic/ · particle/   # 各风格路由（layout 含独立 favicon）
   layout.tsx · globals.css
 styles/
-  registry.ts · types.ts   # 风格注册表（扩展入口）
+  registry.ts · types.ts   # 风格注册表（DEFAULT_STYLE / 竖栏顺序）
   README.md                # 如何新增风格
   shared/                  # 公共：StyleRail、SkillShareRail、Providers、Uno 共享层
+  blueprint/               # 蓝图：BuildPhase + settled + swarm 模块 + uno.ts + meta
   atelier/                 # 静奢：components + uno.ts + meta
   classic/                 # 经典：components + Vanta + uno.ts + meta + vendor
   particle/                # 粒子：components + engine + assets + uno.ts + meta
-  blueprint/               # 蓝图：BuildPhase + settled + swarm 模块 + uno.ts + meta
 components/                # 应用壳：I18n / Theme / Viewport / SkipLink
 data/                      # 结构数据（id / tech / 链接…）
 lib/                       # style · theme · skillShare · site · i18n …
@@ -185,7 +188,7 @@ e2e/                       # Playwright E2E
 test/                      # 单测渲染辅助（renderWithProviders）
 vitest.config.ts · playwright.config.ts · vitest.setup.ts
 site-content.yaml          # 内容模板（预览占位 / 正式填写）
-.cursor/skills/            # portfolio-atelier · classic · particle · blueprint
+.cursor/skills/            # portfolio-blueprint · atelier · classic · particle
 uno.config.ts              # 合并 shared + 各风格 uno 的配置
 public/                    # favicon-* · particle/ 剪影 · card-orbit/ 演示图
 scripts/
@@ -225,7 +228,7 @@ scripts/
 
 语言键：`portfolio-locale`（`zh` / `en`）。  
 主题键：`portfolio-theme`（`light` / `dark` / `auto`）。  
-风格键：`portfolio-style`（`atelier` / `classic` / `particle`）。
+风格键：`portfolio-style`（`blueprint` / `atelier` / `classic` / `particle`；未设置时默认 `blueprint`）。
 
 ---
 
@@ -233,16 +236,18 @@ scripts/
 
 ```
 uno.config.ts
-  ├── styles/shared/uno      # 公共 shortcuts / preflight
-  ├── styles/atelier/uno.ts  # 静奢 tokens + shortcuts
-  ├── styles/classic/uno.ts  # 经典 tokens + shortcuts
-  └── styles/particle/uno.ts # 粒子 tokens + shortcuts
+  ├── styles/shared/uno       # 公共 shortcuts / preflight
+  ├── styles/blueprint/uno.ts # 蓝图 tokens + shortcuts
+  ├── styles/atelier/uno.ts   # 静奢 tokens + shortcuts
+  ├── styles/classic/uno.ts   # 经典 tokens + shortcuts
+  └── styles/particle/uno.ts  # 粒子 tokens + shortcuts
 ```
 
-通过 `<html data-style="atelier|classic|particle" data-theme="light|dark">` 切换变量。
+通过 `<html data-style="blueprint|atelier|classic|particle" data-theme="light|dark">` 切换变量。
 
 | 风格 | 白天强调           | 夜晚强调  | 背景气质                                                |
 | ---- | ------------------ | --------- | ------------------------------------------------------- |
+| 蓝图 | 线稿青 `#0D99FF`   | `#5EB8C6` | 图纸网格底 + swarm 光标共建                             |
 | 静奢 | 氧化铜金 `#8f7355` | `#a68968` | 实体底 + Canvas 氛围                                    |
 | 经典 | Teal `#0f766e`     | `#14b8a6` | 透明底 + Vanta（Waves / Birds）                         |
 | 粒子 | 青石 `#2d6a7a`     | `#5eb8c6` | 暖纸 / 深空底 + 全屏 WebGL 粒子云背景（章节剪影 morph） |
@@ -253,13 +258,13 @@ uno.config.ts
 
 ## 交互组件
 
-| 组件                           | 位置     | 说明                                         |
-| ------------------------------ | -------- | -------------------------------------------- |
-| `StyleRail`                    | 左侧中部 | 竖排切换静奢 / 经典 / 粒子（`window.open`）  |
-| `SkillShareRail`               | 右侧中部 | AI 圆形按钮；悬停提示；点击复制 Skill 提示词 |
-| `LocaleToggle` / `ThemeToggle` | 导航栏   | 语言 / 主题                                  |
-| `BackToTop`                    | 右下角   | 滚动超过阈值后显示                           |
-| `CookieConsent`                | 底部     | 同意偏好 `portfolio-cookie-consent`          |
+| 组件                           | 位置     | 说明                                               |
+| ------------------------------ | -------- | -------------------------------------------------- |
+| `StyleRail`                    | 左侧中部 | 竖排切换蓝图 / 静奢 / 经典 / 粒子（`window.open`） |
+| `SkillShareRail`               | 右侧中部 | AI 圆形按钮；悬停提示；点击复制 Skill 提示词       |
+| `LocaleToggle` / `ThemeToggle` | 导航栏   | 语言 / 主题                                        |
+| `BackToTop`                    | 右下角   | 滚动超过阈值后显示                                 |
+| `CookieConsent`                | 底部     | 同意偏好 `portfolio-cookie-consent`                |
 
 ---
 
@@ -327,7 +332,7 @@ GITHUB_PAGES=true npm run build   # 产物在 out/；basePath 一般为 /portfol
 - Hero 卡片环绕：[@fxshelf/card-orbit](https://github.com/Luzhaotian/fxshelf/tree/main/packages/card-orbit)
 - 风格扩展说明：[`styles/README.md`](./styles/README.md)
 - 内容模板：[`site-content.yaml`](./site-content.yaml)
-- 上线指引（Skill）：[`go-live.md`（经典）](./.cursor/skills/portfolio-classic/references/go-live.md)
+- 上线指引（Skill）：[`go-live.md`（蓝图）](./.cursor/skills/portfolio-blueprint/references/go-live.md)
 - 技术栈：Next.js 15 · React 19 · UnoCSS · Vitest · Playwright
 
 ## License
