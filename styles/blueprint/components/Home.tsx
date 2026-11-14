@@ -40,7 +40,9 @@ export default function BlueprintHome() {
   return (
     <>
       <ViewportSync />
-      {phase === "build" ? <BuildPhase replayKey={replayKey} /> : null}
+      {phase === "build" ? (
+        <BuildPhase replayKey={replayKey} onReplay={replay} />
+      ) : null}
       {phase === "settled" ? <SettledHome onReplay={replay} /> : null}
       {phase === "pending" ? (
         <div className="blueprint-shell flex min-h-[100dvh] items-center justify-center text-sm text-muted">

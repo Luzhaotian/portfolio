@@ -1,14 +1,12 @@
-import { SceneBuilder } from "./scene-builder.js";
-import { LU_SEAL_ANCHORS, LU_SEAL_PATH_D, LU_SEAL_VIEWBOX } from "./lu-seal-path.js";
 import {
   COLORS,
-  CONTENT_LEFT,
-  FRAME_LEFT,
+  SceneBuilder,
   TEXT_STYLES,
-  applyScenePalette,
   monoStyle,
   sansStyle,
-} from "./theme.js";
+} from "@fxshelf/swarm-cursors";
+import { CONTENT_LEFT, FRAME_LEFT, applyScenePalette } from "./apply-scene-palette.js";
+import { LU_SEAL_ANCHORS, LU_SEAL_PATH_D, LU_SEAL_VIEWBOX } from "./lu-seal-path.js";
 
 /** Full drawn page. Each block sits lower on the canvas so scrolling reveals the next build. */
 export const PORTFOLIO_SCENE_HEIGHT = 5160;

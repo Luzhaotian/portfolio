@@ -1,6 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { ActionType, SwarmCursors } from "@fxshelf/swarm-cursors";
+import "@fxshelf/swarm-cursors/styles.css";
 import { useTheme } from "@/components/ThemeProvider";
 import { useI18n } from "@/components/I18nProvider";
 import { blogPosts, csdnProfile } from "@/data/blogs";
@@ -13,21 +15,39 @@ import {
   type GithubProjectId,
 } from "@/data/projects";
 import { skillCategories, type SkillCategoryId } from "@/data/skills";
-import { ActionType } from "@/styles/blueprint/swarm/interactions/actions.js";
-import { createPortfolioInteractions } from "@/styles/blueprint/swarm/interactions/portfolio-actions.js";
-import { createPortfolioSceneFactory } from "@/styles/blueprint/swarm/scene/create-portfolio-scene.js";
-import { SwarmExperience } from "@/styles/blueprint/swarm/SwarmExperience.jsx";
+import { LuSeal } from "@/styles/blueprint/swarm-portfolio/LuSeal.jsx";
+import { createPortfolioInteractions } from "@/styles/blueprint/swarm-portfolio/portfolio-actions.js";
+import { createPortfolioSceneFactory } from "@/styles/blueprint/swarm-portfolio/create-portfolio-scene.js";
 import LocaleToggle from "@/styles/shared/chrome/LocaleToggle";
 import SkillShareRail from "@/styles/shared/chrome/SkillShareRail";
 import StyleRail from "@/styles/shared/chrome/StyleRail";
 import ThemeToggle from "@/styles/shared/chrome/ThemeToggle";
-import "@/styles/blueprint/swarm/styles/index.css";
+import "@/styles/blueprint/swarm-portfolio/overrides.css";
 
 interface BuildPhaseProps {
   replayKey: number;
+  onReplay: () => void;
 }
 
-export default function BuildPhase({ replayKey }: BuildPhaseProps) {
+function ReplayIcon() {
+  return (
+    <svg
+      className="size-3 shrink-0"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.25"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+      <path d="M3 3v5h5" />
+    </svg>
+  );
+}
+
+export default function BuildPhase({ replayKey, onReplay }: BuildPhaseProps) {
   const { t, locale } = useI18n();
   const { resolved } = useTheme();
   const [started, setStarted] = useState(false);
@@ -176,13 +196,15 @@ export default function BuildPhase({ replayKey }: BuildPhaseProps) {
 
   return (
     <div className="blueprint-shell relative min-h-[100dvh]">
-      <SwarmExperience
+      <SwarmCursors
         key={`${replayKey}-${locale}-${resolved}`}
         sceneFactory={sceneFactory}
         interactions={interactions}
         onAction={onAction}
         autoStart={false}
+        showDialog={false}
         navLabel={t.navAria.main}
+        introMark={<LuSeal className="intro-mark" />}
         onEngine={(engine) => {
           engineRef.current = engine as { started?: boolean } | null;
         }}
@@ -198,6 +220,20 @@ export default function BuildPhase({ replayKey }: BuildPhaseProps) {
       >
         {t.blueprint.startHint}
       </p>
+      <div className="pointer-events-none fixed bottom-4 right-3 z-[70] sm:bottom-5 sm:right-4">
+        <div className="pointer-events-auto rounded-full border border-divider bg-[var(--nav-bg-solid)] p-1.5 shadow-md backdrop-blur-md">
+          <button
+            type="button"
+            onClick={onReplay}
+            aria-label={t.blueprint.replayBuild}
+            title={t.blueprint.replayBuild}
+            className="focus-ring inline-flex items-center gap-1.5 rounded-full bg-active px-3.5 py-1.5 text-[11px] font-medium tracking-wide text-theme transition-colors hover:opacity-90"
+          >
+            <ReplayIcon />
+            {t.blueprint.replayBuild}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@fxshelf/card-orbit": "^0.1.5",
+    "@fxshelf/swarm-cursors": "^0.1.0",
     "next": "^15.5.25",
     "p5": "^1.11.3",
     "react": "^19.1.0",

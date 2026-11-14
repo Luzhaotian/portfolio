@@ -50,7 +50,7 @@
 - 收尾：灰色「卢」盖章完稿 + 光标计数旁白 → 大字姓名与编号索引页脚
 - 落成后进入常驻作品集，并恢复左右 chrome
 - 区块：Hero → 关于 → 作品 → 技能 → 博客 → 经验领域
-- 共建引擎源码在 `styles/blueprint/swarm/`（见 `SOURCE.md`）
+- 共建引擎：`@fxshelf/swarm-cursors`；作品集场景 / 印记在 `styles/blueprint/swarm-portfolio/`（见 `SOURCE.md`）
 
 ---
 
@@ -177,7 +177,7 @@ styles/
   registry.ts · types.ts   # 风格注册表（DEFAULT_STYLE / 竖栏顺序）
   README.md                # 如何新增风格
   shared/                  # 公共：StyleRail、SkillShareRail、Providers、Uno 共享层
-  blueprint/               # 蓝图：BuildPhase + settled + swarm 模块 + uno.ts + meta
+  blueprint/               # 蓝图：BuildPhase + settled + swarm-portfolio + uno.ts + meta
   atelier/                 # 静奢：components + uno.ts + meta
   classic/                 # 经典：components + Vanta + uno.ts + meta + vendor
   particle/                # 粒子：components + engine + assets + uno.ts + meta

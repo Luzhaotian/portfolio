@@ -1,4 +1,4 @@
-import { ActionType, InteractionStyle } from "./actions.js";
+import { ActionType, InteractionStyle } from "@fxshelf/swarm-cursors";
 
 /**
  * Click targets for the full drawn portfolio.

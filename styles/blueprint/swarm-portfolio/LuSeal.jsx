@@ -1,5 +1,5 @@
 import React from "react";
-import { LU_SEAL_PATH_D } from "../scene/lu-seal-path.js";
+import { LU_SEAL_PATH_D } from "./lu-seal-path.js";
 
 /**
  * Opening mark: 九叠篆「卢」.

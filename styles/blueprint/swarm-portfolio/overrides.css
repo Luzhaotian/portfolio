@@ -1,0 +1,9 @@
+/* Portfolio intro mark: gray jiudiezhuan seal (package defaults may differ). */
+.swarm-experience .intro-mark {
+  width: 112px;
+  height: 112px;
+  color: #8b93a1;
+}
+html[data-theme="dark"] .swarm-experience .intro-mark {
+  color: #9aa3ad;
+}

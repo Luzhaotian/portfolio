@@ -78,7 +78,7 @@ Local success alone is enough to mark the scaffold done when go-live was decline
 ## Architecture hints
 
 - Styles live under `styles/blueprint` (see `styles/README.md`).
-- Opening ceremony: `styles/blueprint/swarm/` (vendored swarm-page-builder module) + `components/BuildPhase.tsx`.
+- Opening ceremony: `@fxshelf/swarm-cursors` + `styles/blueprint/swarm-portfolio/` (scene / LuSeal) + `components/BuildPhase.tsx`.
 - Settled page: `styles/blueprint/components/*` using shared `data/` + i18n.
 - Provenance: `styles/blueprint/SOURCE.md`.
 - Shared chrome: `styles/shared/*`. App shell providers: `components/*`.

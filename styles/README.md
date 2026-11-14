@@ -33,9 +33,9 @@ styles/
     meta.ts
     uno.ts
     index.ts
-    SOURCE.md          # swarm provenance
+    SOURCE.md          # swarm provenance (@fxshelf/swarm-cursors)
     components/        # BuildPhase + settled portfolio
-    swarm/             # vendored swarm-page-builder module
+    swarm-portfolio/   # portfolio scene, LuSeal, palette shim
 ```
 
 ## Add a new style

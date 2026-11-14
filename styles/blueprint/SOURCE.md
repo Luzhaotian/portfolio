@@ -1,15 +1,21 @@
 # Blueprint swarm provenance
 
-The opening “swarm construction” experience under `styles/blueprint/swarm/` is
-vendored from the MIT-licensed skill template:
+The opening “swarm construction” experience uses the npm package
+[`@fxshelf/swarm-cursors`](https://www.npmjs.com/package/@fxshelf/swarm-cursors)
+(same MIT lineage as [swarm-cursors-skills](https://github.com/cxyax/swarm-cursors-skills)).
 
-- https://github.com/cxyax/swarm-cursors-skills (`skills/swarm-page-builder`)
+Portfolio-specific pieces stay under `styles/blueprint/swarm-portfolio/`:
 
-That project is inspired by:
+- `create-portfolio-scene.js` — full drawn site scene + i18n copy
+- `portfolio-actions.js` — click / scroll targets for that scene
+- `LuSeal.jsx` / `lu-seal-path.js` — 九叠篆「卢」intro mark
+- `apply-scene-palette.js` — light/dark palette shim (not exported by the package)
 
-- Joel Califa — Swarm visual / motion design (https://califa.github.io/swarm-site/)
-- DhvanilPatel/swarm-cursors — Chrome extension reference (no license stated upstream)
+Visual / motion credit:
+
+- Joel Califa — Swarm (https://califa.github.io/swarm-site/)
+- Upstream skill: https://github.com/cxyax/swarm-cursors-skills
 
 This portfolio does not claim authorship of the original motion design. Runtime
-pages use an editable React scene configured for this site; they do not depend
-on the skill CLI or any AI API key.
+pages configure a React scene for this site; they do not depend on the skill CLI
+or any AI API key.
