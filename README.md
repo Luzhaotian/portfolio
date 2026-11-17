@@ -18,8 +18,8 @@
 - **中英文 / 主题**：语言与白天·夜晚·自动主题，偏好写入 `localStorage`
 - **内容数据化**：`site-content.yaml`（模板入口）→ `data/`（结构）+ `lib/i18n/`（双语文案），id 类型绑定防漏写
 - **博客**：CSDN 点赞文（`npm run fetch:blogs`）；GitHub Actions 可定时更新
-- **质量门禁**：Vitest 单元测试 · Playwright E2E · CI（lint / typecheck / test）
-- Cookie 提示、回到顶部、SEO（Metadata / OpenGraph / 跳过导航）
+- **质量门禁**：Vitest 单元测试 · Playwright E2E · CI（lint / typecheck / test / e2e）
+- Cookie 同意对话框、回到顶部、SEO（各风格独立标题 / Metadata / OpenGraph / 跳过导航）
 
 ### 静奢（Atelier）
 
@@ -49,6 +49,7 @@
 - 绘制中保留语言 / 主题切换；平板及以上走绘制，手机端直接落成态
 - 收尾：灰色「卢」盖章完稿 + 光标计数旁白 → 大字姓名与编号索引页脚
 - 落成后进入常驻作品集，并恢复左右 chrome
+- 重播：绘制中与落成页均可一键「重播共建」，从头再画一遍
 - 区块：Hero → 关于 → 作品 → 技能 → 博客 → 经验领域
 - 共建引擎：`@fxshelf/swarm-cursors`；作品集场景 / 印记在 `styles/blueprint/swarm-portfolio/`（见 `SOURCE.md`）
 
@@ -284,10 +285,10 @@ git commit -m "ci: 增加质量门禁与组件单测"
 
 ## 测试
 
-| 层级     | 工具                     | 范围简述                                              |
-| -------- | ------------------------ | ----------------------------------------------------- |
-| 单元测试 | Vitest + Testing Library | `lib/*`、chrome 控件、CookieConsent、SkipLink 等      |
-| E2E      | Playwright               | 首页跳转、多风格加载、主题/语言、风格轨、导航、Cookie |
+| 层级     | 工具                     | 范围简述                                                                                                                |
+| -------- | ------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| 单元测试 | Vitest + Testing Library | `lib/*`、chrome 控件、CookieConsent、SkipLink 等                                                                        |
+| E2E      | Playwright               | 首页跳转、各风格加载与内容、主题/语言、风格轨 / Skill 分享、导航 / 移动菜单、Cookie 同意、文档标题、Canvas / WebGL 背景 |
 
 覆盖率报告：`npm run test:coverage` → `coverage/`（已 gitignore）。
 
