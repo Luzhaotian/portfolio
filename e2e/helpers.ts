@@ -52,9 +52,7 @@ export async function gotoStyle(page: Page, route: StyleRoute) {
 }
 
 export async function dismissCookieConsent(page: Page) {
-  const consent = page.locator(
-    '[role="dialog"][aria-labelledby="cookie-consent-title"]'
-  );
+  const consent = consentDialog(page);
   if (await consent.isVisible().catch(() => false)) {
     await consent
       .getByRole("button")
@@ -62,4 +60,43 @@ export async function dismissCookieConsent(page: Page) {
       .click();
     await expect(consent).toBeHidden();
   }
+}
+
+/** Style metadata titles from styles/<id>/meta.ts. */
+export const STYLE_TITLES: Record<StyleRoute, string> = {
+  "/atelier": "卢照天 | 静奢",
+  "/classic": "卢照天 | 经典",
+  "/particle": "卢照天 | 粒子",
+  "/blueprint": "卢照天 | 蓝图",
+};
+
+/** Document titles applied client-side by I18nProvider. */
+export const SITE_TITLE_ZH = "卢照天 | 高级前端工程师";
+export const SITE_TITLE_EN = "Luzhaotian | Senior Frontend Engineer";
+
+export const CONSENT_DIALOG =
+  '[role="dialog"][aria-labelledby="cookie-consent-title"]';
+
+export function consentDialog(page: Page) {
+  return page.locator(CONSENT_DIALOG);
+}
+
+/** Floating back-to-top control; copy follows the active locale. */
+export function backToTopButton(page: Page, locale: "zh" | "en" = "zh") {
+  return page.getByRole("button", {
+    name: locale === "en" ? /Back to top/ : /回到顶部/,
+  });
+}
+
+/**
+ * Open /blueprint in its settled (non-drawn) state.
+ * Used with reduced-motion or mobile viewports, where Home skips BuildPhase.
+ */
+export async function gotoBlueprintSettled(page: Page) {
+  await page.goto("/blueprint");
+  await clearClientStorage(page);
+  await page.reload();
+  await expect(page.locator("#main-content")).toBeVisible({ timeout: 30_000 });
+  await expect(page.locator(".swarm-experience")).toHaveCount(0);
+  await expect(page.locator("html")).toHaveAttribute("data-style", "blueprint");
 }
