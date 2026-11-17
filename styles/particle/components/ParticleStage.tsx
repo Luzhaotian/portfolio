@@ -30,6 +30,9 @@ export default function ParticleStage({
   const engineRef = useRef<ParticleEngine | null>(null);
   const [fallbackUrl, setFallbackUrl] = useState(assetUrl);
   const [webglFailed, setWebglFailed] = useState(false);
+  // False while the initial asset (or a section transition) is still loading.
+  // Navigation stays locked during that window, so tests and CSS can key off it.
+  const [assetReady, setAssetReady] = useState(false);
 
   useEffect(() => {
     setFallbackUrl(assetUrl);
@@ -54,12 +57,19 @@ export default function ParticleStage({
         particleCount: pickParticleCount(window.innerWidth),
         reducedMotion,
         onPhaseChange,
-        onIdle: () => onBusyChange?.(false),
+        onIdle: () => {
+          onBusyChange?.(false);
+          setAssetReady(true);
+        },
       });
       engineRef.current = engine;
+      setAssetReady(false);
       onBusyChange?.(true);
       void engine.loadInitial(assetUrl).then(() => {
-        if (!cancelled) onBusyChange?.(false);
+        if (!cancelled) {
+          onBusyChange?.(false);
+          setAssetReady(true);
+        }
       });
     } catch {
       setWebglFailed(true);
@@ -87,6 +97,7 @@ export default function ParticleStage({
     const engine = engineRef.current;
     if (!engine || !enabled || reducedMotion || webglFailed) return;
     if (assetUrl === engine.currentAssetUrl) return;
+    setAssetReady(false);
     onBusyChange?.(true);
     void engine.goTo(assetUrl);
   }, [assetUrl, enabled, reducedMotion, webglFailed, onBusyChange]);
@@ -96,11 +107,13 @@ export default function ParticleStage({
   }, [reducedMotion]);
 
   const showFallback = !enabled || reducedMotion || webglFailed;
+  const ready = showFallback || assetReady;
 
   return (
     <div
       className="particle-stage bg-background"
       data-lock={lockScroll ? "true" : "false"}
+      data-ready={ready ? "true" : "false"}
       aria-hidden="true"
     >
       <div className="particle-stage-glow pointer-events-none absolute inset-0" />

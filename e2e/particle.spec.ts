@@ -22,6 +22,13 @@ test.describe("particle snap navigation", () => {
   });
 
   test("arrow keys snap to the next section", async ({ page }) => {
+    // The snap controller ignores keys while the particle stage is busy with
+    // its initial load, so wait until navigation is actually unlocked.
+    await expect(page.locator(".particle-stage")).toHaveAttribute(
+      "data-ready",
+      "true"
+    );
+
     await page.keyboard.press("ArrowDown");
 
     await expect(

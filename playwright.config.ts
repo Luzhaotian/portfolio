@@ -15,6 +15,13 @@ export default defineConfig({
   use: {
     baseURL,
     trace: "on-first-retry",
+    // GitHub Actions runners default to a 64MB /dev/shm, which Chromium
+    // exceeds on the WebGL-heavy style pages and the renderer gets killed
+    // ("Target page, context or browser has been closed"). Route shared
+    // memory through /tmp instead.
+    launchOptions: {
+      args: ["--disable-dev-shm-usage"],
+    },
   },
   projects: [
     {
