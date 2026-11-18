@@ -1,32 +1,48 @@
-# Optional：GitHub 注册 · 提交 · 上线（按需）
+# Optional：获取代码 · 推送 · 部署（按需）
 
-**仅在用户明确需要时执行。** 本地 `npm run dev` 能预览即可结束主流程；上线是加分项。
+**仅在用户明确需要时执行。** 本地 `npm run dev` 能预览即可结束主流程；推送 / 部署是加分项。
 
 若用户说「先不部署 / 只要本地」，跳过本文件全部步骤。
 
 ---
 
-## 0) 再确认一次
+## 0) 先确认获取方式
 
-问清：
+问清用户选 **Fork** 还是 **Pull（直接克隆上游）**，并说明区别：
 
-1. 是否要注册 / 使用 GitHub？
-2. 是否要把代码推到**自己的仓库**？
-3. 是否要免费上线？默认推荐 **GitHub Pages**（本模板已带 Actions）；也可选 Vercel。
+| 方式                 | 做法                                                | 优点                                                    | 代价                                                                 |
+| -------------------- | --------------------------------------------------- | ------------------------------------------------------- | -------------------------------------------------------------------- |
+| **Fork**             | 在 GitHub 上把仓库复制到自己账号，再克隆自己的 Fork | 保留 `forked from` 关联，可同步模板更新；上线免新建仓库 | 显示 forked from；公开仓库的 fork 一般不能设为私有；需要 GitHub 账号 |
+| **Pull（克隆上游）** | 直接 `git clone` 上游仓库                           | 完全独立、无 fork 标记；可有私有仓库；没账号也能预览    | 与上游无关联，同步更新要手动加 `upstream`；上线需自己新建仓库        |
 
-没有 Git / 账号时，用通俗语言带做，一步一步等用户确认。
+只要本地预览、又没有 GitHub 账号 → 选 Pull。
 
 ---
 
-## 1) 注册 GitHub（没有账号时）
+## 1) 获取代码
 
-1. 打开 <https://github.com/signup>
-2. 用邮箱注册，完成验证
-3. 记住用户名，例如 `your-name`（后面仓库地址会用到）
+### Fork 路由
 
-可选：安装 [GitHub Desktop](https://desktop.github.com/)（图形界面），或继续用命令行 Git。
+1. 打开 <https://github.com/Luzhaotian/portfolio> → 右上角 **Fork** → **Create a new fork**
+2. Owner 选自己的账号，仓库名保持 `portfolio`，得到 `https://github.com/your-name/portfolio`
+3. 克隆自己的 Fork：
 
-本机检查：
+```bash
+git clone https://github.com/your-name/portfolio.git
+cd portfolio
+```
+
+### Pull 路由
+
+```bash
+git clone https://github.com/Luzhaotian/portfolio.git
+cd portfolio
+```
+
+### 没有 GitHub 账号时（仅 Fork / 上线需要）
+
+1. 打开 <https://github.com/signup> 注册，记住用户名（后面地址会用到）
+2. 本机检查：
 
 ```bash
 git --version
@@ -37,60 +53,49 @@ gh --version   # 可选：GitHub CLI
 
 ---
 
-## 2) 创建自己的空仓库
+## 2) 推送提交
 
-1. 登录后点 **New repository**
-2. Repository name 建议：`portfolio`（或任意名；影响 Pages 路径）
-3. **不要**勾选 Add README（本地已有项目）
-4. 创建后复制仓库地址，例如：
-   - `https://github.com/your-name/portfolio.git`
-   - 或 `git@github.com:your-name/portfolio.git`
+### Fork 路由
 
----
-
-## 3) 把本地项目绑到自己的远程
-
-在项目根目录（已按 Skill 改过风格与内容之后）：
+`origin` 就是用户的 Fork，直接推：
 
 ```bash
-# 若还指向模板作者远程，改为自己的仓库
-git remote -v
-git remote remove origin    # 若 origin 仍是 Luzhaotian/portfolio
-git remote add origin https://github.com/your-name/portfolio.git
-
 git status
 git add .
 git commit -m "feat: 基于模板初始化个人作品集"
-git branch -M main
 git push -u origin main
 ```
 
-说明：
+### Pull 路由（需要自己的仓库）
 
-- 首次 `push` 可能要求登录（浏览器 / PAT / SSH）
+先在 GitHub 新建空仓库（**不要**勾选 Add README），然后：
+
+```bash
+git remote remove origin
+git remote add origin https://github.com/your-name/portfolio.git
+git push -u origin main
+```
+
+### 通用
+
+- **不要**推到上游 `Luzhaotian/portfolio`
+- 想同步模板更新：`git remote add upstream https://github.com/Luzhaotian/portfolio.git`，之后 `git fetch upstream && git merge upstream/main`
 - 提交信息可用中文：`feat: …` / `docs: …`
 - **不要**把用户的私钥、token 写进仓库或聊天记录长期保存
 
-若用户坚持保留模板 `origin`，可增加：
-
-```bash
-git remote rename origin upstream
-git remote add origin https://github.com/your-name/portfolio.git
-```
-
 ---
 
-## 4) 部署到 GitHub Pages（推荐，与模板一致）
+## 3) 部署到 GitHub Pages（推荐，与模板一致）
 
-模板已含 `.github/workflows/deploy.yml`：推送 `main` 即构建静态站。
+模板已含 `.github/workflows/deploy.yml`：推送 `main` 即构建静态站，Fork 同样生效。
 
-### 4.1 打开 Pages
+### 3.1 打开 Pages
 
 1. 仓库 **Settings → Pages**
 2. **Build and deployment → Source** 选 **GitHub Actions**
 3. 推送 `main` 或手动跑 **Actions → Deploy to GitHub Pages → Run workflow**
 
-### 4.2 访问地址
+### 3.2 访问地址
 
 默认类似：
 
@@ -100,7 +105,7 @@ git remote add origin https://github.com/your-name/portfolio.git
 
 构建使用 `GITHUB_PAGES=true`，`basePath` 为 `/<仓库名>`。若改了仓库名，确认 `lib/site.ts` / 文档与实际仓库名一致（本模板通常按 repo 名推导）。
 
-### 4.3 常见问题
+### 3.3 常见问题
 
 | 现象         | 处理                                                          |
 | ------------ | ------------------------------------------------------------- |
@@ -117,12 +122,12 @@ npm run preview
 
 ---
 
-## 5) 备选：Vercel（可选）
+## 4) 备选：Vercel（可选）
 
 适合想要自定义域名、或不用 `basePath` 的用户：
 
 1. 注册 <https://vercel.com>，用 GitHub 登录
-2. Import 自己的 `portfolio` 仓库
+2. Import 自己的仓库（Fork 或新建的空仓库）
 3. Framework Preset：Next.js；**不要**设 `GITHUB_PAGES=true`（用完整 Next 运行时或按 Vercel 默认）
 4. Deploy 后获得 `*.vercel.app` 链接
 
@@ -130,7 +135,7 @@ npm run preview
 
 ---
 
-## 6) 上线后建议改的内容
+## 5) 上线后建议改的内容
 
 - `site-content.yaml` / i18n 里的 GitHub、博客链接改成用户自己的
 - 仓库 **About** 填主页 URL
@@ -138,11 +143,11 @@ npm run preview
 
 ---
 
-## Agent 执行清单（仅当用户需要上线）
+## Agent 执行清单（仅当用户需要推送 / 上线）
 
-- [ ] 确认用户要 GitHub + 推送 + 部署
-- [ ] 协助注册 / 安装 Git（若需要）
-- [ ] 创建用户空仓库并设置 `origin`
+- [ ] 确认用户选 Fork 还是 Pull
+- [ ] 协助注册 GitHub / 安装 Git（若需要）
+- [ ] 拿到代码（Fork 或克隆上游），本地 `origin` 指向用户自己的副本
 - [ ] 提交并 `push` 到 `main`
 - [ ] 指导 Settings → Pages → GitHub Actions
 - [ ] 告知线上 URL，并协助排查首次部署问题

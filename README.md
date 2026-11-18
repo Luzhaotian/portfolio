@@ -57,7 +57,7 @@
 
 ## 用 AI Skill 复用本站风格
 
-仓库内置 Cursor Agent Skills，他人可拉代码后**只保留一套风格**并换成自己的内容，还可按需上线。
+仓库内置 Cursor Agent Skills，他人可 **Fork 或直接克隆**本站，**只保留一套风格**并换成自己的内容，还可按需上线。
 
 | Skill | 调用                   | 说明                     |
 | ----- | ---------------------- | ------------------------ |
@@ -68,7 +68,7 @@
 
 ### 推荐流程
 
-1. 克隆 `https://github.com/Luzhaotian/portfolio`
+1. 获取代码，二选一：**Fork**（在 GitHub 上 Fork 本仓库到你账号，再克隆你的 Fork——保留 `forked from` 关联、可同步模板更新，但公开 fork 一般不能转私有）或 **Pull**（直接 `git clone` 上游——完全独立、无账号也能本地预览，上线时需另建自己的仓库）。Skill 会先让你选并解释区别
 2. **先确认**保留哪套风格
 3. **生成前**选择填写个人信息，或「仅预览」使用根目录 `site-content.yaml` 占位
 4. 保留 `site-content.yaml`，之后可随时改，再让 AI 同步到 `data/` + `lib/i18n/`
@@ -90,7 +90,7 @@
     references/
       strip-style.md      # 只留静奢
       apply-content.md    # 同步 site-content.yaml
-      go-live.md          # 可选：注册 / 提交 / 部署
+      go-live.md          # 可选：Fork·Pull / 推送 / 部署
   portfolio-classic/
     SKILL.md
     references/…          # 同上（只留经典）
@@ -99,18 +99,18 @@
     references/…          # 同上（只留粒子）
 ```
 
-### 可选：注册 GitHub · 提交 · 上线
+### 可选：Fork / Pull · 推送 · 上线
 
 Skill 会先问你要不要上线。**选「只要本地」就不会强制部署。**
 
 若选择上线，AI 按 `references/go-live.md` 引导，大致包括：
 
-| 步骤 | 内容                                                     |
-| ---- | -------------------------------------------------------- |
-| 账号 | 没有 GitHub 时协助注册；检查本机 Git                     |
-| 仓库 | 在你账号下新建空仓库（建议名 `portfolio`）               |
-| 推送 | 把 `origin` 改成你的仓库，`commit` + `push` 到 `main`    |
-| 部署 | **推荐 GitHub Pages**（模板已有 Actions）；也可选 Vercel |
+| 步骤     | 内容                                                                    |
+| -------- | ----------------------------------------------------------------------- |
+| 获取方式 | **Fork**（关联上游、可同步更新）或 **Pull**（独立副本，上线需自建仓库） |
+| 账号     | Fork 或上线需要 GitHub；没有时协助注册                                  |
+| 推送     | `commit` + `push` 到自己的副本（Fork 或新仓库），不要推回上游           |
+| 部署     | **推荐 GitHub Pages**（模板已有 Actions）；也可选 Vercel                |
 
 GitHub Pages 首次启用：仓库 **Settings → Pages → Source** 选 **GitHub Actions**，推送 `main` 后访问：
 
@@ -315,7 +315,7 @@ GITHUB_PAGES=true npm run build   # 产物在 out/；basePath 一般为 /portfol
 
 ### 复用模板的人如何上线
 
-1. 代码推到**你自己的** GitHub 仓库（不要一直指向本模板 `origin`，除非你故意 fork 同步）
+1. 代码推到**你自己的**副本：Fork 路线推到你账号下的 Fork；Pull 路线先新建自己的空仓库并把 `origin` 指过去（两种都不要指回本模板）
 2. **Settings → Pages → Source** 选 **GitHub Actions**
 3. 确认 Actions 里 **Deploy to GitHub Pages** 成功
 4. 打开 `https://<user>.github.io/<repo>/`
