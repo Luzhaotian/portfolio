@@ -35,9 +35,17 @@ jobs:
         continue-on-error: true
 
       - name: Build for GitHub Pages
+        # next/font/google parses the live Google Fonts CSS at build time; from
+        # Actions runner IPs Google sometimes returns src URLs with query
+        # strings, which crashes the loader (null-pointer on the .woff2 regex).
+        # Feed it committed CSS snapshots instead (font files still download
+        # from gstatic). Regenerate after changing fonts: npm run gen:font-mocks
         run: npm run build
         env:
           GITHUB_PAGES: "true"
+          # Absolute path: the loader resolves this via require(), which is
+          # relative to the webpack loader module, not the repo root.
+          NEXT_FONT_GOOGLE_MOCKED_RESPONSES: ${{ github.workspace }}/font-mocks.json
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

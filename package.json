@@ -25,6 +25,7 @@
     "test:e2e:install": "playwright install chromium",
     "clean": "rm -rf .next",
     "fetch:blogs": "node scripts/fetch-csdn-blogs.mjs && prettier --write data/blogs.ts",
+    "gen:font-mocks": "node scripts/gen-font-mocks.mjs",
     "prepare": "husky"
   },
   "dependencies": {
