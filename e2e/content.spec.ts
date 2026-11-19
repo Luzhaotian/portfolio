@@ -34,7 +34,7 @@ test.describe("shared content", () => {
 });
 
 test.describe("hero calls to action", () => {
-  for (const route of ["/atelier", "/classic"]) {
+  for (const route of ["/atelier", "/classic"] as const) {
     test(`${route} links to about and GitHub`, async ({ page }) => {
       await gotoStyle(page, route);
 
@@ -82,22 +82,29 @@ test.describe("skip link", () => {
 });
 
 test.describe("back to top", () => {
-  for (const route of ["/atelier", "/classic"]) {
-    test(`${route} appears after scrolling and returns to top`, async ({ page }) => {
-      await gotoStyle(page, route);
-      await dismissCookieConsent(page);
+  test.describe("window-scrolled styles", () => {
+    // Reduced motion skips the full-page canvas backgrounds (the renderer
+    // crash source on CI runners) and makes scrollToTop instant, so the
+    // scroll-back assertion has no smooth-scroll race.
+    test.use({ reducedMotion: "reduce" });
 
-      const backToTop = backToTopButton(page);
-      await expect(backToTop).toBeHidden();
+    for (const route of ["/atelier", "/classic"] as const) {
+      test(`${route} appears after scrolling and returns to top`, async ({ page }) => {
+        await gotoStyle(page, route);
+        await dismissCookieConsent(page);
 
-      await page.evaluate(() => window.scrollTo({ top: 1200, behavior: "instant" }));
-      await expect(backToTop).toBeVisible();
+        const backToTop = backToTopButton(page);
+        await expect(backToTop).toBeHidden();
 
-      await backToTop.click();
-      await page.waitForFunction(() => window.scrollY === 0);
-      await expect(backToTop).toBeHidden();
-    });
-  }
+        await page.evaluate(() => window.scrollTo({ top: 1200, behavior: "instant" }));
+        await expect(backToTop).toBeVisible();
+
+        await backToTop.click();
+        await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
+        await expect(backToTop).toBeHidden();
+      });
+    }
+  });
 
   test("/particle scrolls its own column back to top", async ({ page }) => {
     await gotoStyle(page, "/particle");
